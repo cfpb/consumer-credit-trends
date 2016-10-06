@@ -1,0 +1,15 @@
+body {
+  font-family: Arial;
+}
+
+
+#graph {
+    border: 2px solid #BABBBD;
+    display: inline-block;
+}
+
+.graph__title {
+    background: #BABBBD;
+    padding: 0.25em 0;
+    text-align: center;
+}
