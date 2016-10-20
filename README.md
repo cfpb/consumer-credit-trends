@@ -13,3 +13,13 @@ X axis years:
 
 - MVP: show all the years from the data on the graphs
 - interactive version: allow user to go back in time via the interface (select a time range to view), and default to a certain number of years.
+
+
+to run this code locally:
+
+
+1. In Terminal, `cd` into directory
+2. run the following command:
+  ```
+  python -m SimpleHTTPServer
+  ```

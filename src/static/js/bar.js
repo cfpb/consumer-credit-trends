@@ -1,3 +1,7 @@
+'use strict';
+
+var d3 = require( './d3/d3.js' );
+
 var margin = {top: 20, right: 20, bottom: 70, left: 100},
     width = 850 - margin.left - margin.right,
     height = 550 - margin.top - margin.bottom;
@@ -9,7 +13,7 @@ var x = d3.scaleBand()
 var y = d3.scaleLinear()
     .range( [ height, 0 ] );
 
-var svg = d3.select( '#graph' )
+var svg = d3.select( '#bar' )
   .append( 'svg' )
     .attr( 'width', width + margin.left + margin.right)
     .attr( 'height', height + margin.top + margin.bottom)
@@ -17,8 +21,7 @@ var svg = d3.select( '#graph' )
     .attr( 'transform', 
           'translate( ' + margin.left + ',' + margin.top + ' )' );  
 
-
-data = [
+var data = [
   { date: '2009-01-01', amount: -40 },
   { date: '2009-02-01', amount: -38 },
   { date: '2009-03-01', amount: -35 },
@@ -101,7 +104,6 @@ data.forEach( function( d ) {
 var ymin = d3.min( data, function(d) { return d.amount } ) - 2,
     ymax = d3.max( data, function(d) { return d.amount; } );
 
-// update the domain if  you want to change the range of the x/y axis that is visible
 x.domain( data.map( function( d ) { return d.date; } ) );
 y.domain( [ ymin, ymax ] );
 
@@ -112,7 +114,6 @@ svg.append( 'g' )
       d3.axisBottom( x )
       .tickValues( x.domain().filter(
         function( d, i ) {
-          // once every month
           return !( i % 12 );
         } )
       )
@@ -120,14 +121,12 @@ svg.append( 'g' )
     )
   .selectAll( 'text' )
     .style( 'text-anchor', 'middle' )
-    // merge seems to be new and we aren't sure why we need it because it works without
     .merge;
 
 svg.append( 'g' )
     .attr( 'class', 'y axis')
     .call( d3.axisLeft( y ).ticks( ( ymax - ymin ) / 20 ) );
 
-// label for y axis, rotated 90 degrees and centered
 svg.append( 'text' )
     .attr( 'transform', 'rotate(-90)' )
     .attr( 'text-anchor', 'middle' )
@@ -136,7 +135,6 @@ svg.append( 'text' )
     .style( 'font-size', '.75em' )
     .text( 'Year-over-year change (%)' );
 
-// draw the bars as rect svg 
 svg.selectAll( 'bar' )
     .data(data)
   .enter().append( 'rect' )
@@ -144,7 +142,6 @@ svg.selectAll( 'bar' )
     .attr( 'x', function(d) { return x( d.date ); })
     .attr( 'width' , x.bandwidth() )
     .attr( 'y', function( d ) { return y( Math.max( 0, d.amount ) ); })
-    // draw values below x axis if negative and above if positive
     .attr( 'height',
       function( d ) {
         return Math.abs( y( d.amount ) - y( 0 ) );

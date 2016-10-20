@@ -1,0 +1,57 @@
+{
+  "name": "chart-test",
+  "version": "0.1.0",
+  "description": "testing cfpb charts with d3",
+  "homepage": "http://www.consumerfinance.gov/",
+  "author": {
+    "name": "Catherine Farman",
+    "email": "tech@cfpb.gov",
+    "url": "https://cfpb.github.io/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cfarm/chart-test"
+  },
+  "license": "CC0",
+  "keywords": [
+    "chart-test"
+  ],
+  "dependencies": {
+    "cf-buttons": "^3.2.0",
+    "cf-core": "^3.5.0",
+    "cf-expandables": "^3.1.0",
+    "cf-forms": "^3.1.2",
+    "cf-grid": "^3.2.0",
+    "cf-icons": "^3.2.1",
+    "cf-layout": "^3.2.2",
+    "cf-pagination": "^3.1.1",
+    "cf-tables": "^1.1.0",
+    "cf-typography": "^3.1.0",
+    "html5shiv": "3.7.3"
+  },
+  "devDependencies": {
+    "browser-sync": "2.8.0",
+    "del": "1.2.0",
+    "fs": "0.0.2",
+    "gulp": "3.9.0",
+    "gulp-autoprefixer": "3.1.0",
+    "gulp-changed": "1.2.1",
+    "gulp-concat": "2.6.0",
+    "gulp-webpack": "1.5.0",
+    "gulp-cssmin": "0.1.7",
+    "gulp-eslint": "2.0.0",
+    "gulp-header": "1.2.2",
+    "gulp-imagemin": "2.3.0",
+    "gulp-less": "3.0.3",
+    "gulp-load-plugins": "1.0.0-rc.1",
+    "gulp-mq-remove": "0.0.2",
+    "gulp-notify": "2.2.0",
+    "gulp-rename": "1.2.2",
+    "gulp-sourcemaps": "1.5.2",
+    "gulp-uglify": "1.4.1",
+    "gulp-util": "3.0.6",
+    "jquery": "1.11.3",
+    "pretty-hrtime": "1.0.0",
+    "require-dir": "0.3.0"
+  }
+}
