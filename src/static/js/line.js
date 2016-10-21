@@ -8,7 +8,7 @@ var margin = {top: 20, right: 20, bottom: 30, left: 50},
     height = 500 - margin.top - margin.bottom;
 
 // parse the date / time
-var parseTime = d3.timeParse("%d-%b-%y");
+// var parseTime = d3.timeParse("%d-%b-%y");
 
 // set the ranges
 var x = d3.scaleTime().range([0, width]);
@@ -16,8 +16,8 @@ var y = d3.scaleLinear().range([height, 0]);
 
 // define the line
 var valueline = d3.line()
-    .x(function(d) { return x(d.date); })
-    .y(function(d) { return y(d.close); });
+    .x(function(d) { return x(d.month); })
+    .y(function(d) { return y(d.loans); });
 
 // append the svg obgect to the #graph element
 // appends a 'group' element to 'svg'
@@ -30,23 +30,47 @@ var svg = d3.select("#line").append("svg")
           "translate(" + margin.left + "," + margin.top + ")");
 
 // Get the data
-d3.csv("../static/data/data.csv", function(error, data) {
+// d3.csv("../static/data/data.csv", function(error, data) {
+var psv = d3.dsvFormat(" ");
+
+d3.text('../static/data/bal_data_AUT.txt', function(error, data) {
+  console.log(data);
+
+  var formattedData = psv.parse(data);
+  console.log(formattedData);
+  console.log(formattedData.columns)
+
   if (error) throw error;
 
   // format the data
-  data.forEach(function(d) {
-      d.date = parseTime(d.date);
-      d.close = +d.close;
+  formattedData.forEach(function(d) {
+      d.month = +d.month;
+      d.loans = +d.loans;
+      if (d.adjusted == 'Seasonally Adjusted') {
+        d.adjusted = true;
+      } else {
+        d.adjusted = false;
+      }
   });
 
-  // Scale the range of the data
-  x.domain(d3.extent(data, function(d) { return d.date; }));
-  y.domain([0, d3.max(data, function(d) { return d.close; })]);
+  var adjustedData = formattedData.filter(function(d) { return d.adjusted == true; });
 
-  // Add the valueline path.
+var unadjustedData = formattedData.filter(function(d) { return d.adjusted == false; });
+
+  // Scale the range of the data
+  x.domain(d3.extent(formattedData, function(d) { return d.month; }));
+  y.domain([0, d3.max(formattedData, function(d) { return d.loans; })]);
+
+  // Add the valueline path for adjusted data
   svg.append("path")
-      .data([data])
-      .attr("class", "line")
+      .data([adjustedData])
+      .classed("line line__adjusted", true)
+      .attr("d", valueline);
+
+      // add unadjusted line
+  svg.append("path")
+      .data([unadjustedData])
+      .classed("line line__unadjusted", true)
       .attr("d", valueline);
 
   // Add the X Axis
@@ -60,15 +84,15 @@ d3.csv("../static/data/data.csv", function(error, data) {
 
 });
 
-var psv = d3.dsvFormat(" ");
+// var psv = d3.dsvFormat(" ");
 
-d3.text('../static/data/bal_data_AUT.txt', function(error, data) {
-  console.log(data);
+// d3.text('../static/data/bal_data_AUT.txt', function(error, data) {
+//   console.log(data);
 
-  var reformattedData = psv.parse(data);
-  console.log(reformattedData);
-  console.log(data.columns)
+//   var reformattedData = psv.parse(data);
+//   console.log(reformattedData);
+//   console.log(data.columns)
 
-});
+// });
 
 // console.log(psv.parse(testData));
