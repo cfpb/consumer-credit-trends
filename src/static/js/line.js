@@ -30,7 +30,7 @@ var svg = d3.select("#line").append("svg")
           "translate(" + margin.left + "," + margin.top + ")");
 
 // Get the data
-d3.csv("../../../data.csv", function(error, data) {
+d3.csv("../static/data/data.csv", function(error, data) {
   if (error) throw error;
 
   // format the data
@@ -60,10 +60,15 @@ d3.csv("../../../data.csv", function(error, data) {
 
 });
 
-
-
 var psv = d3.dsvFormat(" ");
 
-console.log(psv.parse('"month" "num" "group"
-"1" 96 59738748864 "Unadjusted"
-"2" 97 64909569312 "Unadjusted"'));
+d3.text('../static/data/bal_data_AUT.txt', function(error, data) {
+  console.log(data);
+
+  var reformattedData = psv.parse(data);
+  console.log(reformattedData);
+  console.log(data.columns)
+
+});
+
+// console.log(psv.parse(testData));

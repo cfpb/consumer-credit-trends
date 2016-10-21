@@ -51,6 +51,8 @@ module.exports = {
   },
   scripts: {
     src: [
+      loc.src + '/static/js/bar.js',
+      loc.src + '/static/js/line.js',
       loc.src + '/static/js/main.js'
     ],
     dest: loc.dist + '/static/js/',
@@ -64,7 +66,6 @@ module.exports = {
     files: {
       src: [
         loc.src + '/**/*.html',
-        loc.src + '/**/*.csv',
         loc.src + '/**/*.pdf',
         loc.src + '/_*/**/*',
         loc.src + '/robots.txt',
@@ -83,6 +84,10 @@ module.exports = {
         loc.lib + '/html5shiv/dist/html5shiv-printshiv.min.js'
       ],
       dest: loc.dist + '/static/js/'
+    },
+    dataFiles: {
+      src:  loc.src + '/static/data/*',
+      dest: loc.dist + '/static/data/'
     }
   }
 };
