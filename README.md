@@ -26,3 +26,4 @@ To run this code locally:
   ```
   python -m SimpleHTTPServer
   ```
+1. go to [http://localhost:8000/](http://localhost:8000/) in your browser
