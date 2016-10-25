@@ -15,7 +15,9 @@ X axis years:
 - interactive version: allow user to go back in time via the interface (select a time range to view), and default to a certain number of years.
 
 
-to run this code locally:
+## Installation
+
+To run this code locally:
 
 1. Clone repo
 1. In Terminal, run `npm install` from root directory
