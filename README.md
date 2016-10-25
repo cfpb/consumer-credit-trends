@@ -17,9 +17,10 @@ X axis years:
 
 to run this code locally:
 
-
-1. In Terminal, `cd` into directory
-2. run the following command:
+1. Clone repo
+1. In Terminal, run `npm install` from root directory
+1. `cd` into the `/dist/` directory
+1. run the following command:
   ```
   python -m SimpleHTTPServer
   ```
