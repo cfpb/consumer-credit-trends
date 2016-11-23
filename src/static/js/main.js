@@ -7,6 +7,7 @@ global.$ = require( 'jquery' );
 // run `npm install cf-expandables --save` and require() it in this file.
 require( 'cf-expandables' );
 require( './bar.js' );
+require( './formatDates.js' );
 require( './line.js' );
 
 // Count all features included in the test page.
