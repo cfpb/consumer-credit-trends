@@ -33,7 +33,8 @@ var svg = d3.select("#line").append("svg")
 // d3.csv("../static/data/data.csv", function(error, data) {
 var psv = d3.dsvFormat(" ");
 
-d3.text('../static/data/bal_data_AUT.txt', function(error, data) {
+// d3.text('../static/data/bal_data_AUT.txt', function(error, data) {
+d3.text('https://raw.githubusercontent.com/cfpb/ccp-test/master/data/bal_data_AUT.txt', function(error, data) {
   // console.log(data);
 
   var formattedData = psv.parse(data);
