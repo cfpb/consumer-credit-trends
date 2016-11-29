@@ -1,4 +1,4 @@
-"month" "num" "group"
+"rowNum" "month" "loans" "adjusted"
 "1" 96 59738748864 "Unadjusted"
 "2" 97 64909569312 "Unadjusted"
 "3" 98 73888702416 "Unadjusted"
