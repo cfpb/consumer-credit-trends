@@ -71,3 +71,4 @@ bower_components/
 src/vendor/
 dist/
 src/vendor/
+env.js
