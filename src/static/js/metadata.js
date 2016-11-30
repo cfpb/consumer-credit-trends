@@ -3,6 +3,9 @@
 require('./env.js');
 var moment = require( 'moment' );
 
+var DATA_REPO = 'ccp-test';
+var DATA_REPO_ORG = 'cfpb';
+var DATA_FILE_PATH = 'data/bal_data_AUT.txt';
 var TOKEN = process.env.GITHUB_ACCESS_TOKEN_KEY;
 var GitHub = require('github-api');
 var github = null;
@@ -28,7 +31,7 @@ function _formatDatePublished( timestamp ) {
     var date_published = moment( timestamp ).format( 'MMMM YYYY' );
     return date_published;
   } else {
-    return '-';
+    return '-'; 
   }
 }
 
@@ -38,25 +41,17 @@ function _formatDatePublished( timestamp ) {
 
 function init( ) {
 
-  dataRepo = github.getRepo('cfpb', 'ccp-test');
+  dataRepo = github.getRepo(DATA_REPO_ORG, DATA_REPO);
 
   // Get list of commits for branch (uses master by default)
-  dataRepo.listCommits( )
+  dataRepo.listCommits( { 'path' : DATA_FILE_PATH } )
     .then( function( commits ) {
+      console.log(commits)
       most_recent_commit_date = commits.data[0].commit.author.date;
       console.log('Date published: ' + _formatDatePublished(most_recent_commit_date));
   }, function ( error ) {
     console.error( error );
   } );
 }
-
-
-
-
-
-
-// get raw file
-// dataRepo.getContents('master', '/data/bal_data_AUT.txt', 'raw');
-
 
 module.exports = { init: init };
