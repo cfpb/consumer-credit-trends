@@ -12,15 +12,15 @@ File names contain prefixes that represent the type of aggregate data, and suffi
     </tr>
     <tr>
       <td>map_data</td>
-      <td>definition</td>
+      <td>Geographic map data containing year-over-year changes for each U.S. state</td>
     </tr>
     <tr>
       <td>vol_data</td>
-      <td>definition</td>
+      <td>Loan volume in billions of dollars.</td>
     </tr>
     <tr>
       <td>num_data</td>
-      <td>definition</td>
+      <td>Number of new loan originations.</td>
     </tr>
     <tr>
       <td>volume_data_Age_Group</td>
