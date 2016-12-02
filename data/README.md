@@ -16,23 +16,23 @@ File names contain prefixes that represent the type of aggregate data, and suffi
     </tr>
     <tr>
       <td>vol_data</td>
-      <td>Loan volume in billions of dollars.</td>
+      <td>Loan volume in billions of dollars</td>
     </tr>
     <tr>
       <td>num_data</td>
-      <td>Number of new loan originations.</td>
+      <td>Number of new loan originations</td>
     </tr>
     <tr>
       <td>volume_data_Age_Group</td>
-      <td>definition</td>
+      <td>Number of new loan originations by age group</td>
     </tr>
     <tr>
       <td>volume_data_yoy_data_Income_Level</td>
-      <td>definition</td>
+      <td>Number of new loan originations by income level</td>
     </tr>
     <tr>
       <td>volume_data_Score_Level</td>
-      <td>definition</td>
+      <td>Number of new loan originations by credit score group</td>
     </tr>
     <tr>
       <td>yoy_data_Age_Group</td>
@@ -64,17 +64,36 @@ File names contain prefixes that represent the type of aggregate data, and suffi
       <td>AUT</td>
       <td>Auto loans</td>
     </tr>
+    <tr>
+      <td>CRC</td>
+      <td>Credit card</td>
+    </tr>
+    <tr>
+      <td>HCE</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>HLC</td>
+      <td>Home Equity Line of Credit (HELOC)</td>
+    </tr>
+    <tr>
+      <td>MTG</td>
+      <td>Mortgage</td>
+    </tr>
+    <tr>
+      <td>PER</td>
+      <td>Personal loans</td>
+    </tr>
+    <tr>
+      <td>RET</td>
+      <td>Retail loans</td>
+    </tr>
+    <tr>
+      <td>STU</td>
+      <td>Student loans</td>
+    </tr>
   </tbody>
 </table>
-
- - AUT = Auto loans
- - CRC = credit card
- - HCE = 
- - HLC = heloc
- - MTG = mortgage
- - PER = personal loans
- - RET = retail loans
- - STU = student loans
 
 ### Map files
 
