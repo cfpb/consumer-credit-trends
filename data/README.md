@@ -15,32 +15,32 @@ File names contain prefixes that represent the type of aggregate data, and suffi
       <td>Geographic map data containing year-over-year changes for each U.S. state</td>
     </tr>
     <tr>
-      <td>vol_data</td>
-      <td>Loan volume in billions of dollars</td>
-    </tr>
-    <tr>
       <td>num_data</td>
       <td>Number of new loan originations</td>
     </tr>
     <tr>
+      <td>vol_data</td>
+      <td>Loan volume in billions of dollars</td>
+    </tr>
+    <tr>
       <td>volume_data_Age_Group</td>
-      <td>Number of new loan originations by age group</td>
+      <td>Loan volume in billions of dollars by age group</td>
     </tr>
     <tr>
       <td>volume_data_yoy_data_Income_Level</td>
-      <td>Number of new loan originations by income level</td>
+      <td>Loan volume in billions of dollars by income level</td>
     </tr>
     <tr>
       <td>volume_data_Score_Level</td>
-      <td>Number of new loan originations by credit score group</td>
-    </tr>
-    <tr>
-      <td>yoy_data_Age_Group</td>
-      <td>Year-over-year percentage change in new loan originations by age group</td>
+      <td>Loan volume in billions of dollars by credit score group</td>
     </tr>
     <tr>
       <td>yoy_data_all</td>
       <td>Year-over-year percentage change in new loan originations</td>
+    </tr>
+    <tr>
+      <td>yoy_data_Age_Group</td>
+      <td>Year-over-year percentage change in new loan originations by age group</td>
     </tr>
     <tr>
       <td>yoy_data_Income_Level</td>
@@ -123,7 +123,9 @@ Map files have the prefix `map_data_` in their filename. The suffix represents a
   </tbody>
 </table>
 
-### Number
+### New loan originations
+
+Originations files have the prefix `num_data_` in their filename. The suffix represents a specific credit market ([see suffix definitions above](#suffix-definitions)).
 
 <table>
   <tbody>
@@ -156,7 +158,9 @@ Map files have the prefix `map_data_` in their filename. The suffix represents a
   </tbody>
 </table>
 
-### Volume
+### Loan volume
+
+Loan volume files have the prefix `volume_data_` in their filename. The suffix represents a specific credit market ([see suffix definitions above](#suffix-definitions)).
 
 <table>
   <tbody>
@@ -186,10 +190,13 @@ Map files have the prefix `map_data_` in their filename. The suffix represents a
       </td>
       <td>string</td>
     </tr>
+
   </tbody>
 </table>
 
-### Year over year
+### Year-over-year
+
+Year-over-year files have the prefix `yoy_data_` in their filename. The suffix represents a specific credit market ([see suffix definitions above](#suffix-definitions)).
 
 <table>
   <tbody>
