@@ -97,7 +97,8 @@ Map files have the prefix `map_data_` in their filename. The suffix represents a
     <tr>
       <td>value</td>
       <td>Value</td>
-      <td>Geographic year-over-year percentage change in the amount of this market's loans originated between May 2015 and May 2016</td>
+      <td>Year-over-year percentage change in the volume of new loans originated in each state, compared to lending activity from one year ago.  Positive changes mean that the number of loans originated in the state during the month are higher than they were one year ago and negative values indicate that the number of loans has declined.
+      </td>
       <td>number</td>
     </tr>
   </tbody>
