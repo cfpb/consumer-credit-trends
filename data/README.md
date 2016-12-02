@@ -91,7 +91,7 @@ Map files have the prefix `map_data_` in their filename. The suffix represents a
     <tr>
       <td>state</td>
       <td>State</td>
-      <td>U.S. State. Geographic location for this data value. Number is the [FIPS state numeric code used by the U.S. Census](https://www.census.gov/geo/reference/ansi_statetables.html).</td>
+      <td>U.S. State. Geographic location for this data value. Number is the <a href="https://www.census.gov/geo/reference/ansi_statetables.html">FIPS state numeric code used by the U.S. Census</a>.</td>
       <td>number</td>
     </tr>
     <tr>
