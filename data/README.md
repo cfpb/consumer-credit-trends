@@ -36,19 +36,19 @@ File names contain prefixes that represent the type of aggregate data, and suffi
     </tr>
     <tr>
       <td>yoy_data_Age_Group</td>
-      <td>definition</td>
+      <td>Year-over-year percentage change in new loan originations by age group</td>
     </tr>
     <tr>
       <td>yoy_data_all</td>
-      <td>definition</td>
+      <td>Year-over-year percentage change in new loan originations</td>
     </tr>
     <tr>
       <td>yoy_data_Income_Level</td>
-      <td>definition</td>
+      <td>Year-over-year percentage change in new loan originations by income level group</td>
     </tr>
     <tr>
       <td>yoy_data_Score_Level</td>
-      <td>definition</td>
+      <td>Year-over-year percentage change in new loan originations by credit score group</td>
     </tr>
   </tbody>
 </table>
