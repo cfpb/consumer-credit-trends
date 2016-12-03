@@ -49,14 +49,34 @@ d3.csv(DATE_FILE_URL, function(error, data) {
       d.month = parsedDate;
   });
 
+  // Filter the data to get 2 sets for each line: Seasonally Adjusted and Unadjusted
   var adjustedData = data.filter(function(d) { return d.group == true; });
 
   var unadjustedData = data.filter(function(d) { return d.group == false; });
 
+  // @todo: filter data to create 2 lines for the projected last 6 months, and style them dotted.
+  // var today = new Date(); // change to last month of data
+  // console.log(today);
+  // console.log(projectedDate);
+
+  var lastMonth = d3.max(data, function(d) {
+    return d.month;
+  });
+  console.log('the last month in the data is from ' + lastMonth);
+  var projectedDate = d3.timeMonth.offset(lastMonth, -5);
+  console.log('the last 6 months of data starts with ' + projectedDate);
+  var projectedAdjustedData = adjustedData.filter(function(d) { 
+    return d.month > projectedDate; // last 6 months; 
+  });
+
+  var projectedUnadjustedData = unadjustedData.filter(function(d) { 
+    return d.month > projectedDate; // last 6 months; 
+  });
 
   var minY = d3.min(data, function(d) {
     return d.num
   });
+  // @todo display on Y axis! 
   console.log(minY)
 
   // Scale the range of the data
@@ -68,17 +88,29 @@ d3.csv(DATE_FILE_URL, function(error, data) {
     return d.num; 
   }));
 
-  // Add the valueline path for adjusted data
+  // Add the valueline path for Seasonally adjusted data
   svg.append("path")
       .data([adjustedData])
       .classed("line line__adjusted", true)
       .attr("d", valueline);
 
-      // add unadjusted line
+  // Add Unadjusted line
   svg.append("path")
       .data([unadjustedData])
       .classed("line line__unadjusted", true)
       .attr("d", valueline);
+
+  // Add Seasonally adjusted and Projected line
+  svg.append("path")
+    .data([projectedAdjustedData])
+    .classed("line line__adjusted line__projected", true)
+    .attr("d", valueline);
+
+// Add Unadjusted and Projected line
+  svg.append("path")
+    .data([projectedUnadjustedData])
+    .classed("line line__adjusted line__projected", true)
+    .attr("d", valueline);
 
   // Add the X Axis
   svg.append("g")
