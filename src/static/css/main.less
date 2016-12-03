@@ -148,3 +148,14 @@
 .line__unadjusted {
     stroke: @navy-60;
 }
+
+#bar {
+    text {
+        font-size: 200% !important;
+    }
+    .respond-to-min( @bp-sm-min, {
+        text {
+            font-size: 100% !important;
+        }
+    });
+}

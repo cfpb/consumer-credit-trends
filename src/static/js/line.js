@@ -1,6 +1,8 @@
 'use strict';
 
 var d3 = require( './d3/d3.js' );
+var formatDates = require( './formatDates.js' ).init();
+var DATE_FILE_URL = 'https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/vol_data_AUT.csv';
 
 // set the dimensions and margins of the graph
 var margin = {top: 20, right: 20, bottom: 30, left: 50},
@@ -17,7 +19,7 @@ var y = d3.scaleLinear().range([height, 0]);
 
 var valueline = d3.line()
       .x(function(d) { return x(d.month); })
-      .y(function(d) { return y(d.loans); });
+      .y(function(d) { return y(d.num); });
 
 // append the svg obgect to the #graph element
 // appends a 'group' element to 'svg'
@@ -29,40 +31,32 @@ var svg = d3.select("#line").append("svg")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
 
+
 // Get the data
-// d3.csv("../static/data/data.csv", function(error, data) {
-var psv = d3.dsvFormat(" ");
-
-// d3.text('../static/data/bal_data_AUT.txt', function(error, data) {
-d3.text('https://raw.githubusercontent.com/cfpb/ccp-test/master/data/bal_data_AUT.txt', function(error, data) {
-  // console.log(data);
-
-  var formattedData = psv.parse(data);
-  // console.log(formattedData);
-  // console.log(formattedData.columns)
-
+d3.csv(DATE_FILE_URL, function(error, data) {
   if (error) throw error;
 
   // format the data
-  formattedData.forEach(function(d) {
+  data.forEach(function(d) {
       d.month = +d.month;
-      d.loans = +d.loans;
-      if (d.adjusted == 'Seasonally Adjusted') {
-        d.adjusted = true;
+      d.num = +d.num;
+      if (d.group == 'Seasonally Adjusted') {
+        d.group = true;
       } else {
-        d.adjusted = false;
+        d.group = false;
       }
   });
 
-  var adjustedData = formattedData.filter(function(d) { return d.adjusted == true; });
+  var adjustedData = data.filter(function(d) { return d.group == true; });
 
-  var unadjustedData = formattedData.filter(function(d) { return d.adjusted == false; });
+  var unadjustedData = data.filter(function(d) { return d.group == false; });
 
   // Scale the range of the data
-  x.domain(d3.extent(formattedData, function(d) { 
+  x.domain(d3.extent(data, function(d) { 
     return d.month; }));
-  y.domain([0, d3.max(formattedData, function(d) { 
-    return d.loans; })]);
+  // x.domain( data.map( function( d ) { return d.date; } ) );
+  y.domain([0, d3.max(data, function(d) { 
+    return d.num; })]);
 
   // Add the valueline path for adjusted data
   svg.append("path")
@@ -79,7 +73,14 @@ d3.text('https://raw.githubusercontent.com/cfpb/ccp-test/master/data/bal_data_AU
   // Add the X Axis
   svg.append("g")
       .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x));
+      .call(d3.axisBottom(x)
+        // .tickValues( x.domain().filter(
+        //   function( data, i ) {
+        //     return !( i % 12 );
+        //   } )
+        // )
+        // .tickFormat( function( data, i ) { return data.substr( 0, 4 ) } )
+        );
 
   // Add the Y Axis
   svg.append("g")
@@ -88,16 +89,3 @@ d3.text('https://raw.githubusercontent.com/cfpb/ccp-test/master/data/bal_data_AU
       );
 
 });
-
-// var psv = d3.dsvFormat(" ");
-
-// d3.text('../static/data/bal_data_AUT.txt', function(error, data) {
-//   console.log(data);
-
-//   var reformattedData = psv.parse(data);
-//   console.log(reformattedData);
-//   console.log(data.columns)
-
-// });
-
-// console.log(psv.parse(testData));
