@@ -4,13 +4,13 @@ var d3 = require( './d3/d3.js' );
 var formatDates = require( './formatDates.js' );
 
 var DATE_FILE_URL = 'https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/vol_data_AUT.csv';
-var margin = {top: 20, right: 20, bottom: 30, left: 50};
+var margin = {top: 20, right: 20, bottom: 30, left: 100};
 var width = 770 - margin.left - margin.right;
 var height = 350 - margin.top - margin.bottom;
 
 // set the ranges
+// @todo: update bottom range to equal the floor of the data set
 var x = d3.scaleTime().range([0, width]);
-// var x = d3.scaleLinear().range([0, width]);
 var y = d3.scaleLinear().range([height, 0]);
 
 var parseTime = d3.timeParse("%B %Y");
@@ -39,7 +39,7 @@ d3.csv(DATE_FILE_URL, function(error, data) {
   data.forEach(function(d) {
       var monthIndex = +d.month;
       d.month = +d.month;
-      d.num = +d.num;
+      d.num = +d.num / Math.pow(10, 9);
       if (d.group == 'Seasonally Adjusted') {
         d.group = true;
       } else {
@@ -84,7 +84,7 @@ d3.csv(DATE_FILE_URL, function(error, data) {
   // Add the Y Axis
   svg.append("g")
       .call(d3.axisLeft(y)
-        .ticks(5, ".2s")
+        .ticks(5)
       );
 
   // text label for the y axis
