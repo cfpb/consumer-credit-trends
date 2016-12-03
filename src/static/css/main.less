@@ -149,6 +149,29 @@
     stroke: @green-60;
 }
 
+.axis,
+.axis-label {
+    .short-desc();
+    color: @gray-80;
+    font-size: 100%;
+}
+
+.axis__x {
+    .domain {
+        stroke: @gray-20;
+    }
+}
+
+.axis__y {
+    .domain {
+        stroke: transparent;
+    }
+}
+
+.tick line {
+    stroke: @gray-20;
+}
+
 #bar {
     text {
         font-size: 200% !important;

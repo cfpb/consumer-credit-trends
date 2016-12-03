@@ -2,11 +2,10 @@
 
 var d3 = require( './d3/d3.js' );
 var formatDates = require( './formatDates.js' );
-
 var DATE_FILE_URL = 'https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/vol_data_AUT.csv';
-var margin = {top: 20, right: 20, bottom: 30, left: 100};
+var margin = {top: 0, right: 20, bottom: 20, left: 70};
 var width = 770 - margin.left - margin.right;
-var height = 350 - margin.top - margin.bottom;
+var height = 300 - margin.top - margin.bottom;
 
 // set the ranges
 // @todo: update bottom range to equal the floor of the data set
@@ -22,14 +21,14 @@ var valueline = d3.line()
 // append the svg obgect to the #graph element
 // appends a 'group' element to 'svg'
 // moves the 'group' element to the top left margin
-var svg = d3.select("#line").append("svg")
+var svg = d3.select("#line")
+  .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .classed("chart chart__line", true)
   .append("g")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
-
 
 // Get the data
 d3.csv(DATE_FILE_URL, function(error, data) {
@@ -54,13 +53,20 @@ d3.csv(DATE_FILE_URL, function(error, data) {
 
   var unadjustedData = data.filter(function(d) { return d.group == false; });
 
+
+  var minY = d3.min(data, function(d) {
+    return d.num
+  });
+  console.log(minY)
+
   // Scale the range of the data
   x.domain(d3.extent(data, function(d) {    
-    return d.month;})
-  );
+    return d.month;
+  }));
 
-  y.domain([0, d3.max(data, function(d) {
-    return d.num; })]);
+  y.domain(d3.extent(data, function(d) {    
+    return d.num; 
+  }));
 
   // Add the valueline path for adjusted data
   svg.append("path")
@@ -76,6 +82,7 @@ d3.csv(DATE_FILE_URL, function(error, data) {
 
   // Add the X Axis
   svg.append("g")
+    .classed("axis axis__x", true)
     .attr("transform", "translate(0," + height + ")")
     .call( d3.axisBottom(x)
        .tickFormat(d3.timeFormat("%b %Y"))
@@ -83,16 +90,20 @@ d3.csv(DATE_FILE_URL, function(error, data) {
 
   // Add the Y Axis
   svg.append("g")
-      .call(d3.axisLeft(y)
-        .ticks(5)
-      );
+    .classed("axis axis__y", true)
+    .attr("transform", "translate(" + width + ",0)")
+    .call(d3.axisLeft(y)
+      .tickSize(width)
+      .ticks(6)
+    );
 
   // text label for the y axis
   svg.append("text")             
+    .classed("axis-label", true)
     .attr( 'transform', 'rotate(-90)' )
-    .attr( 'text-anchor', 'middle' )
-    .attr( 'y', -50 )
-    .style( 'font-size', '.75em' )
+    .attr( 'text-anchor', 'end' )
+    .attr( 'x', -20 )
+    .attr( 'y', -60 )
     .text( 'Loan volume (in billions of dollars)' );
 
 });
