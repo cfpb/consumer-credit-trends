@@ -3,9 +3,9 @@
 var d3 = require( './d3/d3.js' );
 var formatDates = require( './formatDates.js' );
 var DATE_FILE_URL = 'https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/vol_data_AUT.csv';
-var margin = {top: 0, right: 20, bottom: 20, left: 70};
+var margin = {top: 100, right: 20, bottom: 20, left: 70};
 var width = 770 - margin.left - margin.right;
-var height = 300 - margin.top - margin.bottom;
+var height = 400 - margin.top - margin.bottom;
 
 // set the ranges
 // @todo: update bottom range to equal the floor of the data set
@@ -123,15 +123,26 @@ d3.csv(DATE_FILE_URL, function(error, data) {
     );
 
   // @todo: Add the projected data axis + tick
-  // var projectedAxis = d3.svg.axis().scale(x)
   svg.append("g")
     .classed("axis axis__x axis__projected", true)
-    // .attr("transform", "translate(0," + height + ")")
     .call( d3.axisBottom(x)
-      // .tickFormat(d3.timeFormat("%b %Y"))
       .tickValues([projectedDate])
       .ticks(1).tickSize(height)
     );
+
+  // Text label for projected data line
+  svg.select( '.axis__projected ')
+    .select( '.tick' )
+      .select( 'text' )
+      .text( 'Values after ' + projectedDate )
+      .attr('y', -50)
+  
+  svg.select( '.axis__projected' )
+    .select( '.tick' )
+    .append( 'text' )
+      .text( 'are projected' )
+      .attr('x', -40)
+      .attr('y', -10)
 
   // Add the Y Axis
   svg.append("g")

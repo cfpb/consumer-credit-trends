@@ -158,6 +158,9 @@
     .short-desc();
     color: @gray-80;
     font-size: 100%;
+    text {
+        fill: @gray-80;
+    }
 }
 
 .axis__x {
@@ -174,8 +177,13 @@
 
 .axis__projected {
     .tick {
-        stroke: @gray-80;
-        stroke-width: 2px;
+        line {
+            stroke-width: 2px;
+            stroke: @gray-80;
+        }
+        text {
+            fill: @gray-80;
+        }
     }
 }
 
