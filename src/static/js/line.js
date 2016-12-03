@@ -49,28 +49,30 @@ d3.csv(DATE_FILE_URL, function(error, data) {
       d.month = parsedDate;
   });
 
-  // Filter the data to get 2 sets for each line: Seasonally Adjusted and Unadjusted
-  var adjustedData = data.filter(function(d) { return d.group == true; });
+  // Set the projected date as 6 months from the last month in the data set
+  var lastMonth = d3.max(data, function(d) {
+    return d.month;
+  });
+  console.log('the last month in the data is from ' + lastMonth);
+  var projectedDate = d3.timeMonth.offset(lastMonth, -5);  
 
-  var unadjustedData = data.filter(function(d) { return d.group == false; });
+  // Filter the data to get 2 sets for each line: Seasonally Adjusted and Unadjusted
+  var adjustedData = data.filter(function(d) { return d.group == true && d.month <= projectedDate; });
+
+  var unadjustedData = data.filter(function(d) { return d.group == false && d.month <= projectedDate; });
 
   // @todo: filter data to create 2 lines for the projected last 6 months, and style them dotted.
   // var today = new Date(); // change to last month of data
   // console.log(today);
   // console.log(projectedDate);
 
-  var lastMonth = d3.max(data, function(d) {
-    return d.month;
-  });
-  console.log('the last month in the data is from ' + lastMonth);
-  var projectedDate = d3.timeMonth.offset(lastMonth, -5);
   console.log('the last 6 months of data starts with ' + projectedDate);
-  var projectedAdjustedData = adjustedData.filter(function(d) { 
-    return d.month > projectedDate; // last 6 months; 
+  var projectedAdjustedData = data.filter(function(d) { 
+    return d.group == true && d.month >= projectedDate; // last 6 months; 
   });
 
-  var projectedUnadjustedData = unadjustedData.filter(function(d) { 
-    return d.month > projectedDate; // last 6 months; 
+  var projectedUnadjustedData = data.filter(function(d) { 
+    return d.group == false && d.month >= projectedDate; // last 6 months;
   });
 
   var minY = d3.min(data, function(d) {
@@ -109,7 +111,7 @@ d3.csv(DATE_FILE_URL, function(error, data) {
 // Add Unadjusted and Projected line
   svg.append("path")
     .data([projectedUnadjustedData])
-    .classed("line line__adjusted line__projected", true)
+    .classed("line line__unadjusted line__projected", true)
     .attr("d", valueline);
 
   // Add the X Axis
@@ -118,6 +120,17 @@ d3.csv(DATE_FILE_URL, function(error, data) {
     .attr("transform", "translate(0," + height + ")")
     .call( d3.axisBottom(x)
        .tickFormat(d3.timeFormat("%b %Y"))
+    );
+
+  // @todo: Add the projected data axis + tick
+  // var projectedAxis = d3.svg.axis().scale(x)
+  svg.append("g")
+    .classed("axis axis__x axis__projected", true)
+    // .attr("transform", "translate(0," + height + ")")
+    .call( d3.axisBottom(x)
+      // .tickFormat(d3.timeFormat("%b %Y"))
+      .tickValues([projectedDate])
+      .ticks(1).tickSize(height)
     );
 
   // Add the Y Axis

@@ -150,8 +150,7 @@
 }
 
 .line__projected {
-    stroke: black;
-    stroke-width: 5px;
+    stroke-dasharray: 4px, 5px;
 }
 
 .axis,
@@ -170,6 +169,13 @@
 .axis__y {
     .domain {
         stroke: transparent;
+    }
+}
+
+.axis__projected {
+    .tick {
+        stroke: @gray-80;
+        stroke-width: 2px;
     }
 }
 
