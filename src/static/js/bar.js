@@ -17,6 +17,7 @@ var svg = d3.select( '#bar' )
   .append( 'svg' )
     .attr( 'width', width + margin.left + margin.right)
     .attr( 'height', height + margin.top + margin.bottom)
+    .classed("chart chart__bar", true)
   .append( 'g' )
     .attr( 'transform', 
           'translate( ' + margin.left + ',' + margin.top + ' )' );  

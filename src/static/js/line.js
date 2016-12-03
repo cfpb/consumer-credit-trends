@@ -1,21 +1,19 @@
 'use strict';
 
 var d3 = require( './d3/d3.js' );
-var formatDates = require( './formatDates.js' ).init();
+var formatDates = require( './formatDates.js' );
+
 var DATE_FILE_URL = 'https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/vol_data_AUT.csv';
-
-// set the dimensions and margins of the graph
-var margin = {top: 20, right: 20, bottom: 30, left: 50},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
-
-// parse the date / time
-// var parseTime = d3.timeParse("%d-%b-%y");
+var margin = {top: 20, right: 20, bottom: 30, left: 50};
+var width = 770 - margin.left - margin.right;
+var height = 350 - margin.top - margin.bottom;
 
 // set the ranges
-var x = d3.scaleLinear().range([0, width]);
+var x = d3.scaleTime().range([0, width]);
+// var x = d3.scaleLinear().range([0, width]);
 var y = d3.scaleLinear().range([height, 0]);
 
+var parseTime = d3.timeParse("%B %Y");
 
 var valueline = d3.line()
       .x(function(d) { return x(d.month); })
@@ -27,6 +25,7 @@ var valueline = d3.line()
 var svg = d3.select("#line").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
+    .classed("chart chart__line", true)
   .append("g")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
@@ -38,6 +37,7 @@ d3.csv(DATE_FILE_URL, function(error, data) {
 
   // format the data
   data.forEach(function(d) {
+      var monthIndex = +d.month;
       d.month = +d.month;
       d.num = +d.num;
       if (d.group == 'Seasonally Adjusted') {
@@ -45,6 +45,9 @@ d3.csv(DATE_FILE_URL, function(error, data) {
       } else {
         d.group = false;
       }
+      var humanDate = formatDates(monthIndex); // January 2000
+      var parsedDate = parseTime(humanDate); // timestamp
+      d.month = parsedDate;
   });
 
   var adjustedData = data.filter(function(d) { return d.group == true; });
@@ -52,10 +55,11 @@ d3.csv(DATE_FILE_URL, function(error, data) {
   var unadjustedData = data.filter(function(d) { return d.group == false; });
 
   // Scale the range of the data
-  x.domain(d3.extent(data, function(d) { 
-    return d.month; }));
-  // x.domain( data.map( function( d ) { return d.date; } ) );
-  y.domain([0, d3.max(data, function(d) { 
+  x.domain(d3.extent(data, function(d) {    
+    return d.month;})
+  );
+
+  y.domain([0, d3.max(data, function(d) {
     return d.num; })]);
 
   // Add the valueline path for adjusted data
@@ -72,20 +76,23 @@ d3.csv(DATE_FILE_URL, function(error, data) {
 
   // Add the X Axis
   svg.append("g")
-      .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x)
-        // .tickValues( x.domain().filter(
-        //   function( data, i ) {
-        //     return !( i % 12 );
-        //   } )
-        // )
-        // .tickFormat( function( data, i ) { return data.substr( 0, 4 ) } )
-        );
+    .attr("transform", "translate(0," + height + ")")
+    .call( d3.axisBottom(x)
+       .tickFormat(d3.timeFormat("%b %Y"))
+    );
 
   // Add the Y Axis
   svg.append("g")
       .call(d3.axisLeft(y)
         .ticks(5, ".2s")
       );
+
+  // text label for the y axis
+  svg.append("text")             
+    .attr( 'transform', 'rotate(-90)' )
+    .attr( 'text-anchor', 'middle' )
+    .attr( 'y', -50 )
+    .style( 'font-size', '.75em' )
+    .text( 'Loan volume (in billions of dollars)' );
 
 });
