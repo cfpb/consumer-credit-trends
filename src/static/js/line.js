@@ -13,6 +13,7 @@ var x = d3.scaleTime().range([0, width]);
 var y = d3.scaleLinear().range([height, 0]);
 
 var parseTime = d3.timeParse("%B %Y");
+var formatTime = d3.timeFormat("%b %Y");
 
 var valueline = d3.line()
       .x(function(d) { return x(d.month); })
@@ -53,20 +54,13 @@ d3.csv(DATE_FILE_URL, function(error, data) {
   var lastMonth = d3.max(data, function(d) {
     return d.month;
   });
-  console.log('the last month in the data is from ' + lastMonth);
-  var projectedDate = d3.timeMonth.offset(lastMonth, -5);  
+  var projectedDate = d3.timeMonth.offset(lastMonth, -5);
 
   // Filter the data to get 2 sets for each line: Seasonally Adjusted and Unadjusted
   var adjustedData = data.filter(function(d) { return d.group == true && d.month <= projectedDate; });
 
   var unadjustedData = data.filter(function(d) { return d.group == false && d.month <= projectedDate; });
 
-  // @todo: filter data to create 2 lines for the projected last 6 months, and style them dotted.
-  // var today = new Date(); // change to last month of data
-  // console.log(today);
-  // console.log(projectedDate);
-
-  console.log('the last 6 months of data starts with ' + projectedDate);
   var projectedAdjustedData = data.filter(function(d) { 
     return d.group == true && d.month >= projectedDate; // last 6 months; 
   });
@@ -119,7 +113,7 @@ d3.csv(DATE_FILE_URL, function(error, data) {
     .classed("axis axis__x", true)
     .attr("transform", "translate(0," + height + ")")
     .call( d3.axisBottom(x)
-       .tickFormat(d3.timeFormat("%b %Y"))
+       .tickFormat(formatTime)
     );
 
   // @todo: Add the projected data axis + tick
@@ -134,15 +128,16 @@ d3.csv(DATE_FILE_URL, function(error, data) {
   svg.select( '.axis__projected ')
     .select( '.tick' )
       .select( 'text' )
-      .text( 'Values after ' + projectedDate )
-      .attr('y', -50)
+      .text( 'Values after ' + formatTime( projectedDate ) )
+      .attr('x', -70)
+      .attr('y', -50);
   
   svg.select( '.axis__projected' )
     .select( '.tick' )
     .append( 'text' )
       .text( 'are projected' )
       .attr('x', -40)
-      .attr('y', -10)
+      .attr('y', -15);
 
   // Add the Y Axis
   svg.append("g")
@@ -161,5 +156,7 @@ d3.csv(DATE_FILE_URL, function(error, data) {
     .attr( 'x', -20 )
     .attr( 'y', -60 )
     .text( 'Loan volume (in billions of dollars)' );
+
+  // @todo: add legend for line colors
 
 });
