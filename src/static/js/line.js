@@ -3,6 +3,7 @@
 var d3 = require( './d3/d3.js' );
 var formatDates = require( './formatDates.js' );
 var DATE_FILE_URL = 'https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/vol_data_AUT.csv';
+var Y_VALUE_SCALE = 'B' // M for Millions, B for Billions
 var margin = {top: 100, right: 20, bottom: 20, left: 70};
 var width = 770 - margin.left - margin.right;
 var height = 400 - margin.top - margin.bottom;
@@ -156,6 +157,18 @@ d3.csv(DATE_FILE_URL, function(error, data) {
     .attr( 'x', -20 )
     .attr( 'y', -60 )
     .text( 'Loan volume (in billions of dollars)' );
+
+  // Add label for Y axis values
+  svg.select( '.axis__y' )
+    .selectAll( '.tick' ).each( function( d, i ) {
+      var valueText = d3.select(this)
+        .select('text')
+        .text();
+      d3.select(this)
+        .select('text')
+        .text( valueText + Y_VALUE_SCALE )
+    });
+
 
   // @todo: add legend for line colors
 

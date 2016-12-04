@@ -153,14 +153,15 @@
     stroke-dasharray: 4px, 5px;
 }
 
-.axis,
+.axis {
+    .short-desc();
+    font-size: 100%;
+}
+
 .axis-label {
     .short-desc();
-    color: @gray-80;
+    fill: @gray-80;    
     font-size: 100%;
-    text {
-        fill: @gray-80;
-    }
 }
 
 .axis__x {
@@ -187,8 +188,14 @@
     }
 }
 
-.tick line {
-    stroke: @gray-20;
+.tick {
+    line {
+        stroke: @gray-20;
+    }
+    text {
+        fill: @gray-80;    
+        font-size: 100%;
+    }
 }
 
 #bar {
