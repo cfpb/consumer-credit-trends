@@ -146,7 +146,9 @@ d3.csv(DATE_FILE_URL, function(error, data) {
     .attr("transform", "translate(" + width + ",0)")
     .call(d3.axisLeft(y)
       .tickSize(width)
-      .ticks(6)
+      // @todo Tick values to divide data num by 1 billion to get values in billions
+      // .tickValues([data])
+      // .ticks(6)
     );
 
   // text label for the y axis
