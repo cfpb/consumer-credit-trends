@@ -10,7 +10,7 @@ To run this code locally:
   cp src/static/js/env_SAMPLE.js src/static/js/env.js
   ```
 1. Run `gulp build`
-1. `cd` into the `/dist/` directory
+1. `cd` into the `dist/` directory
 1. run the following command:
   ```
   python -m SimpleHTTPServer
