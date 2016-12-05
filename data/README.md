@@ -20,19 +20,19 @@ File names contain prefixes that represent the type of aggregate data, and suffi
     </tr>
     <tr>
       <td>vol_data</td>
-      <td>Loan volume in billions of dollars</td>
+      <td>Loan volume in dollars</td>
     </tr>
     <tr>
       <td>volume_data_Age_Group</td>
-      <td>Loan volume in billions of dollars by age group</td>
+      <td>Loan volume in dollars by age group</td>
     </tr>
     <tr>
       <td>volume_data_yoy_data_Income_Level</td>
-      <td>Loan volume in billions of dollars by income level</td>
+      <td>Loan volume in dollars by income level</td>
     </tr>
     <tr>
       <td>volume_data_Score_Level</td>
-      <td>Loan volume in billions of dollars by credit score group</td>
+      <td>Loan volume in dollars by credit score group</td>
     </tr>
     <tr>
       <td>yoy_data_all</td>
@@ -179,7 +179,7 @@ Loan volume files have the prefix `volume_data_` in their filename. The suffix r
     <tr>
       <td>num</td>
       <td>Volume</td>
-      <td>Loan volume in billions of dollars.
+      <td>Loan volume in dollars.
       </td>
       <td>number</td>
     </tr>
