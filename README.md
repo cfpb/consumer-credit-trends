@@ -2,7 +2,7 @@
 
 Coming soon.
 
-![Screenshot of credit-market-trends](homepage.png)
+![Screenshot of credit-market-trends](screenshot.png)
 
 
 ## Quickstart
