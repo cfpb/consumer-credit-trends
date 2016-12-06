@@ -26,6 +26,52 @@ To run this website locally:
   ```
 1. go to [http://localhost:8000/](http://localhost:8000/) in your browser
 
+## Release workflow
+
+When working on feature branches that are still in development, use the workflow described above in the [Installation](#installation) instructions.
+
+For publishing the graphs to compiled HTML for use in a production environment, use the following Release workflow.
+
+1. Check out and pull from the latest `gh-pages` branch from upstream.
+
+  ```
+  git checkout gh-pages
+  git pull upstream gh-pages
+  ```
+1. Create a new branch and check it out locally:
+
+  ```
+  git checkout -b release-v2000
+  ```
+1. Merge your feature branch work into your release branch locally:
+
+  ```
+  git merge feature-branch-2000
+  ```
+1. Build the front end then run the release task to generate your production-ready HTML:
+
+  ```
+  gulp build
+  gulp release
+  ```
+1. Review your production HTML locally to check that it's ready to commit (no server required - just open the HTML file at `credit-market-trends/charts/index.html` in your browser).
+1. Commit your production ready files from the 'charts' folder to your release branch and push to Github:
+
+  ```
+  git add charts
+  git commit -m ''
+  git push origin release-v2000
+  ```
+1. Submit your pull request to the `gh-pages` branch for review.
+1. Optional: test your production pages in Github by merging your release branch to **your** fork of `gh-pages`. You can then post the link to your PR for others to easily review.
+
+  ```
+  git checkout gh-pages
+  git merge release-v2000
+  git push origin gh-pages
+  ```
+1. Once it's merged, visit https://cfpb.github.io/credit-market-trends/charts/ to view the published HTML files.
+
 
 ## Documentation
 
