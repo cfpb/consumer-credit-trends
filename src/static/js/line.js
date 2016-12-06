@@ -56,6 +56,7 @@ d3.csv(DATE_FILE_URL, function(error, data) {
     return d.month;
   });
   var projectedDate = d3.timeMonth.offset(lastMonth, -5);
+  console.log('the last month of data is from ' + lastMonth + ' and 6 months of projected starts in ' + projectedDate)
 
   // Filter the data to get 2 sets for each line: Seasonally Adjusted and Unadjusted
   var adjustedData = data.filter(function(d) { return d.group == true && d.month <= projectedDate; });
@@ -126,10 +127,11 @@ d3.csv(DATE_FILE_URL, function(error, data) {
     );
 
   // Text label for projected data line
+  var lastUnprojectedDate = d3.timeMonth.offset(projectedDate, -1);
   svg.select( '.axis__projected ')
     .select( '.tick' )
       .select( 'text' )
-      .text( 'Values after ' + formatTime( projectedDate ) )
+      .text( 'Values after ' + formatTime( lastUnprojectedDate ) )
       .attr('x', -70)
       .attr('y', -50);
   
