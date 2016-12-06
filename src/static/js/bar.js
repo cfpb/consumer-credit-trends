@@ -1,6 +1,6 @@
 'use strict';
 
-var d3 = require( './d3/d3.js' );
+var d3 = require( 'd3' );
 
 var margin = {top: 20, right: 20, bottom: 70, left: 100},
     width = 850 - margin.left - margin.right,

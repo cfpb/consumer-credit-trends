@@ -1,6 +1,6 @@
 'use strict';
 
-var d3 = require( './d3/d3.js' );
+var d3 = require( 'd3' );
 var formatDates = require( './formatDates.js' );
 var DATE_FILE_URL = 'https://raw.githubusercontent.com/cfpb/credit-market-trends/master/data/vol_data_AUT.csv';
 var Y_VALUE_SCALE = 'B' // M for Millions, B for Billions
