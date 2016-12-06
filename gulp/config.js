@@ -9,11 +9,13 @@ var glob = require( 'glob' );
 var loc = {
   src:  './src',
   dist: './dist',
+  prod: './charts',
   lib:  './node_modules', // eslint-disable-line no-sync, no-inline-comments, max-len
   test: './test'
 };
 
 module.exports = {
+  loc: loc,
   pkg: JSON.parse( fs.readFileSync( 'package.json' ) ), // eslint-disable-line no-sync, no-inline-comments, max-len
   banner:
       '/*!\n' +
@@ -66,6 +68,12 @@ module.exports = {
     dest: loc.dist + '/static/img'
   },
   copy: {
+    release: {
+      src: [
+        loc.src + '/**/*.html'
+      ],
+      dest: loc.prod
+    },
     files: {
       src: [
         loc.src + '/**/*.html',

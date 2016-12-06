@@ -39,6 +39,17 @@ gulp.task( 'copy:vendorjs', function() {
     } ) );
 } );
 
+gulp.task( 'copy:release', function() {
+  var release = configCopy.release;
+  return gulp.src( release.src )
+    .pipe( plugins.changed( release.dest ) )
+    .on( 'error', handleErrors )
+    .pipe( gulp.dest( release.dest ) )
+    .pipe( browserSync.reload( {
+      stream: true
+    } ) );
+} );
+
 gulp.task( 'copy',
   [
     'copy:files',
