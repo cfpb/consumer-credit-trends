@@ -3,7 +3,7 @@
 require('./env.js');
 var moment = require( 'moment' );
 
-var DATA_REPO = 'consumer-credit-trends';
+var DATA_REPO = 'credit-market-trends';
 var DATA_REPO_ORG = 'cfpb';
 var DATA_FILE_PATH = 'data/vol_data_AUT.csv';
 var TOKEN = process.env.GITHUB_ACCESS_TOKEN_KEY;

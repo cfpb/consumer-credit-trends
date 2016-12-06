@@ -2,7 +2,7 @@
 
 var d3 = require( './d3/d3.js' );
 var formatDates = require( './formatDates.js' );
-var DATE_FILE_URL = 'https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/vol_data_AUT.csv';
+var DATE_FILE_URL = 'https://raw.githubusercontent.com/cfpb/credit-market-trends/master/data/vol_data_AUT.csv';
 var Y_VALUE_SCALE = 'B' // M for Millions, B for Billions
 var margin = {top: 100, right: 20, bottom: 20, left: 70};
 var width = 770 - margin.left - margin.right;
