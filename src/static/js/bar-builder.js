@@ -1,26 +1,6 @@
 'use strict';
 
-var d3 = require( 'd3' );
-
-var margin = {top: 20, right: 20, bottom: 70, left: 100},
-    width = 850 - margin.left - margin.right,
-    height = 550 - margin.top - margin.bottom;
-
-var x = d3.scaleBand()
-    .range( [ 0, width ] )
-    .padding( .10 );
-
-var y = d3.scaleLinear()
-    .range( [ height, 0 ] );
-
-var svg = d3.select( '#bar' )
-  .append( 'svg' )
-    .attr( 'width', width + margin.left + margin.right)
-    .attr( 'height', height + margin.top + margin.bottom)
-    .classed("chart chart__bar", true)
-  .append( 'g' )
-    .attr( 'transform', 
-          'translate( ' + margin.left + ',' + margin.top + ' )' );
+var chartBuilder = require( 'cfpb-chart-builder' );
 
 var data = [
   { date: '2009-01-01', amount: -40 },
@@ -95,57 +75,22 @@ var data = [
   { date: '2014-10-01', amount: 9 },
   { date: '2014-11-01', amount: 5 },
   { date: '2014-12-01', amount: -1 },
-]
+];
 
-data.forEach( function( d ) {
-  d.date = d.date;
-  d.amount = +d.amount;
-} );
+var properties = {
+  data: data,
+  selector: '#bar-builder'
+};
 
-var ymin = d3.min( data, function(d) { return d.amount } ) - 2,
-    ymax = d3.max( data, function(d) { return d.amount; } );
+var someBars = new chartBuilder.barChart( properties );
 
-x.domain( data.map( function( d ) { return d.date; } ) );
-y.domain( [ ymin, ymax ] );
+var options = {
+  baseWidth: 600,
+  baseHeight: 400,
+  paddingDecimal: .1,
+  margin: {
+    top: 20, right: 20, bottom: 70, left: 100
+  }
+}
 
-svg.append( 'g' )
-    .attr( 'class', 'x axis' )
-    .attr( 'transform', 'translate( 0,' + height + ')' )
-    .call(
-      d3.axisBottom( x )
-      .tickValues( x.domain().filter(
-        function( d, i ) {
-          return !( i % 12 );
-        } )
-      )
-      .tickFormat( function( d, i ) { return d.substr( 0, 4 ) } )
-    )
-  .selectAll( 'text' )
-    .style( 'text-anchor', 'middle' )
-    .merge;
-
-svg.append( 'g' )
-    .attr( 'class', 'y axis')
-    .call( d3.axisLeft( y ).ticks( ( ymax - ymin ) / 20 ) );
-
-svg.append( 'text' )
-    .attr( 'transform', 'rotate(-90)' )
-    .attr( 'text-anchor', 'middle' )
-    .attr( 'x', -1 * ( height + ymin ) / 2 )
-    .attr( 'y', -50 )
-    .style( 'font-size', '.75em' )
-    .text( 'Year-over-year change (%)' );
-
-svg.selectAll( 'bar' )
-    .data(data)
-  .enter().append( 'rect' )
-    .attr( 'class', 'bar' )
-    .attr( 'x', function(d) { return x( d.date ); })
-    .attr( 'width' , x.bandwidth() )
-    .attr( 'y', function( d ) { return y( Math.max( 0, d.amount ) ); })
-    .attr( 'height',
-      function( d ) {
-        return Math.abs( y( d.amount ) - y( 0 ) );
-      } )
-    .attr( 'fill', '#2CB34A' );
-
+var someBarsChart = someBars.drawGraph( options );
