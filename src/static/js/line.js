@@ -56,7 +56,6 @@ d3.csv(DATE_FILE_URL, function(error, data) {
     return d.month;
   });
   var projectedDate = d3.timeMonth.offset(lastMonth, -5);
-  console.log('the last month of data is from ' + lastMonth + ' and 6 months of projected starts in ' + projectedDate)
 
   // Filter the data to get 2 sets for each line: Seasonally Adjusted and Unadjusted
   var adjustedData = data.filter(function(d) { return d.group == true && d.month <= projectedDate; });
@@ -86,28 +85,28 @@ d3.csv(DATE_FILE_URL, function(error, data) {
     return d.num; 
   }));
 
-  // Add the valueline path for Seasonally adjusted data
-  svg.append("path")
-      .data([adjustedData])
-      .classed("line line__adjusted", true)
-      .attr("d", valueline);
-
   // Add Unadjusted line
   svg.append("path")
       .data([unadjustedData])
       .classed("line line__unadjusted", true)
       .attr("d", valueline);
 
+  // Add Unadjusted and Projected line
+  svg.append("path")
+    .data([projectedUnadjustedData])
+    .classed("line line__unadjusted line__projected", true)
+    .attr("d", valueline);
+
+  // Add the valueline path for Seasonally adjusted data
+  svg.append("path")
+      .data([adjustedData])
+      .classed("line line__adjusted", true)
+      .attr("d", valueline);
+
   // Add Seasonally adjusted and Projected line
   svg.append("path")
     .data([projectedAdjustedData])
     .classed("line line__adjusted line__projected", true)
-    .attr("d", valueline);
-
-// Add Unadjusted and Projected line
-  svg.append("path")
-    .data([projectedUnadjustedData])
-    .classed("line line__unadjusted line__projected", true)
     .attr("d", valueline);
 
   // Add the X Axis
