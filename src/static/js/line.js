@@ -85,6 +85,25 @@ d3.csv(DATE_FILE_URL, function(error, data) {
     return d.num; 
   }));
 
+  // Add the X Axis
+  svg.append("g")
+    .classed("axis axis__x", true)
+    .attr("transform", "translate(0," + height + ")")
+    .call( d3.axisBottom(x)
+       .tickFormat(formatTime)
+    );
+
+  // Add the Y Axis
+  svg.append("g")
+    .classed("axis axis__y", true)
+    .attr("transform", "translate(" + width + ",0)")
+    .call(d3.axisLeft(y)
+      .tickSize(width)
+      // @todo Tick values to divide data num by 1 billion to get values in billions
+      // .tickValues([data])
+      // .ticks(6)
+    );
+
   // Add Unadjusted line
   svg.append("path")
       .data([unadjustedData])
@@ -109,15 +128,8 @@ d3.csv(DATE_FILE_URL, function(error, data) {
     .classed("line line__adjusted line__projected", true)
     .attr("d", valueline);
 
-  // Add the X Axis
-  svg.append("g")
-    .classed("axis axis__x", true)
-    .attr("transform", "translate(0," + height + ")")
-    .call( d3.axisBottom(x)
-       .tickFormat(formatTime)
-    );
 
-  // @todo: Add the projected data axis + tick
+  // Add the projected data axis + tick
   svg.append("g")
     .classed("axis axis__x axis__projected", true)
     .call( d3.axisBottom(x)
@@ -140,17 +152,6 @@ d3.csv(DATE_FILE_URL, function(error, data) {
       .text( 'are projected' )
       .attr('x', -40)
       .attr('y', -15);
-
-  // Add the Y Axis
-  svg.append("g")
-    .classed("axis axis__y", true)
-    .attr("transform", "translate(" + width + ",0)")
-    .call(d3.axisLeft(y)
-      .tickSize(width)
-      // @todo Tick values to divide data num by 1 billion to get values in billions
-      // .tickValues([data])
-      // .ticks(6)
-    );
 
   // text label for the y axis
   svg.append("text")             
