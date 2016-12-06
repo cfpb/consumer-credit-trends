@@ -92,3 +92,5 @@ var options = {
     top: 20, right: 20, bottom: 70, left: 100
   }
 }
+
+var someBarsChart = someBars.drawGraph( options );
