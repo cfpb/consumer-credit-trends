@@ -86,10 +86,6 @@ module.exports = {
         loc.lib + '/html5shiv/dist/html5shiv-printshiv.min.js'
       ],
       dest: loc.dist + '/static/js/'
-    },
-    dataFiles: {
-      src:  loc.src + '/static/data/*',
-      dest: loc.dist + '/static/data/'
     }
   }
 };

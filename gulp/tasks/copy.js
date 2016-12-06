@@ -39,22 +39,10 @@ gulp.task( 'copy:vendorjs', function() {
     } ) );
 } );
 
-gulp.task( 'copy:dataFiles', function() {
-  var dataFiles = configCopy.dataFiles;
-  return gulp.src( dataFiles.src )
-    .pipe( plugins.changed( dataFiles.dest ) )
-    .on( 'error', handleErrors )
-    .pipe( gulp.dest( dataFiles.dest ) )
-    .pipe( browserSync.reload( {
-      stream: true
-    } ) );
-} );
-
 gulp.task( 'copy',
   [
     'copy:files',
     'copy:icons',
-    'copy:vendorjs',
-    'copy:dataFiles'
+    'copy:vendorjs'
   ]
 );
