@@ -5,15 +5,14 @@ Coming soon.
 ![Screenshot of credit-market-trends](screenshot.png)
 
 
-## Quickstart
+## Installation
 
-[Installation instructions](INSTALL.md)
-and [documentation about the data](data/README.md) are available.
+This project requires that you have [Node.js](https://nodejs.org/en/) installed.
 
-To run this code locally:
+To run this website locally:
 
 1. Clone repo
-1. In Terminal, run `npm install` from root directory
+1. In Terminal, run `./setup.sh` from the root directory. This will install the required Node modules for the project.
 1. Create an `env.js` file and add your [Github personal access token](https://github.com/blog/1509-personal-api-tokens) there:
 
   ```bash
