@@ -76,9 +76,7 @@ module.exports = {
   },
   copy: {
     release: {
-      src: [
-        loc.dist + '/**/*.html'
-      ],
+      src: loc.dist + '/**/*.html',
       dest: loc.prod
     },
     files: {

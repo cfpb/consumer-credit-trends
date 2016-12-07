@@ -7,17 +7,34 @@
 
 
 var gulp = require( 'gulp' );
+var plugins = require( 'gulp-load-plugins' )();
 var config = require( '../config' );
-var inlineCss = require('gulp-inline-css');
+var handleErrors = require( '../utils/handle-errors' );
+var browserSync = require( 'browser-sync' );
+var inlineCss = require( 'gulp-inline-css' );
+var release = config.copy.release;
 
-gulp.task('release:inline', function() {
-    return gulp.src('./dist/**/*.html')
-        .pipe(inlineCss())
-        .pipe(gulp.dest('./css-test'));
-});
+
+gulp.task( 'release:copyFiles', function() {
+  return gulp.src( release.src )
+    // .pipe( plugins.changed( release.dest ) ) // this doesn't always notice changes!
+    .pipe( inlineCss( {
+      preserveMediaQueries: true
+    }) )
+    .on( 'error', handleErrors )
+    // @todo: generate directory structure in handlebars task based on the data passed from charts.json
+    // .pipe( plugins.rename( {
+    //   dirname: 'auto-loans/origination-activity',
+    //   extname: '.html'
+    // } ) )
+    .pipe( gulp.dest( release.dest ) )
+    .pipe( browserSync.reload( {
+      stream: true
+    } ) );
+} );
 
 gulp.task( 'release',
   [
-    'copy:release'
+    'release:copyFiles'
   ]
 );

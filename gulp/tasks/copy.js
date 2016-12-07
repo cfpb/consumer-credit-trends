@@ -39,22 +39,6 @@ gulp.task( 'copy:vendorjs', function() {
     } ) );
 } );
 
-gulp.task( 'copy:release', function() {
-  var release = configCopy.release;
-  return gulp.src( release.src )
-    .pipe( plugins.changed( release.dest ) )
-    .on( 'error', handleErrors )
-    // @todo: generate directory structure in handlebars task based on the data passed from charts.json
-    // .pipe( plugins.rename( {
-    //   dirname: 'auto-loans/origination-activity',
-    //   extname: '.html'
-    // } ) )
-    .pipe( gulp.dest( release.dest ) )
-    .pipe( browserSync.reload( {
-      stream: true
-    } ) );
-} );
-
 gulp.task( 'copy',
   [
     'copy:files',
