@@ -9,7 +9,7 @@ var glob = require( 'glob' );
 var loc = {
   src:  './src',
   dist: './dist',
-  prod: './charts',
+  prod: './',
   lib:  './node_modules', // eslint-disable-line no-sync, no-inline-comments, max-len
   test: './test'
 };
@@ -77,7 +77,7 @@ module.exports = {
   copy: {
     release: {
       src: [
-        loc.src + '/**/*.html'
+        loc.dist + '/**/*.html'
       ],
       dest: loc.prod
     },
