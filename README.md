@@ -53,10 +53,11 @@ For publishing the graphs to compiled HTML for use in a production environment, 
   gulp build
   gulp release
   ```
-1. Review your production HTML locally to check that it's ready to commit (no server required - just open the HTML file at `credit-market-trends/charts/index.html` in your browser).
-1. Commit your production ready files from the 'charts' folder to your release branch and push to Github:
+1. Review your production HTML locally to check that it's ready to commit (no server required - just open the HTML file at `credit-market-trends/index.html` in your browser).
+1. Commit your production ready files, index.html and the 'charts' folder, to your release branch and push to Github:
 
   ```
+  git add index.html
   git add charts
   git commit -m ''
   git push origin release-v2000
@@ -69,7 +70,7 @@ For publishing the graphs to compiled HTML for use in a production environment, 
   git merge release-v2000
   git push origin gh-pages
   ```
-1. Once it's merged, visit https://cfpb.github.io/credit-market-trends/charts/ to view the published HTML files.
+1. Once it's merged, visit https://cfpb.github.io/credit-market-trends/ to view the published HTML files.
 
 
 ## Documentation
