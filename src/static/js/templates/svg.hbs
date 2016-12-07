@@ -1,3 +1,6 @@
+<!--[if lt IE 9]>      <link rel="stylesheet" href="/static/css/main.ie.min.css"> <![endif]-->
+<!--[if gt IE 8]><!--> <link rel="stylesheet" href="/static/css/main.min.css"> <!--<![endif]-->
+
 <div class="chart_wrapper"
     id="{{ figureID }}"
     data-chart-type="line" 
@@ -6,10 +9,17 @@
     data-market="auto-loans"
     data-report-type="origination-activity"
 >
-    <h4>{{ figureID }}</h4>
+    <h5>{{ figureID }}</h5>
     <h3>{{ title }}</h3>
     <svg>
+
+
 
     </svg>
     
 </div>
+
+
+<h1>{{> chartEl }}</h1>
+
+<script src="/static/js/main.min.js"></script>

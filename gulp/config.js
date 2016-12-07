@@ -48,7 +48,7 @@ module.exports = {
     dest:     loc.dist + '/static/css',
     settings: {
       paths: glob.sync( loc.lib + '/cf-*/src/' ),
-      compress: true
+      compress: false
     }
   },
   scripts: {
@@ -63,6 +63,13 @@ module.exports = {
     dest: loc.dist + '/static/js/',
     name: 'main.js'
   },
+  handlebarsTemplates: {
+    src: [
+      loc.src + '/static/js/templates/**',
+      loc.src + '/static/index.html'
+    ]
+  //   dest: loc.dist + 
+  },
   images: {
     src:  loc.src + '/static/img/**',
     dest: loc.dist + '/static/img'
@@ -76,7 +83,7 @@ module.exports = {
     },
     files: {
       src: [
-        loc.src + '/**/*.html',
+        // loc.src + '/**/*.html',
         loc.src + '/**/*.pdf',
         loc.src + '/_*/**/*',
         loc.src + '/robots.txt',

@@ -6,6 +6,7 @@ gulp.task( 'build',
   [
     'styles',
     'scripts',
+    'handlebars',
     'images',
     'copy'
   ]
