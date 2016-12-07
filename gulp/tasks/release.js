@@ -8,6 +8,13 @@
 
 var gulp = require( 'gulp' );
 var config = require( '../config' );
+var inlineCss = require('gulp-inline-css');
+
+gulp.task('release:inline', function() {
+    return gulp.src('./dist/**/*.html')
+        .pipe(inlineCss())
+        .pipe(gulp.dest('./css-test'));
+});
 
 gulp.task( 'release',
   [
