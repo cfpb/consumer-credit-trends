@@ -19,11 +19,11 @@ To run this website locally:
   cp src/static/js/env_SAMPLE.js src/static/js/env.js
   ```
 1. Run `gulp build`
-1. run the following command:
+1. Run the following command:
   ```
   gulp watch
   ```
-1. go to [http://localhost:8080/](http://localhost:8080/) in your browser
+  This should open a new window in your browser with the `/dist/index.html` file visible at [`http://localhost:3000/`](http://localhost:3000/)
 
 
 ## Documentation
