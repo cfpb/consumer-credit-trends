@@ -23,7 +23,7 @@ var valueline = d3.line()
 // append the svg obgect to the #graph element
 // appends a 'group' element to 'svg'
 // moves the 'group' element to the top left margin
-var svg = d3.select("#line")
+var svg = d3.select("#figure-1a")
   .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
