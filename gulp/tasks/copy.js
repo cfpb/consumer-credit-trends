@@ -44,6 +44,10 @@ gulp.task( 'copy:release', function() {
   return gulp.src( release.src )
     .pipe( plugins.changed( release.dest ) )
     .on( 'error', handleErrors )
+    // .pipe( plugins.rename( {
+    //   dirname: 'auto-loans/origination-activity',
+    //   extname: '.html'
+    // } ) )
     .pipe( gulp.dest( release.dest ) )
     .pipe( browserSync.reload( {
       stream: true
