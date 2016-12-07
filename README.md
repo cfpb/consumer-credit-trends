@@ -19,12 +19,11 @@ To run this website locally:
   cp src/static/js/env_SAMPLE.js src/static/js/env.js
   ```
 1. Run `gulp build`
-1. `cd` into the `dist/` directory
 1. run the following command:
   ```
-  python -m SimpleHTTPServer
+  gulp watch
   ```
-1. go to [http://localhost:8000/](http://localhost:8000/) in your browser
+1. go to [http://localhost:8080/](http://localhost:8080/) in your browser
 
 
 ## Documentation

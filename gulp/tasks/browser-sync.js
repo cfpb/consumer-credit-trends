@@ -5,7 +5,8 @@ var util = require( 'gulp-util' );
 var browserSync = require( 'browser-sync' );
 
 gulp.task( 'browserSync', function() {
-  var port = util.env.port || '7000';
+//  var port = util.env.port || '7000';
+  var port = '8080';
   browserSync.init( {
     proxy: 'localhost:' + port
   } );
