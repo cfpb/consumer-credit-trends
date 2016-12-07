@@ -83,7 +83,7 @@ module.exports = {
     },
     files: {
       src: [
-        // loc.src + '/**/*.html',
+        // loc.src + '/**/*.html', // use .hbs templates instead
         loc.src + '/**/*.pdf',
         loc.src + '/_*/**/*',
         loc.src + '/robots.txt',
