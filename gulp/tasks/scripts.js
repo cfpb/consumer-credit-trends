@@ -17,7 +17,7 @@ gulp.task( 'scripts', function() {
         filename: '[name].js'
       }
     } ) )
-    .pipe( plugins.uglify() )
+    // .pipe( plugins.uglify() )
     .on( 'error', handleErrors )
     .pipe( plugins.header( configBanner, { pkg: configPkg } ) )
     .pipe( plugins.rename( {
