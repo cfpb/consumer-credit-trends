@@ -4,20 +4,18 @@ var d3 = require( 'd3' );
 var jsdom = require( 'jsdom' ).jsdom;
 var fs = require( 'fs' );
 
-var body = d3.select( jsdom().documentElement ).select( 'body' );
+jsdom.env({
+  url: "http://localhost:3000/charts/figure-1a.html",
+  scripts: ["http://localhost:3000/static/js/main.min.js"],
+  done: function ( err, window ) {
 
-var width = 500,
-    height = 100;
+    window.setTimeout( getSVG, 10000 );
 
-var svg = body.append( 'svg' )
-    .classed( 'chart', true )
-    .attr( 'width', width )
-    .attr( 'height', height )
+    function getSVG() {
+        var code = window.document.querySelector( 'html' ).outerHTML;
+        fs.writeFileSync( './charts/figure-1a.html', code );
+    }
+    // run inlineCSS and remove JS scripts.
 
-svg.append( 'text' )
-    .text( 'This is just an svg' )
-    .attr( 'transform', 'translate(0,50)' )
-
-var result = body.node().innerHTML;
-
-fs.writeFileSync( './src/static/js/templates/partials/chart.hbs', result );
+  }
+});
