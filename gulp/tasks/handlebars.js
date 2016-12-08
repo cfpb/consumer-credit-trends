@@ -9,6 +9,14 @@ var browserSync = require( 'browser-sync' );
 var charts = require( '../../src/static/js/templates/charts.json' );
 var templateSrc = './src/static/js/templates/svg.hbs';
 var templateDest = './dist/charts/';
+var fs = require( 'fs' );
+var exec = require( 'child_process' ).exec;
+
+gulp.task( 'handlebars:dom', function ( cb ) {
+  exec( 'src/static/js/dom.js', function ( err, stdout, stderr ) {
+    cb( err );
+  } );
+} );
 
 gulp.task( 'handlebars:compile', function () {
     for ( var i=0; i < charts.length; i++ ) {
@@ -17,9 +25,7 @@ gulp.task( 'handlebars:compile', function () {
 
 
     var options = {
-        partials : {
-            chartEl : '<div class="chart_wrapper">chart element goes here</div>'
-        }
+        batch: ['./src/static/js/templates/partials']
     }
 
         gulp.src( templateSrc )
