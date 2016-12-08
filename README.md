@@ -1,8 +1,8 @@
-# credit-market-trends
+# consumer-credit-trends
 
 Coming soon.
 
-![Screenshot of credit-market-trends](screenshot.png)
+![Screenshot of consumer-credit-trends](screenshot.png)
 
 
 ## Installation
@@ -59,7 +59,7 @@ which is the chart generator and library used to create the d3 data visualizatio
 
 ## Credits and references
 
-This project uses: 
+This project uses:
 
 - [Capital Framework](https://github.com/cfpb/capital-framework)
 for its user interface and layout components.
