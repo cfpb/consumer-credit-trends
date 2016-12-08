@@ -18,15 +18,12 @@ gulp.task( 'handlebars:dom', function ( cb ) {
   } );
 } );
 
+
+// Compile templates for each chart using charts config JSON.
 gulp.task( 'handlebars:compile', function () {
     for ( var i=0; i < charts.length; i++ ) {
         var chart = charts[i];
         var fileName = chart.figureID.toLowerCase();
-
-
-    // var options = {
-    //     batch: ['./src/static/js/templates/partials']
-    // }
 
         gulp.src( templateSrc )
             .pipe( handlebars( chart ) )
@@ -42,23 +39,24 @@ gulp.task( 'handlebars:compile', function () {
     }
 } );
 
+// Compile index file containing every chart.
 gulp.task( 'handlebars:index', function () {
 
   var indexSrc = './src/static/js/templates/index.hbs';
   var indexDest = './dist/';
 
-  // var templateData = {
-  //   fakeData: 'test'
-  // }
+  var options = {
+    batch: ['./src/static/js/templates/']
+  }
 
-  // var options = {
-  //     partials : {
-  //         chartEl : '<div class="chart_wrapper">chart element goes here</div>'
-  //     }
-  // }
+  var chartData = {
+    charts: charts
+  }
+
+  console.log(chartData.charts)
 
   gulp.src( indexSrc )
-    .pipe( handlebars( ) )
+    .pipe( handlebars( chartData, options ) )
     .pipe( rename( {
       extname: '.html'
     } ) )
