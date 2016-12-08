@@ -17,7 +17,7 @@ gulp.task('connect', function() {
 
 gulp.task( 'watch', [ 'connect', 'browserSync' ], function() {
   gulp.watch( config.scripts.src, [ 'scripts' ] );
-  gulp.watch( './src/static/js/dom.js', [ 'handlebars:dom' ] )
+  gulp.watch( config.handlebarsTemplates.dom, [ 'handlebars:dom' ] )
   gulp.watch( config.handlebarsTemplates.src, [ 'handlebars' ] )
   gulp.watch( config.styles.cwd + '/**/*.less', [ 'styles' ] );
   gulp.watch( config.images.src, [ 'images' ] );

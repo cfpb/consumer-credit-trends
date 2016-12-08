@@ -13,7 +13,7 @@ var fs = require( 'fs' );
 var exec = require( 'child_process' ).exec;
 
 gulp.task( 'handlebars:dom', function ( cb ) {
-  exec( 'src/static/js/dom.js', function ( err, stdout, stderr ) {
+  exec( config.handlebarsTemplates.dom, function ( err, stdout, stderr ) {
     cb( err );
   } );
 } );

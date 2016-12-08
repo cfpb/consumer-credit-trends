@@ -67,8 +67,8 @@ module.exports = {
     src: [
       loc.src + '/static/js/templates/**',
       loc.src + '/static/index.html'
-    ]
-  //   dest: loc.dist + 
+    ],
+    dom: loc.src + '/static/js/utils/dom.js'
   },
   images: {
     src:  loc.src + '/static/img/**',
