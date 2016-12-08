@@ -1,8 +1,10 @@
 [{
-  "title": "This is the title of this chart",
-  "figureID": "figure-1a"
+  "title": "Auto loan volume ",
+  "figureID": "figure-1a",
+  "source": "https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/vol_data_AUT.csv"
 },
 {
   "title": "Chart 2",
-  "figureID": "figure-1b"
+  "figureID": "figure-1b",
+  "source": "https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/num_data_AUT.csv"
 }]

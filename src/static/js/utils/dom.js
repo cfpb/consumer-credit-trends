@@ -6,8 +6,6 @@ var fs = require( 'fs' );
 var charts = require( '../templates/charts.json' );
 
 var LOCALHOST_PATH = 'http://localhost:3000/charts/';
-
-
 var chartFiles = []
 
 for ( var i = 0; i < charts.length; i++ ) {
@@ -16,7 +14,7 @@ for ( var i = 0; i < charts.length; i++ ) {
     chartFiles.push(fileName)
 }
 
-// @todo: run for each chart file.
+// run for each chart file.
 for ( var i = 0; i < chartFiles.length; i++ ) {
     var chart = chartFiles[i];
 

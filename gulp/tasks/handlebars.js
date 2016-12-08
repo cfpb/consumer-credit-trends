@@ -21,9 +21,11 @@ gulp.task( 'handlebars:dom', function ( cb ) {
 
 // Compile templates for each chart using charts config JSON.
 gulp.task( 'handlebars:compile', function () {
+
     for ( var i=0; i < charts.length; i++ ) {
         var chart = charts[i];
-        var fileName = chart.figureID.toLowerCase();
+        var fileName = chart.figureID;
+
 
         gulp.src( templateSrc )
             .pipe( handlebars( chart ) )

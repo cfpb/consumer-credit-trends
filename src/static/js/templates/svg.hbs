@@ -1,4 +1,6 @@
+{{#unless indexPage}}
 <link rel="stylesheet" href="../static/css/main.min.css">
+{{/unless}}
 
 <div class="chart_wrapper"
     id="{{ figureID }}"
@@ -11,9 +13,17 @@
     <h5>{{ figureID }}</h5>
     <h3>{{ title }}</h3>
     
-    
+
 </div>
+    
+<p class="block short-desc">
+    <strong>Source:</strong> <a href="{{ source }}">{{ source }}</a><br>
+    <strong>Date published:</strong> month year<br>
+    <strong>Note:</strong> ..
+
+</p>
 
 
-
+{{#unless indexPage}}
 <script src="../static/js/main.min.js"></script>
+{{/unless}}
