@@ -2,7 +2,7 @@
 
 var d3 = require( 'd3' );
 var formatDates = require( './formatDates.js' );
-var DATE_FILE_URL = 'https://raw.githubusercontent.com/cfpb/credit-market-trends/master/data/vol_data_AUT.csv';
+var DATE_FILE_URL = 'https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/vol_data_AUT.csv';
 var Y_VALUE_SCALE = 'B' // M for Millions, B for Billions
 var margin = {top: 100, right: 20, bottom: 20, left: 70};
 var width = 770 - margin.left - margin.right;
@@ -62,27 +62,27 @@ d3.csv(DATE_FILE_URL, function(error, data) {
 
   var unadjustedData = data.filter(function(d) { return d.group == false && d.month <= projectedDate; });
 
-  var projectedAdjustedData = data.filter(function(d) { 
-    return d.group == true && d.month >= projectedDate; // last 6 months; 
+  var projectedAdjustedData = data.filter(function(d) {
+    return d.group == true && d.month >= projectedDate; // last 6 months;
   });
 
-  var projectedUnadjustedData = data.filter(function(d) { 
+  var projectedUnadjustedData = data.filter(function(d) {
     return d.group == false && d.month >= projectedDate; // last 6 months;
   });
 
   var minY = d3.min(data, function(d) {
     return d.num
   });
-  // @todo display on Y axis! 
+  // @todo display on Y axis!
   console.log(minY)
 
   // Scale the range of the data
-  x.domain(d3.extent(data, function(d) {    
+  x.domain(d3.extent(data, function(d) {
     return d.month;
   }));
 
-  y.domain(d3.extent(data, function(d) {    
-    return d.num; 
+  y.domain(d3.extent(data, function(d) {
+    return d.num;
   }));
 
   // Add the X Axis
@@ -145,7 +145,7 @@ d3.csv(DATE_FILE_URL, function(error, data) {
       .text( 'Values after ' + formatTime( lastUnprojectedDate ) )
       .attr('x', -70)
       .attr('y', -50);
-  
+
   svg.select( '.axis__projected' )
     .select( '.tick' )
     .append( 'text' )
@@ -154,7 +154,7 @@ d3.csv(DATE_FILE_URL, function(error, data) {
       .attr('y', -15);
 
   // text label for the y axis
-  svg.append("text")             
+  svg.append("text")
     .classed("axis-label", true)
     .attr( 'transform', 'rotate(-90)' )
     .attr( 'text-anchor', 'end' )

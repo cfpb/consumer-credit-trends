@@ -3,7 +3,7 @@
 require('./env.js');
 var moment = require( 'moment' );
 
-var DATA_REPO = 'credit-market-trends';
+var DATA_REPO = 'consumer-credit-trends';
 var DATA_REPO_ORG = 'cfpb';
 var DATA_FILE_PATH = 'data/vol_data_AUT.csv';
 var TOKEN = process.env.GITHUB_ACCESS_TOKEN_KEY;
@@ -31,12 +31,12 @@ function _formatDatePublished( timestamp ) {
     var date_published = moment( timestamp ).format( 'MMMM YYYY' );
     return date_published;
   } else {
-    return '-'; 
+    return '-';
   }
 }
 
 /**
- * Request info about the data set and files from Github. 
+ * Request info about the data set and files from Github.
  */
 
 function init( ) {
