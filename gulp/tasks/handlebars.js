@@ -24,12 +24,12 @@ gulp.task( 'handlebars:compile', function () {
         var fileName = chart.figureID.toLowerCase();
 
 
-    var options = {
-        batch: ['./src/static/js/templates/partials']
-    }
+    // var options = {
+    //     batch: ['./src/static/js/templates/partials']
+    // }
 
         gulp.src( templateSrc )
-            .pipe( handlebars( chart, options ) )
+            .pipe( handlebars( chart ) )
             .pipe( rename( fileName + ".html" ) )
             .on( 'error', handleErrors )
 
@@ -47,18 +47,18 @@ gulp.task( 'handlebars:index', function () {
   var indexSrc = './src/static/js/templates/index.hbs';
   var indexDest = './dist/';
 
-  var templateData = {
-    fakeData: 'test'
-  }
+  // var templateData = {
+  //   fakeData: 'test'
+  // }
 
-  var options = {
-      partials : {
-          chartEl : '<div class="chart_wrapper">chart element goes here</div>'
-      }
-  }
+  // var options = {
+  //     partials : {
+  //         chartEl : '<div class="chart_wrapper">chart element goes here</div>'
+  //     }
+  // }
 
   gulp.src( indexSrc )
-    .pipe( handlebars( templateData, options ) )
+    .pipe( handlebars( ) )
     .pipe( rename( {
       extname: '.html'
     } ) )
