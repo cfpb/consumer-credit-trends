@@ -13,7 +13,6 @@ function getFilePath( chart ) {
   var chartType = chart.chartType;
   var elementID = chart.elementID;
   var filePath = 'charts/' + market + '/' + reportType + '/' + elementID + '.html';
-  // console.log(filePath);
   return filePath;
 }
 

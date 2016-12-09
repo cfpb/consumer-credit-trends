@@ -5,7 +5,6 @@ var jsdom = require( 'jsdom' ).jsdom;
 var fs = require( 'fs' );
 var charts = require( '../templates/charts.js' );
 var getFilePath = require( '../utils/getFilePath.js' );
-
 var LOCALHOST_PATH = 'http://localhost:3000/';
 
 // run for each chart.
@@ -27,7 +26,7 @@ for ( var i = 0; i < charts.length; i++ ) {
 
       window.setTimeout( getSVG, 10000 );
 
-      // @todo: run inlineCSS and remove JS scripts.
+      // @todo: run inlineCSS
     }
   } );
 }
