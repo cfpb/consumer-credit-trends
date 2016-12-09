@@ -5,6 +5,7 @@ var d3 = require( 'd3' );
 var getFipsAbbr = require( './utils/state-fips.js' ).getAbbr;
 var dateTranslate = require( './utils/date-translate.js' );
 var strToNum = require( './utils/string-to-number.js' );
+var formatTime = d3.utcFormat( '%b %Y' );
 
 
 var autoLoanMapData = [];
@@ -14,6 +15,58 @@ var DATA_URLS = {
   YOY_SCORE: 'https://raw.githubusercontent.com/cfpb/credit-market-trends/master/data/yoy_data_Score_Level_AUT.csv',
   YOY_INCOME: 'https://raw.githubusercontent.com/cfpb/credit-market-trends/master/data/yoy_data_Income_Level_AUT.csv',
   YOY_AGE: 'https://raw.githubusercontent.com/cfpb/credit-market-trends/master/data/yoy_data_Age_Group_AUT.csv'
+}
+
+var defaultOpts = {
+  baseWidth: 770,
+  baseHeight: 500,
+  paddingDecimal: .1,
+  margin: {
+    top: 100, right: 20, bottom: 70, left: 70
+  }
+}
+
+function addProjectedToBar( svg, options ) {
+  var height = options.baseHeight -
+            options.margin.top - options.margin.bottom;
+  // Recolor the last six bars
+  var x = 0,
+      date = '',
+      foo = svg.selectAll( 'rect' );
+
+  foo.filter( function( d, i ) {
+      if ( i === foo.size() - 7 ) {
+        date = new Date( d.label );
+        console.log( d.label, date );
+      } else if ( i === foo.size() - 6 ) {
+        x = this.getAttribute( 'x' );
+      }
+
+      return i > foo.size() - 7;
+    } )
+    .style( 'fill', '#ADDC91' );
+
+  var line = svg.append( 'line' )
+        .style( 'stroke', ' #919395' )
+        .attr( 'x1', x )
+        .attr( 'x2', x )
+        .attr( 'y1', -30 )
+        .attr( 'y2', height );
+
+  svg.append( 'text' )
+      .attr('x', x )
+      .attr('y', -60 )
+      .attr( 'class', 'gray-text' )
+      .style( 'text-anchor', 'end' )
+      .text( 'Values after ' + formatTime( date ) );
+  
+  svg.append( 'text' )
+      .attr( 'x', x )
+      .attr( 'y', -40 )
+      .attr( 'class', 'gray-text' )
+      .style( 'text-anchor', 'end' )
+      .text( 'are projected' )
+
 }
 
 d3.csv( DATA_URLS.MAP, function( error, rawData ) {
@@ -82,48 +135,32 @@ d3.csv( DATA_URLS.YOY_ALL, function( error, rawData ) {
     data: dataNumber,
     selector: '#auto-loan_yoy-number',
     labels: {
-      yAxisLabel: 'Year-over-year Change (%)',
+      yAxisLabel: 'Year-over-year change (%)',
       yTickUnit: '%'
     }
   };
 
   var yoyNum = new chartBuilder.barChart( yoyNumProps );
 
-  var yoyNumOpts = {
-    baseWidth: 770,
-    baseHeight: 500,
-    paddingDecimal: .1,
-    margin: {
-      top: 20, right: 20, bottom: 70, left: 100
-    },
-    zeroLine: true
-  }
+  var yoyNumChart = yoyNum.drawGraph( defaultOpts );
 
-  var yoyNumChart = yoyNum.drawGraph( yoyNumOpts );
+  addProjectedToBar( yoyNumChart, defaultOpts );
 
   // Draw the YoY volume bar chart
   var yoyVolProps = {
     data: dataVolume,
     selector: '#auto-loan_yoy-volume',
     labels: {
-      yAxisLabel: 'Year-over-year Change (%)',
+      yAxisLabel: 'Year-over-year change (%)',
       yTickUnit: '%'
     }
   };
 
   var yoyVol = new chartBuilder.barChart( yoyVolProps );
 
-  var yoyVolOpts = {
-    baseWidth: 770,
-    baseHeight: 500,
-    paddingDecimal: .1,
-    margin: {
-      top: 20, right: 20, bottom: 70, left: 100
-    },
-    zeroLine: true
-  }
+  var yoyVolChart = yoyVol.drawGraph( defaultOpts );
 
-  var yoyVolChart = yoyVol.drawGraph( yoyVolOpts );
+  addProjectedToBar( yoyVolChart, defaultOpts );
 } );
 
 
@@ -135,16 +172,6 @@ d3.csv( DATA_URLS.YOY_SCORE, function( error, rawData ) {
       dataNear = [],
       dataPrime = [],
       dataSuper = [];
-
-  var defaultOpts = {
-    baseWidth: 770,
-    baseHeight: 500,
-    paddingDecimal: .1,
-    margin: {
-      top: 20, right: 20, bottom: 70, left: 100
-    },
-    zeroLine: true
-  }
 
   for (var x = 0; x < rawData.length; x++ ) {
     var obj = {
@@ -173,64 +200,64 @@ d3.csv( DATA_URLS.YOY_SCORE, function( error, rawData ) {
     data: dataDeepSub,
     selector: '#auto-loan_yoy-deep-subprime',
     labels: {
-      yAxisLabel: 'Year-over-year Change (%)',
+      yAxisLabel: 'Year-over-year change (%)',
       yTickUnit: '%'
     }
   };
 
   var yoyDeep = new chartBuilder.barChart( yoyDeepProps );
 
-  var yoyDeepOpts = defaultOpts;
+  var yoyDeepChart = yoyDeep.drawGraph( defaultOpts );
 
-  var yoyDeepChart = yoyDeep.drawGraph( yoyDeepOpts );
+  addProjectedToBar( yoyDeepChart, defaultOpts );
 
   // Draw the YoY Subprime bar chart
   var yoySubProps = {
     data: dataSub,
     selector: '#auto-loan_yoy-subprime',
     labels: {
-      yAxisLabel: 'Year-over-year Change (%)',
+      yAxisLabel: 'Year-over-year change (%)',
       yTickUnit: '%'
     }
   };
 
   var yoySub = new chartBuilder.barChart( yoySubProps );
 
-  var yoySubOpts = defaultOpts;
+  var yoySubChart = yoySub.drawGraph( defaultOpts );
 
-  var yoySubChart = yoySub.drawGraph( yoySubOpts );
+  addProjectedToBar( yoySubChart, defaultOpts );
 
   // Draw the YoY Near Prime bar chart
   var yoyNearProps = {
     data: dataNear,
     selector: '#auto-loan_yoy-near-prime',
     labels: {
-      yAxisLabel: 'Year-over-year Change (%)',
+      yAxisLabel: 'Year-over-year change (%)',
       yTickUnit: '%'
     }
   };
 
   var yoyNear = new chartBuilder.barChart( yoyNearProps );
 
-  var yoyNearOpts = defaultOpts;
+  var yoyNearChart = yoyNear.drawGraph( defaultOpts );
 
-  var yoyNearChart = yoyNear.drawGraph( yoyNearOpts );
+  addProjectedToBar( yoyNearChart, defaultOpts );
 
   // Draw the YoY Prime bar chart
   var yoyPrimeProps = {
     data: dataPrime,
     selector: '#auto-loan_yoy-prime',
     labels: {
-      yAxisLabel: 'Year-over-year Change (%)',
+      yAxisLabel: 'Year-over-year change (%)',
       yTickUnit: '%'
     }
   };
 
   var yoyPrime = new chartBuilder.barChart( yoyPrimeProps );
 
-  var yoyPrimeOpts = defaultOpts;
+  var yoyPrimeChart = yoyPrime.drawGraph( defaultOpts );
 
-  var yoyPrimeChart = yoyPrime.drawGraph( yoyPrimeOpts );
+  addProjectedToBar( yoyPrimeChart, defaultOpts );
 
 
   // Draw the YoY Superprime bar chart
@@ -238,16 +265,16 @@ d3.csv( DATA_URLS.YOY_SCORE, function( error, rawData ) {
     data: dataSuper,
     selector: '#auto-loan_yoy-superprime',
     labels: {
-      yAxisLabel: 'Year-over-year Change (%)',
+      yAxisLabel: 'Year-over-year change (%)',
       yTickUnit: '%'
     }
   };
 
   var yoySuper = new chartBuilder.barChart( yoySuperProps );
 
-  var yoySuperOpts = defaultOpts;
+  var yoySuperChart = yoySuper.drawGraph( defaultOpts );
 
-  var yoySuperChart = yoySuper.drawGraph( yoySuperOpts );
+  addProjectedToBar( yoySuperChart, defaultOpts );
 
 } );
 
@@ -258,16 +285,6 @@ d3.csv( DATA_URLS.YOY_INCOME, function( error, rawData ) {
       dataModerate = [],
       dataMiddle = [],
       dataHigh = [];
-
-  var defaultOpts = {
-    baseWidth: 770,
-    baseHeight: 500,
-    paddingDecimal: .1,
-    margin: {
-      top: 20, right: 20, bottom: 70, left: 100
-    },
-    zeroLine: true
-  }
 
   for (var x = 0; x < rawData.length; x++ ) {
     var obj = {
@@ -295,64 +312,60 @@ d3.csv( DATA_URLS.YOY_INCOME, function( error, rawData ) {
     data: dataLow,
     selector: '#auto-loan_yoy-low',
     labels: {
-      yAxisLabel: 'Year-over-year Change (%)',
+      yAxisLabel: 'Year-over-year change (%)',
       yTickUnit: '%'
     }
   };
 
   var yoyLow = new chartBuilder.barChart( yoyLowProps );
 
-  var yoyLowOpts = defaultOpts;
-
-  var yoyLowChart = yoyLow.drawGraph( yoyLowOpts );
+  var yoyLowChart = yoyLow.drawGraph( defaultOpts );
+  addProjectedToBar( yoyLowChart, defaultOpts );
 
   // Draw the YoY Moderate bar chart
   var yoyModerateProps = {
     data: dataModerate,
     selector: '#auto-loan_yoy-moderate',
     labels: {
-      yAxisLabel: 'Year-over-year Change (%)',
+      yAxisLabel: 'Year-over-year change (%)',
       yTickUnit: '%'
     }
   };
 
   var yoyModerate = new chartBuilder.barChart( yoyModerateProps );
 
-  var yoyModerateOpts = defaultOpts;
-
-  var yoyModerateChart = yoyModerate.drawGraph( yoyModerateOpts );
+  var yoyModerateChart = yoyModerate.drawGraph( defaultOpts );
+  addProjectedToBar( yoyModerateChart, defaultOpts );
 
   // Draw the YoY Middle bar chart
   var yoyMiddleProps = {
     data: dataMiddle,
     selector: '#auto-loan_yoy-middle',
     labels: {
-      yAxisLabel: 'Year-over-year Change (%)',
+      yAxisLabel: 'Year-over-year change (%)',
       yTickUnit: '%'
     }
   };
 
   var yoyMiddle = new chartBuilder.barChart( yoyMiddleProps );
 
-  var yoyMiddleOpts = defaultOpts;
-
-  var yoyMiddleChart = yoyMiddle.drawGraph( yoyMiddleOpts );
+  var yoyMiddleChart = yoyMiddle.drawGraph( defaultOpts );
+  addProjectedToBar( yoyMiddleChart, defaultOpts );
 
   // Draw the YoY High bar chart
   var yoyHighProps = {
     data: dataHigh,
     selector: '#auto-loan_yoy-high',
     labels: {
-      yAxisLabel: 'Year-over-year Change (%)',
+      yAxisLabel: 'Year-over-year change (%)',
       yTickUnit: '%'
     }
   };
 
   var yoyHigh = new chartBuilder.barChart( yoyHighProps );
 
-  var yoyHighOpts = defaultOpts;
-
-  var yoyHighChart = yoyHigh.drawGraph( yoyHighOpts );
+  var yoyHighChart = yoyHigh.drawGraph( defaultOpts );
+  addProjectedToBar( yoyHighChart, defaultOpts );
 
 } );
 
@@ -363,16 +376,6 @@ d3.csv( DATA_URLS.YOY_AGE, function( error, rawData ) {
       data30To44 = [],
       data45To64 = [],
       data65AndOlder = [];
-
-  var defaultOpts = {
-    baseWidth: 770,
-    baseHeight: 500,
-    paddingDecimal: .1,
-    margin: {
-      top: 20, right: 20, bottom: 70, left: 100
-    },
-    zeroLine: true
-  }
 
   for (var x = 0; x < rawData.length; x++ ) {
     var obj = {
@@ -393,68 +396,64 @@ d3.csv( DATA_URLS.YOY_AGE, function( error, rawData ) {
     }
   }
 
-  // Draw the YoY Low bar chart
+  // Draw the YoY Younger Than 30 bar chart
   var yoyYoungerThan30Props = {
     data: dataYoungerThan30,
     selector: '#auto-loan_yoy-younger-than-30',
     labels: {
-      yAxisLabel: 'Year-over-year Change (%)',
+      yAxisLabel: 'Year-over-year change (%)',
       yTickUnit: '%'
     }
   };
 
   var yoyYoungerThan30 = new chartBuilder.barChart( yoyYoungerThan30Props );
 
-  var yoyYoungerThan30Opts = defaultOpts;
+  var yoyYoungerThan30Chart = yoyYoungerThan30.drawGraph( defaultOpts );
+  addProjectedToBar( yoyYoungerThan30Chart, defaultOpts );
 
-  var yoyYoungerThan30Chart = yoyYoungerThan30.drawGraph( yoyYoungerThan30Opts );
-
-  // Draw the YoY Moderate bar chart
+  // Draw the YoY 30 to 44 bar chart
   var yoy30To44Props = {
     data: data30To44,
     selector: '#auto-loan_yoy-30-to-44',
     labels: {
-      yAxisLabel: 'Year-over-year Change (%)',
+      yAxisLabel: 'Year-over-year change (%)',
       yTickUnit: '%'
     }
   };
 
   var yoy30To44 = new chartBuilder.barChart( yoy30To44Props );
 
-  var yoy30To44Opts = defaultOpts;
+  var yoy30To44Chart = yoy30To44.drawGraph( defaultOpts );
+  addProjectedToBar( yoy30To44Chart, defaultOpts );
 
-  var yoy30To44Chart = yoy30To44.drawGraph( yoy30To44Opts );
-
-  // Draw the YoY Middle bar chart
+  // Draw the YoY 45 to 64 bar chart
   var yoy45To64Props = {
     data: data45To64,
     selector: '#auto-loan_yoy-45-to-64',
     labels: {
-      yAxisLabel: 'Year-over-year Change (%)',
+      yAxisLabel: 'Year-over-year change (%)',
       yTickUnit: '%'
     }
   };
 
   var yoy45To64 = new chartBuilder.barChart( yoy45To64Props );
 
-  var yoy45To64Opts = defaultOpts;
+  var yoy45To64Chart = yoy45To64.drawGraph( defaultOpts );
+  addProjectedToBar( yoy45To64Chart, defaultOpts );
 
-  var yoy45To64Chart = yoy45To64.drawGraph( yoy45To64Opts );
-
-  // Draw the YoY High bar chart
+  // Draw the YoY 65 and older bar chart
   var yoy65AndOlderProps = {
     data: data65AndOlder,
     selector: '#auto-loan_yoy-65-and-older',
     labels: {
-      yAxisLabel: 'Year-over-year Change (%)',
+      yAxisLabel: 'Year-over-year change (%)',
       yTickUnit: '%'
     }
   };
 
   var yoy65AndOlder = new chartBuilder.barChart( yoy65AndOlderProps );
 
-  var yoy65AndOlderOpts = defaultOpts;
-
-  var yoy65AndOlderChart = yoy65AndOlder.drawGraph( yoy65AndOlderOpts );
+  var yoy65AndOlderChart = yoy65AndOlder.drawGraph( defaultOpts );
+  addProjectedToBar( yoy65AndOlderChart, defaultOpts );
 
 } );

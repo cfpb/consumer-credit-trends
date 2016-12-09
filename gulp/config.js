@@ -25,6 +25,7 @@ module.exports = {
   lint: {
     src: [
       loc.src + '/static/js/**/*.js',
+      loc.src + '/static/js/*.js',
       loc.test + '/unit_tests/**/*.js',
       loc.test + '/browser_tests/**/*.js'
     ],
