@@ -9,11 +9,11 @@ var formatTime = d3.utcFormat( '%b %Y' );
 
 var autoLoanMapData = [];
 var DATA_URLS = {
-  MAP: 'https://raw.githubusercontent.com/cfpb/credit-market-trends/master/data/map_data_AUT.csv',
-  YOY_ALL: 'https://raw.githubusercontent.com/cfpb/credit-market-trends/master/data/yoy_data_all_AUT.csv',
-  YOY_SCORE: 'https://raw.githubusercontent.com/cfpb/credit-market-trends/master/data/yoy_data_Score_Level_AUT.csv',
-  YOY_INCOME: 'https://raw.githubusercontent.com/cfpb/credit-market-trends/master/data/yoy_data_Income_Level_AUT.csv',
-  YOY_AGE: 'https://raw.githubusercontent.com/cfpb/credit-market-trends/master/data/yoy_data_Age_Group_AUT.csv'
+  MAP: 'https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/map_data_AUT.csv',
+  YOY_ALL: 'https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/yoy_data_all_AUT.csv',
+  YOY_SCORE: 'https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/yoy_data_Score_Level_AUT.csv',
+  YOY_INCOME: 'https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/yoy_data_Income_Level_AUT.csv',
+  YOY_AGE: 'https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/yoy_data_Age_Group_AUT.csv'
 }
 
 var defaultOpts = {
