@@ -14,7 +14,6 @@ var exec = require( 'child_process' ).exec;
 
 // Generate static HTML files for each rendered d3 chart.
 gulp.task( 'handlebars:dom', 
-  // [ 'release:css' ],
   [ 'release:addStyleElement' ],
   function ( cb ) {
   exec( config.handlebarsTemplates.dom, function ( err, stdout, stderr ) {
