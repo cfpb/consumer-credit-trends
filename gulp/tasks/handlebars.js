@@ -6,20 +6,20 @@ var handleErrors = require( '../utils/handle-errors' );
 var handlebars = require( 'gulp-compile-handlebars' );
 var rename = require( 'gulp-rename' );
 var browserSync = require( 'browser-sync' );
-var charts = require( '../../src/static/js/templates/charts.json' );
+var charts = require( '../../src/static/js/templates/charts.js' );
 var templateSrc = './src/static/js/templates/svg.hbs';
 var templateDest = './dist/charts/';
 var fs = require( 'fs' );
 var exec = require( 'child_process' ).exec;
 
+// Generate static HTML files for each rendered d3 chart.
 gulp.task( 'handlebars:dom', function ( cb ) {
   exec( config.handlebarsTemplates.dom, function ( err, stdout, stderr ) {
     cb( err );
   } );
 } );
 
-
-// Compile templates for each chart using charts config JSON.
+// Compile templates for each chart using charts config js.
 gulp.task( 'handlebars:compile', function () {
 
     for ( var i=0; i < charts.length; i++ ) {

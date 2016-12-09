@@ -3,7 +3,7 @@
 var d3 = require( 'd3' );
 var jsdom = require( 'jsdom' ).jsdom;
 var fs = require( 'fs' );
-var charts = require( '../templates/charts.json' );
+var charts = require( '../templates/charts.js' );
 
 var LOCALHOST_PATH = 'http://localhost:3000/charts/';
 var chartFiles = []

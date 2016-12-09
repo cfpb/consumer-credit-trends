@@ -57,6 +57,7 @@ module.exports = {
       loc.src + '/static/js/bar.js',
       loc.src + '/static/js/bar-builder.js',
       loc.src + '/static/js/formatDates.js',
+      loc.src + '/static/js/templates/charts.js',
       loc.src + '/static/js/line.js',
       loc.src + '/static/js/main.js'
     ],
@@ -69,7 +70,7 @@ module.exports = {
       loc.src + '/static/index.html'
     ],
     dom: loc.src + '/static/js/utils/dom.js',
-    charts: loc.src + '/static/js/templates/charts.json'
+    charts: loc.src + '/static/js/templates/charts.js'
   },
   images: {
     src:  loc.src + '/static/img/**',

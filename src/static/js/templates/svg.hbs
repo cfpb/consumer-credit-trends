@@ -4,11 +4,11 @@
 
 <div class="chart_wrapper"
     id="{{ figureID }}"
-    data-chart-type="line" 
-    data-source="https://raw.githubusercontent.com/cfpb/credit-market-trends/master/data/vol_data_AUT.csv" 
+    data-chart-type="{{ chartType }}" 
+    data-source="{{ source }}" 
     data-title="{{ title }}" 
-    data-market="auto-loans"
-    data-report-type="origination-activity"
+    data-market="{{ market }}"
+    data-report-type="{{ reportType }}"
 >
     <h5>{{ figureID }}</h5>
     <h3>{{ title }}</h3>
