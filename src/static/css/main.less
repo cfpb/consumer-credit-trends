@@ -129,6 +129,15 @@
 }
 
 .chart {
+
+  text.gray-text {
+    fill: @gray-80;
+  }
+
+  text.y-axis-label {
+    fill: @gray-80;
+  }
+
 }
 
 .chart__line {
@@ -211,4 +220,13 @@
 
 text {
     .webfont-regular();
+}
+
+
+text.state-abbreviation {
+    .webfont-demi();
+}
+
+.axis path.domain {
+  display: none;
 }
