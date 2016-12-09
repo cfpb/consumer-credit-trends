@@ -9,18 +9,20 @@ var glob = require( 'glob' );
 var loc = {
   src:  './src',
   dist: './dist',
+  prod: './',
   lib:  './node_modules', // eslint-disable-line no-sync, no-inline-comments, max-len
   test: './test'
 };
 
 module.exports = {
+  loc: loc,
   pkg: JSON.parse( fs.readFileSync( 'package.json' ) ), // eslint-disable-line no-sync, no-inline-comments, max-len
   banner:
       '/*!\n' +
       ' *  <%= pkg.name %> - v<%= pkg.version %>\n' +
       ' *  <%= pkg.homepage %>\n' +
       ' *  Licensed <%= pkg.license %> by' +
-      ' Consumer Financial Protection Bureau christopher.contolini@cfpb.gov\n' +
+      ' Consumer Financial Protection Bureau tech@cfpb.gov\n' +
       ' */',
   lint: {
     src: [
@@ -46,6 +48,15 @@ module.exports = {
     dest:     loc.dist + '/static/css',
     settings: {
       paths: glob.sync( loc.lib + '/cf-*/src/' ),
+      compress: false
+    }
+  },
+  chartStyles: {
+    cwd:      loc.src + '/static/css',
+    src:      '/charts.less',
+    dest:     loc.dist + '/static/css',
+    settings: {
+      paths: glob.sync( loc.lib + '/cf-*/src/' ),
       compress: true
     }
   },
@@ -55,20 +66,35 @@ module.exports = {
       loc.src + '/static/js/bar.js',
       loc.src + '/static/js/bar-builder.js',
       loc.src + '/static/js/formatDates.js',
+      loc.src + '/static/js/templates/charts.js',
+      loc.src + '/static/js/utils/getFilePath.js',
       loc.src + '/static/js/line.js',
       loc.src + '/static/js/main.js'
     ],
     dest: loc.dist + '/static/js/',
     name: 'main.js'
   },
+  handlebarsTemplates: {
+    src: [
+      loc.src + '/static/js/templates/**',
+      loc.src + '/static/index.html'
+    ],
+    dom: loc.src + '/static/js/utils/dom.js',
+    charts: loc.src + '/static/js/templates/charts.js'
+  },
   images: {
     src:  loc.src + '/static/img/**',
     dest: loc.dist + '/static/img'
   },
   copy: {
+    release: {
+      src: loc.dist + '/**/*.html',
+      destFiles: loc.prod + '/charts/**/*.html',
+      dest: loc.prod
+    },
     files: {
       src: [
-        loc.src + '/**/*.html',
+        // loc.src + '/**/*.html', // use .hbs templates instead
         loc.src + '/**/*.pdf',
         loc.src + '/_*/**/*',
         loc.src + '/robots.txt',

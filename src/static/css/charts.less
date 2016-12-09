@@ -1,0 +1,95 @@
+/* ==========================================================================
+   Charts
+   ========================================================================== */
+
+@import (reference) "cf-typography.less";
+@import (reference) "cf-core.less";
+@import (reference) "brand-palette.less";
+@import (reference) 'licensed-fonts.css';
+@import (reference) "cf-theme-overrides.less";
+
+
+.chart_wrapper {
+    overflow-x: auto;
+
+    .chart {
+    }
+
+    .chart__line {
+
+    }
+
+    .line {
+      fill: none;
+      stroke: steelblue;
+      stroke-width: 3px;
+    }
+
+    .line__adjusted {
+        stroke: @green;    
+    }
+
+    .line__unadjusted {
+        stroke: @green-60;
+    }
+
+    .line__projected {
+        stroke-dasharray: 4px, 5px;
+    }
+
+    .axis {
+        .short-desc();
+        font-size: 100%;
+    }
+
+    .axis-label {
+        .short-desc();
+        fill: @gray-80;    
+        font-size: 100%;
+    }
+
+    .axis__x {
+        .domain {
+            stroke: @gray-20;
+        }
+    }
+
+    .axis__y {
+        .domain {
+            stroke: transparent;
+        }
+    }
+
+    .axis__projected {
+        .tick {
+            line {
+                stroke-width: 2px;
+                stroke: @gray-80;
+            }
+            text {
+                fill: @gray-80;
+            }
+        }
+    }
+
+    .tick {
+        line {
+            stroke: @gray-20;
+        }
+        text {
+            fill: @gray-80;    
+            font-size: 100%;
+        }
+    }
+
+    #bar {
+        text {
+            font-size: 200% !important;
+        }
+        .respond-to-min( @bp-sm-min, {
+            text {
+                font-size: 100% !important;
+            }
+        });
+    }
+}

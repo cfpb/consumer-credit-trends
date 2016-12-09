@@ -1,0 +1,32 @@
+<div class="chart_wrapper"
+    id="{{ elementID }}"
+    data-chart-type="{{ chartType }}" 
+    data-source="{{ source }}" 
+    data-title="{{ title }}" 
+    data-market="{{ market }}"
+    data-report-type="{{ reportType }}"
+>
+<!-- build:css -->
+{{#if indexPage}}
+<link rel="stylesheet" href="/static/css/charts.min.css">
+{{/if}}
+{{#unless indexPage}}
+<link rel="stylesheet" href="../../../static/css/charts.min.css">
+{{/unless}}
+<!-- endbuild -->
+
+    <h3>{{ title }}</h3>
+</div>
+    
+<p class="block short-desc">
+
+    <strong>Source:</strong> <a href="https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/{{ source }}">https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/{{ source }}</a><br>
+    <strong>Date published:</strong> month year<br>
+    <strong>Note:</strong> Data from the last 6 months is not final.
+
+</p>
+
+
+{{#unless indexPage}}
+<script src="../../../static/js/main.min.js"></script>
+{{/unless}}

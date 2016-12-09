@@ -1,0 +1,66 @@
+'use strict';
+
+/* Notes:
+   - The release task copies all the HTML files from the development directory, 'dist', to the 'charts' directory
+   - The 'charts' folder is tracked in version control and deployed to Github for review and production use.
+*/
+
+
+var gulp = require( 'gulp' );
+var plugins = require( 'gulp-load-plugins' )();
+var config = require( '../config' );
+var handleErrors = require( '../utils/handle-errors' );
+var browserSync = require( 'browser-sync' );
+var inlineCss = require( 'gulp-inline-css' );
+var release = config.copy.release;
+var deleteLines = require('gulp-delete-lines');
+var htmlreplace = require('gulp-html-replace');
+
+// Add charts.min.css to static chart files as <style> tag
+gulp.task('release:addStyleElement', [ 'release:copyFiles' ], function() {
+  gulp.src( './dist/**/*.html' )
+    .pipe(htmlreplace({
+      'css': {
+        src: gulp.src( './dist/static/css/charts.min.css' ),
+        tpl: '<style>%s</style>'
+      }
+    }))
+    .pipe(gulp.dest( './dist' ));
+});
+
+// gulp.task( 'release:css', [ 'release:copyFiles' ], function() {
+//   return gulp.src( './dist/**/*.html' )
+//     .pipe( inlineCss( {
+//       preserveMediaQueries: true
+//     }) )
+//     .on( 'error', handleErrors )
+//     .pipe( gulp.dest( './dist' ) )
+//     .pipe( browserSync.reload( {
+//       stream: true
+//     } ) );
+// } );
+
+gulp.task( 'release:copyFiles', function() {
+  return gulp.src( release.src )
+    .on( 'error', handleErrors )
+    .pipe( gulp.dest( release.dest ) )
+    .pipe( browserSync.reload( {
+      stream: true
+    } ) );
+} );
+
+gulp.task( 'release',
+  [
+    'handlebars:dom',
+  ], function() {
+
+  // remove scripts
+  gulp.src( release.destFiles )
+    .pipe( deleteLines( {
+      'filters': [
+        /<script\s/i
+      ]
+    } ) )
+    .pipe( gulp.dest( release.dest + '/charts/') );
+
+} );

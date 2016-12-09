@@ -1,7 +1,7 @@
 {
-  "name": "chart-test",
+  "name": "consumer-credit-trends",
   "version": "0.1.0",
-  "description": "testing cfpb charts with d3",
+  "description": "charts and trends",
   "homepage": "http://www.consumerfinance.gov/",
   "author": {
     "name": "Catherine Farman",
@@ -10,11 +10,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/cfarm/chart-test"
+    "url": "https://github.com/cfpb/consumer-credit-trends"
   },
   "license": "CC0-1.0",
   "keywords": [
-    "chart-test"
+    "consumer-credit-trends"
   ],
   "dependencies": {
     "cf-buttons": "^3.2.0",
@@ -40,12 +40,16 @@
     "gulp": "3.9.0",
     "gulp-autoprefixer": "3.1.0",
     "gulp-changed": "1.2.1",
+    "gulp-compile-handlebars": "0.6.1",
     "gulp-concat": "2.6.0",
     "gulp-connect": "5.0.0",
     "gulp-cssmin": "0.1.7",
+    "gulp-delete-lines": "0.0.7",
     "gulp-eslint": "2.0.0",
     "gulp-header": "1.2.2",
+    "gulp-html-replace": "1.6.2",
     "gulp-imagemin": "2.3.0",
+    "gulp-inline-css": "3.1.0",
     "gulp-less": "3.0.3",
     "gulp-load-plugins": "1.0.0-rc.1",
     "gulp-mq-remove": "0.0.2",
@@ -56,6 +60,7 @@
     "gulp-util": "3.0.6",
     "gulp-webpack": "1.5.0",
     "jquery": "1.11.3",
+    "jsdom": "9.8.3",
     "pretty-hrtime": "1.0.0",
     "require-dir": "0.3.0"
   }
