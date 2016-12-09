@@ -11,7 +11,6 @@ var plugins = require( 'gulp-load-plugins' )();
 var config = require( '../config' );
 var handleErrors = require( '../utils/handle-errors' );
 var browserSync = require( 'browser-sync' );
-var inlineCss = require( 'gulp-inline-css' );
 var release = config.copy.release;
 var deleteLines = require('gulp-delete-lines');
 var htmlreplace = require('gulp-html-replace');
@@ -27,18 +26,6 @@ gulp.task('release:addStyleElement', [ 'release:copyFiles' ], function() {
     }))
     .pipe(gulp.dest( './dist' ));
 });
-
-// gulp.task( 'release:css', [ 'release:copyFiles' ], function() {
-//   return gulp.src( './dist/**/*.html' )
-//     .pipe( inlineCss( {
-//       preserveMediaQueries: true
-//     }) )
-//     .on( 'error', handleErrors )
-//     .pipe( gulp.dest( './dist' ) )
-//     .pipe( browserSync.reload( {
-//       stream: true
-//     } ) );
-// } );
 
 gulp.task( 'release:copyFiles', function() {
   return gulp.src( release.src )
