@@ -12,13 +12,12 @@ This project requires that you have [Node.js](https://nodejs.org/en/) installed.
 To run this website locally:
 
 1. Clone repo
-1. In Terminal, run `./setup.sh` from the root directory. This will install the required Node modules for the project.
 1. Create an `env.js` file and add your [Github personal access token](https://github.com/blog/1509-personal-api-tokens) there:
 
   ```bash
   cp src/static/js/env_SAMPLE.js src/static/js/env.js
   ```
-1. Run `gulp build`
+1. In Terminal, run `./setup.sh` from the root directory. This will install the required Node modules for the project.
 1. Run the following command:
   ```
   gulp watch
