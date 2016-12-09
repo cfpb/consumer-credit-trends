@@ -47,14 +47,19 @@ For publishing the graphs to compiled HTML for use in a production environment, 
   ```
   git merge feature-branch-2000
   ```
-1. Build the front end then run the release task to generate your production-ready HTML:
+1. Build the front end using the watch task:[*](#watch-note)
 
   ```
-  gulp build
+  gulp watch
+  ```
+1. In a new Terminal window, run the release task to generate your production-ready HTML:
+
+  ```
   gulp release
   ```
-1. Review your production HTML locally to check that it's ready to commit (no server required - just open the HTML file at `credit-market-trends/index.html` in your browser).
-1. Commit your production ready files, index.html and the 'charts' folder, to your release branch and push to Github:
+
+1. Review your production HTML locally to check that it's ready to commit (no server required - just open the HTML file at `consumer-credit-trends/index.html` in your browser).
+1. Commit your production ready files, `index.html` and the `charts` folder, to your release branch and push to Github:
 
   ```
   git add index.html
@@ -70,20 +75,33 @@ For publishing the graphs to compiled HTML for use in a production environment, 
   git merge release-v2000
   git push origin gh-pages
   ```
-1. Once it's merged, visit https://cfpb.github.io/credit-market-trends/ to view the published HTML files.
+1. Once it's merged, visit https://cfpb.github.io/consumer-credit-trends/ to view the published HTML files.
 
+<small><a name="watch-note"></a><strong>*</strong>Note that you must run the `watch` task so that the release task can access your localhost environment to grab the rendered svg code.</small>
 
 ## Documentation
 
 [Documentation about the data](data/README.md) is available and contains definitions for each column and field value in the csv files.
 
+## Troubleshooting
+
+Common errors and their causes:
+
+#### Scenario: Running `gulp release` task
+```bash
+      window.setTimeout( getSVG, 10000 );
+            ^
+
+TypeError: Cannot read property 'setTimeout' of undefined
+```
+This error happens when you run `gulp release` without a local server running. Make sure you have the `gulp watch` task running in a separate Terminal window when you run `gulp release`. See [Release Workflow](#release-workflow) instructions for more details.
 
 ## Getting help
 
-Use the [issue tracker](https://github.com/cfpb/credit-market-trends/issues) to follow the
+Use the [issue tracker](https://github.com/cfpb/consumer-credit-trends/issues) to follow the
 development conversation.
 If you find a bug not listed in the issue tracker,
-please [file a bug report](https://github.com/cfpb/credit-market-trends/issues/new?body=
+please [file a bug report](https://github.com/cfpb/consumer-credit-trends/issues/new?body=
 %23%23%20URL%0D%0D%0D%23%23%20Actual%20Behavior%0D%0D%0D%23%23%20Expected%20Behavior
 %0D%0D%0D%23%23%20Steps%20to%20Reproduce%0D%0D%0D%23%23%20Screenshot&labels=bug).
 

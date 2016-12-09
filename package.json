@@ -1,7 +1,7 @@
 {
-  "name": "chart-test",
+  "name": "consumer-credit-trends",
   "version": "0.1.0",
-  "description": "testing cfpb charts with d3",
+  "description": "charts and trends",
   "homepage": "http://www.consumerfinance.gov/",
   "author": {
     "name": "Catherine Farman",
@@ -10,11 +10,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/cfarm/chart-test"
+    "url": "https://github.com/cfarm/consumer-credit-trends"
   },
   "license": "CC0-1.0",
   "keywords": [
-    "chart-test"
+    "consumer-credit-trends"
   ],
   "dependencies": {
     "cf-buttons": "^3.2.0",
