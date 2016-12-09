@@ -14,19 +14,22 @@ var browserSync = require( 'browser-sync' );
 var inlineCss = require( 'gulp-inline-css' );
 var release = config.copy.release;
 var deleteLines = require('gulp-delete-lines');
+var htmlreplace = require('gulp-html-replace');
 
-gulp.task('release:removeScripts', function() {
-  gulp.src( release.destFiles )
-    .pipe( deleteLines( {
-      'filters': [
-        /<script\s/i
-      ]
-    } ) )
-    .pipe( gulp.dest( release.dest ) );
+// Add charts.min.css to static chart files as <style> tag
+gulp.task('release:addStyleElement', [ 'release:copyFiles' ], function() {
+  gulp.src( './dist/**/*.html' )
+    .pipe(htmlreplace({
+      'css': {
+        src: gulp.src( './dist/static/css/charts.min.css' ),
+        tpl: '<style>%s</style>'
+      }
+    }))
+    .pipe(gulp.dest( './dist' ));
 });
 
-// gulp.task( 'release:css', function() {
-//   return gulp.src( release.src )
+// gulp.task( 'release:css', [ 'release:copyFiles' ], function() {
+//   return gulp.src( './dist/**/*.html' )
 //     .pipe( inlineCss( {
 //       preserveMediaQueries: true
 //     }) )
@@ -36,7 +39,6 @@ gulp.task('release:removeScripts', function() {
 //       stream: true
 //     } ) );
 // } );
-
 
 gulp.task( 'release:copyFiles', function() {
   return gulp.src( release.src )
@@ -49,9 +51,16 @@ gulp.task( 'release:copyFiles', function() {
 
 gulp.task( 'release',
   [
-    // 'release:css',
-    'release:copyFiles',
     'handlebars:dom',
-    'release:removeScripts'
-  ]
-);
+  ], function() {
+
+  // remove scripts
+  gulp.src( release.destFiles )
+    .pipe( deleteLines( {
+      'filters': [
+        /<script\s/i
+      ]
+    } ) )
+    .pipe( gulp.dest( release.dest + '/charts/') );
+
+} );

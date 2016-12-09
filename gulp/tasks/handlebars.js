@@ -13,7 +13,10 @@ var fs = require( 'fs' );
 var exec = require( 'child_process' ).exec;
 
 // Generate static HTML files for each rendered d3 chart.
-gulp.task( 'handlebars:dom', function ( cb ) {
+gulp.task( 'handlebars:dom', 
+  // [ 'release:css' ],
+  [ 'release:addStyleElement' ],
+  function ( cb ) {
   exec( config.handlebarsTemplates.dom, function ( err, stdout, stderr ) {
     cb( err );
   } );
@@ -22,23 +25,20 @@ gulp.task( 'handlebars:dom', function ( cb ) {
 // Compile templates for each chart using charts config js.
 gulp.task( 'handlebars:compile', function () {
 
-    for ( var i=0; i < charts.length; i++ ) {
-        var chart = charts[i];
-        var fileName = chart.figureID;
-  var market = chart.market;
-  var reportType = chart.reportType;
-  var figureID = chart.figureID;
-  var chartType = chart.chartType;
-  var elementID = chart.elementID;
-  var filePath = './dist/charts/' + market + '/' + reportType;
-// /charts/auto-loans/origination-activity/figure-1a__volume.html
+  for ( var i=0; i < charts.length; i++ ) {
+    var chart = charts[i];
+    var fileName = chart.figureID;
+    var market = chart.market;
+    var reportType = chart.reportType;
+    var figureID = chart.figureID;
+    var chartType = chart.chartType;
+    var elementID = chart.elementID;
+    var filePath = './dist/charts/' + market + '/' + reportType;
 
         gulp.src( templateSrc )
             .pipe( handlebars( chart ) )
             .pipe( rename( elementID + ".html" ) )
             .on( 'error', handleErrors )
-
-            // @todo: pipe svg template files to a folder in /dist/, based on the directory structured by market/report type
             .pipe( gulp.dest( filePath ) )
             .pipe( browserSync.reload( {
               stream: true
