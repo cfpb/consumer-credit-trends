@@ -25,7 +25,16 @@ var charts = [{
   "reportType": "origination-activity",  
   "figureID": "figure-1b",
   "source": "yoy_data_all_AUT.csv",
-  "elementID": "figure-1b__number"
+  "elementID": "auto-loan_yoy-number"
+},
+{
+  "title": "Volume of loans originated",
+  "chartType": "bar",
+  "market": "auto-loans",
+  "reportType": "origination-activity",  
+  "figureID": "figure-1b",
+  "source": "yoy_data_all_AUT.csv",
+  "elementID": "auto-loan_yoy-volume"
 }]
 
 module.exports = charts;
