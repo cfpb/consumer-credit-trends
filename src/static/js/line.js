@@ -46,10 +46,10 @@ function getData( file, elementID ) {
         .x(function(d) { return x(d.month); })
         .y(function(d) { return y(d.num); });
 
-  // append the svg obgect to the #graph element
+  // append the svg obgect to the line graph element
   // appends a 'group' element to 'svg'
   // moves the 'group' element to the top left margin
-  var svg = d3.select( '#' + elementID )
+  var svg = d3.select( '[data-chart-type=line]#' + elementID )
     .append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
@@ -66,7 +66,13 @@ function getData( file, elementID ) {
     data.forEach(function(d) {
         var monthIndex = +d.month;
         d.month = +d.month;
-        d.num = +d.num / Math.pow(10, 9);
+        
+        if ( Y_VALUE_SCALE === 'B' ) {
+          d.num = +d.num / Math.pow(10, 9);
+        } else if (Y_VALUE_SCALE === 'M' ) {
+          d.num = +d.num / Math.pow(10, 6);
+        }
+
         if (d.group == 'Seasonally Adjusted') {
           d.group = true;
         } else {
