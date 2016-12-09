@@ -18,9 +18,9 @@ var release = config.copy.release;
 gulp.task( 'release:copyFiles', function() {
   return gulp.src( release.src )
     // .pipe( plugins.changed( release.dest ) ) // this doesn't always notice changes!
-    .pipe( inlineCss( {
-      preserveMediaQueries: true
-    }) )
+    // .pipe( inlineCss( {
+    //   preserveMediaQueries: true
+    // }) )
     .on( 'error', handleErrors )
     // @todo: generate directory structure in handlebars task based on the data passed from charts.json
     // .pipe( plugins.rename( {
@@ -33,8 +33,10 @@ gulp.task( 'release:copyFiles', function() {
     } ) );
 } );
 
+
 gulp.task( 'release',
   [
-    'release:copyFiles'
+    'release:copyFiles',
+    'handlebars:dom'
   ]
 );

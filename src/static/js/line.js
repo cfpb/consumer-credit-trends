@@ -4,6 +4,7 @@ var d3 = require( 'd3' );
 var formatDates = require( './formatDates.js' );
 var charts = require( './templates/charts.js' ); 
 var DATA_FILE_PATH = 'https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/';
+var getFilePath = require( './utils/getFilePath.js' );
 
 // Chart options
 var margin = {top: 100, right: 20, bottom: 20, left: 70};
@@ -14,7 +15,13 @@ for ( var i = 0; i < charts.length; i++ ) {
   var chart = charts[i];
   var source = chart.source;
   var chartID = chart.elementID;
-  getData( source, chartID );
+  var chartType = chart.chartType;
+
+  getFilePath( chart );
+
+  if ( chartType === 'line' ) {
+    getData( source, chartID );    
+  }
 };
 
 // Get the data
@@ -30,7 +37,6 @@ function getData( file, elementID ) {
     // set y axis label to 'Number of originations (in millions)'
     yLabel = 'Number of originations (in millions)';
     Y_VALUE_SCALE = 'M';
-    console.log( file + ' is the data for ' + elementID);
   }
 
   // set the ranges

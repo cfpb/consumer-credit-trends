@@ -58,6 +58,7 @@ module.exports = {
       loc.src + '/static/js/bar-builder.js',
       loc.src + '/static/js/formatDates.js',
       loc.src + '/static/js/templates/charts.js',
+      loc.src + '/static/js/utils/getFilePath.js',
       loc.src + '/static/js/line.js',
       loc.src + '/static/js/main.js'
     ],

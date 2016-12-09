@@ -25,16 +25,21 @@ gulp.task( 'handlebars:compile', function () {
     for ( var i=0; i < charts.length; i++ ) {
         var chart = charts[i];
         var fileName = chart.figureID;
-
+  var market = chart.market;
+  var reportType = chart.reportType;
+  var figureID = chart.figureID;
+  var chartType = chart.chartType;
+  var elementID = chart.elementID;
+  var filePath = './dist/charts/' + market + '/' + reportType;
+// /charts/auto-loans/origination-activity/figure-1a__volume.html
 
         gulp.src( templateSrc )
             .pipe( handlebars( chart ) )
-            .pipe( rename( fileName + ".html" ) )
+            .pipe( rename( elementID + ".html" ) )
             .on( 'error', handleErrors )
 
             // @todo: pipe svg template files to a folder in /dist/, based on the directory structured by market/report type
-            // @todo: run d3 code on the template output files in the /dist/ folders, and copy the flat html to /charts/ folder - this can happen in release task
-            .pipe( gulp.dest( templateDest ) )
+            .pipe( gulp.dest( filePath ) )
             .pipe( browserSync.reload( {
               stream: true
             } ) );

@@ -78,11 +78,11 @@
     <div class="content_wrapper">
         <div class="content_main">
 
-<ul>
+<ol>
     {{#each charts}}
-    <li><a href="/charts/{{ figureID }}.html">{{ figureID }}</a></li>
+    <li><a href="/charts/{{ market }}/{{ reportType }}/{{ elementID }}.html">{{ elementID }}</a></li>
     {{/each}}
-</ul>
+</ol>
 
 {{#each charts}}
 <div style="border: 4px solid red">
