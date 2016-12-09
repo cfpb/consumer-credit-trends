@@ -26,7 +26,6 @@ for ( var i = 0; i < charts.length; i++ ) {
 
       window.setTimeout( getSVG, 10000 );
 
-      // @todo: run inlineCSS
     }
   } );
 }
