@@ -54,7 +54,29 @@ gulp.task( 'styles:ie', function() {
     } ) );
 } );
 
+gulp.task( 'styles:charts', function() {
+  return gulp.src( config.chartStyles.cwd + config.chartStyles.src )
+    .pipe( plugins.sourcemaps.init() )
+    .pipe( plugins.less( config.chartStyles.settings ) )
+    .on( 'error', handleErrors )
+    .pipe( plugins.autoprefixer( {
+      browsers: [ 'last 2 version',
+                  'not ie <= 8',
+                  'android 4',
+                  'BlackBerry 7',
+                  'BlackBerry 10' ]
+    } ) )
+    .pipe( plugins.rename( {
+      suffix: '.min'
+    } ) )
+    .pipe( gulp.dest( config.chartStyles.dest ) )
+    .pipe( browserSync.reload( {
+      stream: true
+    } ) );
+} );
+
 gulp.task( 'styles', [
   'styles:modern',
-  'styles:ie'
+  'styles:ie',
+  'styles:charts'
 ] );

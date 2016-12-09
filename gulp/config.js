@@ -22,7 +22,7 @@ module.exports = {
       ' *  <%= pkg.name %> - v<%= pkg.version %>\n' +
       ' *  <%= pkg.homepage %>\n' +
       ' *  Licensed <%= pkg.license %> by' +
-      ' Consumer Financial Protection Bureau christopher.contolini@cfpb.gov\n' +
+      ' Consumer Financial Protection Bureau tech@cfpb.gov\n' +
       ' */',
   lint: {
     src: [
@@ -49,6 +49,15 @@ module.exports = {
     settings: {
       paths: glob.sync( loc.lib + '/cf-*/src/' ),
       compress: false
+    }
+  },
+  chartStyles: {
+    cwd:      loc.src + '/static/css',
+    src:      '/charts.less',
+    dest:     loc.dist + '/static/css',
+    settings: {
+      paths: glob.sync( loc.lib + '/cf-*/src/' ),
+      compress: true
     }
   },
   scripts: {
@@ -80,7 +89,7 @@ module.exports = {
   copy: {
     release: {
       src: loc.dist + '/**/*.html',
-      destFiles: loc.prod + '/**/*.html',
+      destFiles: loc.prod + '/charts/**/*.html',
       dest: loc.prod
     },
     files: {

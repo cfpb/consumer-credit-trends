@@ -21,6 +21,7 @@ gulp.task( 'watch', [ 'connect', 'browserSync' ], function() {
   gulp.watch( config.handlebarsTemplates.charts, [ 'handlebars' ] )
   gulp.watch( config.handlebarsTemplates.src, [ 'handlebars' ] )
   gulp.watch( config.styles.cwd + '/**/*.less', [ 'styles' ] );
+  gulp.watch( config.chartStyles.cwd + '/**/*.less', [ 'styles' ] );
   gulp.watch( config.images.src, [ 'images' ] );
   gulp.watch( config.copy.files.src, [ 'copy:files' ] );
 } );
