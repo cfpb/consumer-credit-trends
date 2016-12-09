@@ -48,6 +48,7 @@
 -->
 
 <!--[if lt IE 9]>
+    <script src="/static/vendor/html5shiv/html5shiv-printshiv.min.js"></script>
 <![endif]-->
 
     <script>
@@ -84,7 +85,6 @@
 </ol>
 
 <div style="border: 4px solid red">
-
 <div class="chart_wrapper"
     id="figure-1a__number"
     data-chart-type="line" 
@@ -93,13 +93,17 @@
     data-market="auto-loans"
     data-report-type="origination-activity"
 >
+<!-- build:css -->
+<link rel="stylesheet" href="/static/css/charts.min.css">
+<!-- endbuild -->
+
     <h3>Number of loans originated</h3>
 </div>
     
 <p class="block short-desc">
     <strong>Source:</strong> <a href="https://github.com/cfpb/consumer-credit-trends/blob/master/data/num_data_AUT.csv">https://github.com/cfpb/consumer-credit-trends/blob/master/data/num_data_AUT.csv</a><br>
     <strong>Date published:</strong> month year<br>
-    <strong>Note:</strong> ..
+    <strong>Note:</strong> Data from the last 6 months is not final and is lorem ipsum dolor sit.
 
 </p>
 
@@ -107,7 +111,6 @@
 
 </div>
 <div style="border: 4px solid red">
-
 <div class="chart_wrapper"
     id="figure-1a__volume"
     data-chart-type="line" 
@@ -116,13 +119,17 @@
     data-market="auto-loans"
     data-report-type="origination-activity"
 >
+<!-- build:css -->
+<link rel="stylesheet" href="/static/css/charts.min.css">
+<!-- endbuild -->
+
     <h3>Volume of loans originated</h3>
 </div>
     
 <p class="block short-desc">
     <strong>Source:</strong> <a href="https://github.com/cfpb/consumer-credit-trends/blob/master/data/vol_data_AUT.csv">https://github.com/cfpb/consumer-credit-trends/blob/master/data/vol_data_AUT.csv</a><br>
     <strong>Date published:</strong> month year<br>
-    <strong>Note:</strong> ..
+    <strong>Note:</strong> Data from the last 6 months is not final and is lorem ipsum dolor sit.
 
 </p>
 
@@ -130,7 +137,6 @@
 
 </div>
 <div style="border: 4px solid red">
-
 <div class="chart_wrapper"
     id="figure-1b__number"
     data-chart-type="bar" 
@@ -139,13 +145,17 @@
     data-market="auto-loans"
     data-report-type="origination-activity"
 >
+<!-- build:css -->
+<link rel="stylesheet" href="/static/css/charts.min.css">
+<!-- endbuild -->
+
     <h3>Number of loans originated</h3>
 </div>
     
 <p class="block short-desc">
     <strong>Source:</strong> <a href="https://github.com/cfpb/consumer-credit-trends/blob/master/data/yoy_data_all_AUT.csv">https://github.com/cfpb/consumer-credit-trends/blob/master/data/yoy_data_all_AUT.csv</a><br>
     <strong>Date published:</strong> month year<br>
-    <strong>Note:</strong> ..
+    <strong>Note:</strong> Data from the last 6 months is not final and is lorem ipsum dolor sit.
 
 </p>
 
@@ -567,5 +577,6 @@
     or section of the site, all custom JS should be added to src/static/js/app.js.
 -->
 
+<script src="/static/js/main.min.js"></script>
 
 </body>
