@@ -3,21 +3,18 @@
 {{/unless}}
 
 <div class="chart_wrapper"
-    id="{{ figureID }}"
+    id="{{ elementID }}"
     data-chart-type="{{ chartType }}" 
     data-source="{{ source }}" 
     data-title="{{ title }}" 
     data-market="{{ market }}"
     data-report-type="{{ reportType }}"
 >
-    <h5>{{ figureID }}</h5>
-    <h3>{{ title }}</h3>
-    
-
+    <h3>{{ title }}</h3>    
 </div>
     
 <p class="block short-desc">
-    <strong>Source:</strong> <a href="{{ source }}">{{ source }}</a><br>
+    <strong>Source:</strong> <a href="https://github.com/cfpb/consumer-credit-trends/blob/master/data/{{ source }}">https://github.com/cfpb/consumer-credit-trends/blob/master/data/{{ source }}</a><br>
     <strong>Date published:</strong> month year<br>
     <strong>Note:</strong> ..
 

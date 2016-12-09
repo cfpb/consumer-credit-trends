@@ -82,12 +82,10 @@
     {{#each charts}}
     <li><a href="/charts/{{ figureID }}.html">{{ figureID }}</a></li>
     {{/each}}
-    
 </ul>
 
 {{#each charts}}
 <div style="border: 4px solid red">
-{{ title }}
 {{> svg indexPage=true }}
 
 </div>

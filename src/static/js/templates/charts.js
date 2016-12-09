@@ -6,23 +6,26 @@ var charts = [{
   "market": "auto-loans",
   "reportType": "origination-activity",
   "figureID": "figure-1a",
-  "source": "https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/num_data_AUT.csv"
+  "source": "num_data_AUT.csv",
+  "elementID": "figure-1a__number"
 },
 {
   "title": "Volume of loans originated",
   "chartType": "line",
   "market": "auto-loans",
   "reportType": "origination-activity",
-  "figureID": "figure-1b",
-  "source": "https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/vol_data_AUT.csv"
+  "figureID": "figure-1a",
+  "source": "vol_data_AUT.csv",
+  "elementID": "figure-1a__volume"
 },
 {
   "title": "Number of loans originated",
   "chartType": "bar",
   "market": "auto-loans",
   "reportType": "origination-activity",  
-  "figureID": "figure-1c",
-  "source": "https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/yoy_data_all_AUT.csv"
+  "figureID": "figure-1b",
+  "source": "yoy_data_all_AUT.csv",
+  "elementID": "figure-1b__number"
 }]
 
 module.exports = charts;

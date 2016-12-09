@@ -2,12 +2,10 @@
 
 var d3 = require( 'd3' );
 var formatDates = require( './formatDates.js' );
-var charts = require( './templates/charts.js' );
-// var $ = require( 'jquery' );
- 
-// Chart options
-// var DATE_FILE_URL = 'https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/vol_data_AUT.csv';
+var charts = require( './templates/charts.js' ); 
+var DATA_FILE_PATH = 'https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/';
 
+// Chart options
 var margin = {top: 100, right: 20, bottom: 20, left: 70};
 var width = 770 - margin.left - margin.right;
 var height = 400 - margin.top - margin.bottom;
@@ -15,8 +13,8 @@ var height = 400 - margin.top - margin.bottom;
 for ( var i = 0; i < charts.length; i++ ) {
   var chart = charts[i];
   var source = chart.source;
-  var figureID = chart.figureID;
-  getData( source, figureID );
+  var chartID = chart.elementID;
+  getData( source, chartID );
 };
 
 // Get the data
@@ -59,7 +57,7 @@ function getData( file, elementID ) {
             "translate(" + margin.left + "," + margin.top + ")");
 
 
-  d3.csv( file, function( error, data ) {
+  d3.csv( DATA_FILE_PATH + file, function( error, data ) {
     if ( error ) throw error;
 
     // format the data
