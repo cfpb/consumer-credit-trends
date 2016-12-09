@@ -65,8 +65,6 @@ module.exports = {
     src: [
       loc.src + '/static/js/metadata.js',
       loc.src + '/static/js/auto-loan-charts.js',
-      loc.src + '/static/js/bar.js',
-      loc.src + '/static/js/bar-builder.js',
       loc.src + '/static/js/auto-loan-charts.js',
       loc.src + '/static/js/formatDates.js',
       loc.src + '/static/js/templates/charts.js',

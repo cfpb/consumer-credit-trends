@@ -48,7 +48,10 @@ gulp.task( 'handlebars:compile', function () {
 // Compile index file containing every chart.
 gulp.task( 'handlebars:index', function () {
 
-  var indexSrc = './src/static/js/templates/index.hbs';
+  var indexSrc = [
+    './src/static/js/templates/index.hbs',
+    './src/static/js/templates/auto.hbs'
+  ];
   var indexDest = './dist/';
 
   var options = {
