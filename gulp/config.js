@@ -80,6 +80,7 @@ module.exports = {
   copy: {
     release: {
       src: loc.dist + '/**/*.html',
+      destFiles: loc.prod + '/**/*.html',
       dest: loc.prod
     },
     files: {
