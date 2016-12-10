@@ -19,6 +19,15 @@ var charts = [{
   "elementID": "figure-1a__volume"
 },
 {
+  "title": "Map",
+  "chartType": "map",
+  "market": "auto-loans",
+  "reportType": "origination-activity",  
+  "figureID": "figure-1c",
+  "source": "map_data_AUT.csv",
+  "elementID": "auto-loan_geo-changes"
+},
+{
   "title": "Number of loans originated",
   "chartType": "bar",
   "market": "auto-loans",
