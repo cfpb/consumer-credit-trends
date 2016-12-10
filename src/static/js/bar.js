@@ -5,9 +5,12 @@ var d3 = require( 'd3' );
 var dateTranslate = require( './utils/date-translate.js' );
 var strToNum = require( './utils/string-to-number.js' );
 var formatTime = d3.utcFormat( '%b %Y' );
+// @todo define these shared constants in charts.js
+var DATA_FILE_PATH = 'https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/';
+
 
 var DATA_URLS = {
-  YOY_ALL: 'https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/yoy_data_all_AUT.csv',
+  // YOY_ALL: 'https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/yoy_data_all_AUT.csv',
   YOY_SCORE: 'https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/yoy_data_Score_Level_AUT.csv',
   YOY_INCOME: 'https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/yoy_data_Income_Level_AUT.csv',
   YOY_AGE: 'https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/yoy_data_Age_Group_AUT.csv'
@@ -21,6 +24,18 @@ var defaultOpts = {
     top: 100, right: 20, bottom: 70, left: 70
   }
 }
+
+// Draw bar chart for each object in charts config
+for ( var i = 0; i < charts.length; i++ ) {
+  var chart = charts[i];
+  var source = chart.source;
+  var chartID = chart.elementID;
+  var chartType = chart.chartType;
+
+  if ( chartType === 'bar' ) {
+    drawAll( source, chartID );    
+  }
+};
 
 function addProjectedToBar( svg, options ) {
   var height = options.baseHeight -
@@ -66,58 +81,58 @@ function addProjectedToBar( svg, options ) {
 }
 
 // Draw the Origination charts
+function drawAll( file, elementID ) {
+  d3.csv( DATA_FILE_PATH + file, function( error, rawData ) {
 
-d3.csv( DATA_URLS.YOY_ALL, function( error, rawData ) {
+    var dataNumber = [],
+        dataVolume = [];
 
-  var dataNumber = [],
-      dataVolume = [];
+    for (var x = 0; x < rawData.length; x++ ) {
+      var obj = {
+        label: dateTranslate( rawData[x].month ),
+        amount: strToNum ( rawData[x].yoy ) * 100
+      };
 
-  for (var x = 0; x < rawData.length; x++ ) {
-    var obj = {
-      label: dateTranslate( rawData[x].month ),
-      amount: strToNum ( rawData[x].yoy ) * 100
+      if ( rawData[x].group === 'Number of Loans' ) {
+        dataNumber.push( obj );
+      } else if ( rawData[x].group === 'Dollar Volume' ) {
+        dataVolume.push( obj );
+      }
+
+    }
+
+    // Draw the YoY Number of Loans bar chart
+    var yoyNumProps = {
+      data: dataNumber,
+      selector: '#auto-loan_yoy-number',
+      labels: {
+        yAxisLabel: 'Year-over-year change (%)',
+        yTickUnit: '%'
+      }
     };
 
-    if ( rawData[x].group === 'Number of Loans' ) {
-      dataNumber.push( obj );
-    } else if ( rawData[x].group === 'Dollar Volume' ) {
-      dataVolume.push( obj );
-    }
+    var yoyNum = new chartBuilder.barChart( yoyNumProps );
 
-  }
+    var yoyNumChart = yoyNum.drawGraph( defaultOpts );
+    addProjectedToBar( yoyNumChart, defaultOpts );
 
-  // Draw the YoY Number of Loans bar chart
-  var yoyNumProps = {
-    data: dataNumber,
-    selector: '#auto-loan_yoy-number',
-    labels: {
-      yAxisLabel: 'Year-over-year change (%)',
-      yTickUnit: '%'
-    }
-  };
+    // Draw the YoY volume bar chart
+    var yoyVolProps = {
+      data: dataVolume,
+      selector: '#auto-loan_yoy-volume',
+      labels: {
+        yAxisLabel: 'Year-over-year change (%)',
+        yTickUnit: '%'
+      }
+    };
 
-  var yoyNum = new chartBuilder.barChart( yoyNumProps );
+    var yoyVol = new chartBuilder.barChart( yoyVolProps );
 
-  var yoyNumChart = yoyNum.drawGraph( defaultOpts );
-  addProjectedToBar( yoyNumChart, defaultOpts );
+    var yoyVolChart = yoyVol.drawGraph( defaultOpts );
+    addProjectedToBar( yoyVolChart, defaultOpts );
 
-  // Draw the YoY volume bar chart
-  var yoyVolProps = {
-    data: dataVolume,
-    selector: '#auto-loan_yoy-volume',
-    labels: {
-      yAxisLabel: 'Year-over-year change (%)',
-      yTickUnit: '%'
-    }
-  };
-
-  var yoyVol = new chartBuilder.barChart( yoyVolProps );
-
-  var yoyVolChart = yoyVol.drawGraph( defaultOpts );
-  addProjectedToBar( yoyVolChart, defaultOpts );
-
-} );
-
+  } );
+}
 
 // Draw Borrower Risk Profile Charts
 
