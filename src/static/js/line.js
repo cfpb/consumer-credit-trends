@@ -4,7 +4,6 @@ var d3 = require( 'd3' );
 var formatDates = require( './formatDates.js' );
 var charts = require( './templates/charts.js' ); 
 var DATA_FILE_PATH = 'https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/';
-var getFilePath = require( './utils/getFilePath.js' );
 
 // Chart options
 var margin = {top: 100, right: 20, bottom: 20, left: 70};
@@ -16,8 +15,6 @@ for ( var i = 0; i < charts.length; i++ ) {
   var source = chart.source;
   var chartID = chart.elementID;
   var chartType = chart.chartType;
-
-  getFilePath( chart );
 
   if ( chartType === 'line' ) {
     getData( source, chartID );    
