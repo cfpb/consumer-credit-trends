@@ -64,8 +64,7 @@ module.exports = {
   scripts: {
     src: [
       loc.src + '/static/js/metadata.js',
-      loc.src + '/static/js/auto-loan-charts.js',
-      loc.src + '/static/js/auto-loan-charts.js',
+      loc.src + '/static/js/all-the-charts.js',
       loc.src + '/static/js/formatDates.js',
       loc.src + '/static/js/templates/charts.js',
       loc.src + '/static/js/utils/getFilePath.js',

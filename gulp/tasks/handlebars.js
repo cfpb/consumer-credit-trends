@@ -50,7 +50,10 @@ gulp.task( 'handlebars:index', function () {
 
   var indexSrc = [
     './src/static/js/templates/index.hbs',
-    './src/static/js/templates/auto.hbs'
+    './src/static/js/templates/auto.hbs',
+    './src/static/js/templates/crc.hbs',
+    './src/static/js/templates/mtg.hbs',
+    './src/static/js/templates/stu.hbs'
   ];
   var indexDest = './dist/';
 

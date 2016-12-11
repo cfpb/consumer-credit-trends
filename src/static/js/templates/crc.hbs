@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<head>
+
+<!--
+    ===========
+    GLOBAL META
+    ===========
+-->
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!--
+    ==================
+    PAGE-SPECIFIC META
+    ==================
+-->
+
+    <title>Credit market trends: charts</title>
+    <meta name="description" content="Generated d3 charts to show credit market trends.">
+
+<!--
+    ======
+    STYLES
+    ======
+    The number of stylesheets here must be kept to a minimum.
+    Unless adding a significant amount of CSS that is specific to a single page
+    or section of the site, all new styles should be added to src/static/css/app.less.
+-->
+
+<!--[if lt IE 9]>      <link rel="stylesheet" href="/static/css/main.ie.min.css"> <![endif]-->
+<!--[if gt IE 8]><!--> <link rel="stylesheet" href="/static/css/main.min.css"> <!--<![endif]-->
+<link rel="stylesheet" href="/static/css/charts.min.css">
+
+<!--
+    ============
+    HEAD SCRIPTS
+    ============
+    The following scripts must be included in the head. DO NOT ADD ANY MORE.
+    All other scripts should go before the closing body tag.
+    If you come across a script that makes a convincing case to be included in
+    the head, then file an issue or PR to discuss including it.
+-->
+
+<!--[if lt IE 9]>
+    <script src="/static/vendor/html5shiv/html5shiv-printshiv.min.js"></script>
+<![endif]-->
+
+    <script>
+        // Confirm availability of JS and remove no-js class from html
+        var docElement = document.documentElement;
+        docElement.className = docElement.className.replace(/(^|\s)no-js(\s|$)/, '$1$2');
+    </script>
+
+</head>
+
+<body>
+
+<!--
+    =================
+    Begin page source
+    =================
+-->
+
+<header class="wrapper wrapper__match-content" role="banner">
+    <div class="block block__sub">
+        <h1>Credit market trends: charts</h1>
+    </div>
+</header>
+
+<main class="content" id="main" role="main">
+    <div class="content_bar"></div>
+    <div class="content_wrapper">
+        <div class="content_main">
+
+          <h1>Credit Cards</h1>
+
+          <h2>Origination Activity</h2>
+          <h3>Lending Levels - Credit Cards Originated</h3>
+
+          <div class="chart_wrapper">
+            <div id="credit-card_num-originations" class="chart"></div>
+          </div>
+
+          <h3>Lending Levels - Volume of Credit Cards</h3>
+
+          <div class="chart_wrapper">
+            <div id="credit-card_num-volume" class="chart"></div>
+          </div>
+
+          <h3>Year-over-year Changes - Number of Originations</h3>
+
+          <div class="chart_wrapper">
+            <div id="credit-card_yoy-number" class="chart"></div>
+          </div>
+
+          <h3>Year-over-year Changes - Dollar Volume</h3>
+
+          <div class="chart_wrapper">
+            <div id="credit-card_yoy-volume" class="chart"></div>
+          </div>
+
+          <h2>Credit Cards - Geographic Changes</h2>
+
+          <div class="chart_wrapper">
+            <div id="credit-card_geo-changes" class="chart"></div>
+          </div>
+
+          <h2>Credit Cards - Borrower Risk Profiles</h2>
+
+          <h3>Originations - Deep Subprime</h3>
+
+          <div class="chart_wrapper">
+            <div id="credit-card_vol-deep-subprime" class="chart"></div>
+          </div>
+
+          <h3>Originations - Subprime</h3>
+
+          <div class="chart_wrapper">
+            <div id="credit-card_vol-subprime" class="chart"></div>
+          </div>
+
+          <h3>Originations - Near Prime</h3>
+
+          <div class="chart_wrapper">
+            <div id="credit-card_vol-near-prime" class="chart"></div>
+          </div>
+
+          <h3>Originations - Prime</h3>
+
+          <div class="chart_wrapper">
+            <div id="credit-card_vol-prime" class="chart"></div>
+          </div>
+
+          <h3>Originations - Superprime</h3>
+
+          <div class="chart_wrapper">
+            <div id="credit-card_vol-superprime" class="chart"></div>
+          </div>
+
+          <h3>Year-over-year - Deep Subprime</h3>
+
+          <div class="chart_wrapper">
+            <div id="credit-card_yoy-deep-subprime" class="chart"></div>
+          </div>
+
+          <h3>Year-over-year - Subprime</h3>
+
+          <div class="chart_wrapper">
+            <div id="credit-card_yoy-subprime" class="chart"></div>
+          </div>
+
+          <h3>Year-over-year - Near Prime</h3>
+
+          <div class="chart_wrapper">
+            <div id="credit-card_yoy-near-prime" class="chart"></div>
+          </div>
+
+          <h3>Year-over-year - Prime</h3>
+
+          <div class="chart_wrapper">
+            <div id="credit-card_yoy-prime" class="chart"></div>
+          </div>
+
+          <h3>Year-over-year - Superprime</h3>
+
+          <div class="chart_wrapper">
+            <div id="credit-card_yoy-superprime" class="chart"></div>
+          </div>
+
+          <h2>Credit Cards - Neighborhood Income</h2>
+
+          <h3>Originations - Low</h3>
+
+          <div class="chart_wrapper">
+            <div id="credit-card_vol-low" class="chart"></div>
+          </div>
+
+          <h3>Originations - Moderate</h3>
+
+          <div class="chart_wrapper">
+            <div id="credit-card_vol-moderate" class="chart"></div>
+          </div>
+
+          <h3>Originations - Middle</h3>
+
+          <div class="chart_wrapper">
+            <div id="credit-card_vol-middle" class="chart"></div>
+          </div>
+
+          <h3>Originations - High</h3>
+
+          <div class="chart_wrapper">
+            <div id="credit-card_vol-high" class="chart"></div>
+          </div>
+
+          <h3>Year-over-year - Low</h3>
+
+          <div class="chart_wrapper">
+            <div id="credit-card_yoy-low" class="chart"></div>
+          </div>
+
+          <h3>Year-over-year - Moderate</h3>
+
+          <div class="chart_wrapper">
+            <div id="credit-card_yoy-moderate" class="chart"></div>
+          </div>
+
+          <h3>Year-over-year - Middle</h3>
+
+          <div class="chart_wrapper">
+            <div id="credit-card_yoy-middle" class="chart"></div>
+          </div>
+
+          <h3>Year-over-year - High</h3>
+
+          <div class="chart_wrapper">
+            <div id="credit-card_yoy-high" class="chart"></div>
+          </div>
+
+
+          <h2>Credit Cards - Age</h2>
+
+          <h3>Originations - Younger than 30</h3>
+
+          <div class="chart_wrapper">
+            <div id="credit-card_vol-younger-than-30" class="chart"></div>
+          </div>
+
+          <h3>Originations - 30 to 44</h3>
+
+          <div class="chart_wrapper">
+            <div id="credit-card_vol-30-to-44" class="chart"></div>
+          </div>
+
+          <h3>Originations - 45 to 64</h3>
+
+          <div class="chart_wrapper">
+            <div id="credit-card_vol-45-to-64" class="chart"></div>
+          </div>
+
+          <h3>Originations - 65 or Older</h3>
+
+          <div class="chart_wrapper">
+            <div id="credit-card_vol-65-and-older" class="chart"></div>
+          </div>
+
+
+          <h3>Year-over-year - Younger than 30</h3>
+
+          <div class="chart_wrapper">
+            <div id="credit-card_yoy-younger-than-30" class="chart"></div>
+          </div>
+
+          <h3>Year-over-year - 30 to 44</h3>
+
+          <div class="chart_wrapper">
+            <div id="credit-card_yoy-30-to-44" class="chart"></div>
+          </div>
+
+          <h3>Year-over-year - 45 to 64</h3>
+
+          <div class="chart_wrapper">
+            <div id="credit-card_yoy-45-to-64" class="chart"></div>
+          </div>
+
+          <h3>Year-over-year - 65 or Older</h3>
+
+          <div class="chart_wrapper">
+            <div id="credit-card_yoy-65-and-older" class="chart"></div>
+          </div>
+
+        </div><!-- END .content_main -->
+    </div>
+</main>
+
+<footer role="contentinfo">
+    <!-- Footer stuff -->
+</footer>
+
+<!--
+    ============
+    BODY SCRIPTS
+    ============
+    The number of scripts here must be kept to a minimum.
+    Unless adding a significant amount of JS that is specific to a single page
+    or section of the site, all custom JS should be added to src/static/js/app.js.
+-->
+
+<script src="/static/js/main.min.js"></script>
+
+</body>
