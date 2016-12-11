@@ -36,6 +36,7 @@
 
 <!--[if lt IE 9]>      <link rel="stylesheet" href="/static/css/main.ie.min.css"> <![endif]-->
 <!--[if gt IE 8]><!--> <link rel="stylesheet" href="/static/css/main.min.css"> <!--<![endif]-->
+<link rel="stylesheet" href="/static/css/charts.min.css">
 
 <!--
     ============
@@ -78,93 +79,201 @@
     <div class="content_wrapper">
         <div class="content_main">
 
+          <h1>Auto Loans</h1>
+
+          <h2>Origination Activity</h2>
+          <h3>Lending Levels - Auto Loans Originated</h3>
+
+          <div class="chart_wrapper">
+            <div id="auto-loan_num-originations" class="chart"></div>
+          </div>
+
+          <h3>Lending Levels - Volume of Auto Loans</h3>
+
+          <div class="chart_wrapper">
+            <div id="auto-loan_num-volume" class="chart"></div>
+          </div>
+
+          <h3>Year-over-year Changes - Number of Loans</h3>
+
+          <div class="chart_wrapper">
+            <div id="auto-loan_yoy-number" class="chart"></div>
+          </div>
+
+          <h3>Year-over-year Changes - Dollar Volume</h3>
+
+          <div class="chart_wrapper">
+            <div id="auto-loan_yoy-volume" class="chart"></div>
+          </div>
+
           <h2>Auto Loans - Geographic Changes</h2>
 
-          <div id="auto-loan_geo-changes" class="chart">
-          </div>
-
-          <h2>Auto Loans - Origination</h2>
-
-          <h3>Year Over Year Changes - Number of Loans</h3>
-
-          <div id="auto-loan_yoy-number" class="chart">
-          </div>
-
-          <h3>Year Over Year Changes - Dollar Volume</h3>
-
-          <div id="auto-loan_yoy-volume" class="chart">
+          <div class="chart_wrapper">
+            <div id="auto-loan_geo-changes" class="chart"></div>
           </div>
 
           <h2>Auto Loans - Borrower Risk Profiles</h2>
 
-          <h3>Year Over Year Changes - Deep Subprime</h3>
+          <h3>Originations - Deep Subprime</h3>
 
-          <div id="auto-loan_yoy-deep-subprime" class="chart">
+          <div class="chart_wrapper">
+            <div id="auto-loan_vol-deep-subprime" class="chart"></div>
           </div>
 
-          <h3>Year Over Year Changes - Subprime</h3>
+          <h3>Originations - Subprime</h3>
 
-          <div id="auto-loan_yoy-subprime" class="chart">
+          <div class="chart_wrapper">
+            <div id="auto-loan_vol-subprime" class="chart"></div>
           </div>
 
-          <h3>Year Over Year Changes - Near Prime</h3>
+          <h3>Originations - Near Prime</h3>
 
-          <div id="auto-loan_yoy-near-prime" class="chart">
+          <div class="chart_wrapper">
+            <div id="auto-loan_vol-near-prime" class="chart"></div>
           </div>
 
-          <h3>Year Over Year Changes - Prime</h3>
+          <h3>Originations - Prime</h3>
 
-          <div id="auto-loan_yoy-prime" class="chart">
+          <div class="chart_wrapper">
+            <div id="auto-loan_vol-prime" class="chart"></div>
           </div>
 
-          <h3>Year Over Year Changes - Superprime</h3>
+          <h3>Originations - Superprime</h3>
 
-          <div id="auto-loan_yoy-superprime" class="chart">
+          <div class="chart_wrapper">
+            <div id="auto-loan_vol-superprime" class="chart"></div>
+          </div>
+
+          <h3>Year-over-year - Deep Subprime</h3>
+
+          <div class="chart_wrapper">
+            <div id="auto-loan_yoy-deep-subprime" class="chart"></div>
+          </div>
+
+          <h3>Year-over-year - Subprime</h3>
+
+          <div class="chart_wrapper">
+            <div id="auto-loan_yoy-subprime" class="chart"></div>
+          </div>
+
+          <h3>Year-over-year - Near Prime</h3>
+
+          <div class="chart_wrapper">
+            <div id="auto-loan_yoy-near-prime" class="chart"></div>
+          </div>
+
+          <h3>Year-over-year - Prime</h3>
+
+          <div class="chart_wrapper">
+            <div id="auto-loan_yoy-prime" class="chart"></div>
+          </div>
+
+          <h3>Year-over-year - Superprime</h3>
+
+          <div class="chart_wrapper">
+            <div id="auto-loan_yoy-superprime" class="chart"></div>
           </div>
 
           <h2>Auto Loans - Neighborhood Income</h2>
 
-          <h3>Year Over Year Changes - Low</h3>
+          <h3>Originations - Low</h3>
 
-          <div id="auto-loan_yoy-low" class="chart">
+          <div class="chart_wrapper">
+            <div id="auto-loan_vol-low" class="chart"></div>
           </div>
 
-          <h3>Year Over Year Changes - Moderate</h3>
+          <h3>Originations - Moderate</h3>
 
-          <div id="auto-loan_yoy-moderate" class="chart">
+          <div class="chart_wrapper">
+            <div id="auto-loan_vol-moderate" class="chart"></div>
           </div>
 
-          <h3>Year Over Year Changes - Middle</h3>
+          <h3>Originations - Middle</h3>
 
-          <div id="auto-loan_yoy-middle" class="chart">
+          <div class="chart_wrapper">
+            <div id="auto-loan_vol-middle" class="chart"></div>
           </div>
 
-          <h3>Year Over Year Changes - High</h3>
+          <h3>Originations - High</h3>
 
-          <div id="auto-loan_yoy-high" class="chart">
+          <div class="chart_wrapper">
+            <div id="auto-loan_vol-high" class="chart"></div>
+          </div>
+
+          <h3>Year-over-year - Low</h3>
+
+          <div class="chart_wrapper">
+            <div id="auto-loan_yoy-low" class="chart"></div>
+          </div>
+
+          <h3>Year-over-year - Moderate</h3>
+
+          <div class="chart_wrapper">
+            <div id="auto-loan_yoy-moderate" class="chart"></div>
+          </div>
+
+          <h3>Year-over-year - Middle</h3>
+
+          <div class="chart_wrapper">
+            <div id="auto-loan_yoy-middle" class="chart"></div>
+          </div>
+
+          <h3>Year-over-year - High</h3>
+
+          <div class="chart_wrapper">
+            <div id="auto-loan_yoy-high" class="chart"></div>
           </div>
 
 
           <h2>Auto Loans - Age</h2>
 
-          <h3>Year Over Year Changes - Younger than 30</h3>
+          <h3>Originations - Younger than 30</h3>
 
-          <div id="auto-loan_yoy-younger-than-30" class="chart">
+          <div class="chart_wrapper">
+            <div id="auto-loan_vol-younger-than-30" class="chart"></div>
           </div>
 
-          <h3>Year Over Year Changes - 30 to 44</h3>
+          <h3>Originations - 30 to 44</h3>
 
-          <div id="auto-loan_yoy-30-to-44" class="chart">
+          <div class="chart_wrapper">
+            <div id="auto-loan_vol-30-to-44" class="chart"></div>
           </div>
 
-          <h3>Year Over Year Changes - 45 to 64</h3>
+          <h3>Originations - 45 to 64</h3>
 
-          <div id="auto-loan_yoy-45-to-64" class="chart">
+          <div class="chart_wrapper">
+            <div id="auto-loan_vol-45-to-64" class="chart"></div>
           </div>
 
-          <h3>Year Over Year Changes - 65 or Older</h3>
+          <h3>Originations - 65 or Older</h3>
 
-          <div id="auto-loan_yoy-65-and-older" class="chart">
+          <div class="chart_wrapper">
+            <div id="auto-loan_vol-65-and-older" class="chart"></div>
+          </div>
+
+
+          <h3>Year-over-year - Younger than 30</h3>
+
+          <div class="chart_wrapper">
+            <div id="auto-loan_yoy-younger-than-30" class="chart"></div>
+          </div>
+
+          <h3>Year-over-year - 30 to 44</h3>
+
+          <div class="chart_wrapper">
+            <div id="auto-loan_yoy-30-to-44" class="chart"></div>
+          </div>
+
+          <h3>Year-over-year - 45 to 64</h3>
+
+          <div class="chart_wrapper">
+            <div id="auto-loan_yoy-45-to-64" class="chart"></div>
+          </div>
+
+          <h3>Year-over-year - 65 or Older</h3>
+
+          <div class="chart_wrapper">
+            <div id="auto-loan_yoy-65-and-older" class="chart"></div>
           </div>
 
         </div><!-- END .content_main -->
