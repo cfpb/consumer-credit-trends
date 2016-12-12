@@ -8,8 +8,12 @@ global.$ = require( 'jquery' );
 // require( 'cf-expandables' );
 // require( './bar.js' );
 require( './formatDates.js' );
-require( './line.js' );
+var line = require( './line.js' );
+// require( './bar.js' );
+var tileMap = require( './tile-map.js' );
 
 var getMetadata = require( './metadata.js' );
 
 getMetadata.init();
+tileMap();
+line();

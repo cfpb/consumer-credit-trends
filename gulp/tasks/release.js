@@ -27,7 +27,9 @@ gulp.task('release:addStyleElement', [ 'release:copyFiles' ], function() {
     .pipe(gulp.dest( './dist' ));
 });
 
-gulp.task( 'release:copyFiles', function() {
+gulp.task( 'release:copyFiles', 
+  [ 'clean:releaseFiles' ],
+  function() {
   return gulp.src( release.src )
     .on( 'error', handleErrors )
     .pipe( gulp.dest( release.dest ) )
