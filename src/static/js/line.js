@@ -72,7 +72,7 @@ function getData( file, elementID, chartGroup ) {
       data.columns[1] = 'volume';
     }
     // Convert 'group' to seasonal for lending level data which puts this info in the 'group' column.
-    if ( !data.columns[3] ) {
+    if ( data.columns[3] !== 'seasonal' ) {
       data.columns[2] = 'seasonal';
     }
 
@@ -80,6 +80,10 @@ function getData( file, elementID, chartGroup ) {
     data.forEach(function(d) {
         var monthIndex = +d.month;
         d.month = +d.month;
+        if ( !chartGroup ) {
+          d.volume = d.num;
+          d.seasonal = d.group;
+        }
         
         if ( Y_VALUE_SCALE === 'B' ) {
           d.volume = +d.volume / Math.pow(10, 9);
@@ -97,7 +101,6 @@ function getData( file, elementID, chartGroup ) {
         var parsedDate = parseTime(humanDate); // timestamp
         d.month = parsedDate;
     } );
-
 
     // Set the projected date as 6 months from the last month in the data set
     var lastMonth = d3.max(data, function(d) {
@@ -186,6 +189,7 @@ function getData( file, elementID, chartGroup ) {
       .data([projectedAdjustedData])
       .classed("line line__adjusted line__projected", true)
       .attr("d", valueline);
+
 
 
     // Add the projected data axis + tick
