@@ -66,17 +66,14 @@ function getData( file, elementID, chartGroup ) {
   d3.csv( DATA_FILE_PATH + file, function( error, data ) {
     if ( error ) throw error;
 
-
-    console.log( data.columns )
-
     // Reformat the columns:
-    // Convert 'volume' to 'num' for files that don't use the same header
+    // Convert 'num' to 'volume' for files that don't use the same header
     if ( data.columns[1] === 'num' ) {
       data.columns[1] = 'volume';
-      console.log('number is now volume')
-      console.log ( data.columns);
-    } else {
-      console.warn( ' no volume OR number column in this data set! the chart will not work' );
+    }
+    // Convert 'group' to seasonal for lending level data which puts this info in the 'group' column.
+    if ( !data.columns[3] ) {
+      data.columns[2] = 'seasonal';
     }
 
     // format the data
@@ -89,15 +86,6 @@ function getData( file, elementID, chartGroup ) {
         } else if (Y_VALUE_SCALE === 'M' ) {
           d.volume = +d.volume / Math.pow(10, 6);
         }
-
-        // Convert 'group' to seasonal for lending level data which puts this info in the 'group' column.
-        if ( !d.seasonal && d.group ) {
-          d.seasonal = d.group;
-          console.log('seasonal is now ' + d.seasonal)
-        } 
-        // else {
-        //   console.warn( ' no group OR seasonal column in this data set! the chart will not work' );
-        // }
 
         if (d.seasonal == 'Seasonally Adjusted') {
           d.seasonal = true;
@@ -117,7 +105,7 @@ function getData( file, elementID, chartGroup ) {
     });
     var projectedDate = d3.timeMonth.offset(lastMonth, -5);
 
-    // @todo filter by group
+    // Filter data by group
     if ( chartGroup !== null ) {
       // filter the data by group to make this specific chart
       console.log( 'the group for , ' + elementID + ' is ' + chartGroup)
