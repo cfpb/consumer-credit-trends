@@ -9,14 +9,8 @@ var gulp = require( 'gulp' );
 var connect = require( 'gulp-connect' );
 var config = require( '../config' );
 
-gulp.task('connect', function() {
-  connect.server({
-    root: 'dist'
-  });
-});
-
 gulp.task( 'watch', [ 'connect', 'browserSync' ], function() {
-  gulp.watch( config.scripts.src, [ 'scripts' ] );
+  gulp.watch( config.scripts.src, [ 'scripts', 'handlebars' ] );
   gulp.watch( config.handlebarsTemplates.dom, [ 'release' ] )
   gulp.watch( config.handlebarsTemplates.charts, [ 'handlebars' ] )
   gulp.watch( config.handlebarsTemplates.src, [ 'handlebars' ] )

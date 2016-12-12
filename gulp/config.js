@@ -27,6 +27,7 @@ module.exports = {
   lint: {
     src: [
       loc.src + '/static/js/**/*.js',
+      loc.src + '/static/js/*.js',
       loc.test + '/unit_tests/**/*.js',
       loc.test + '/browser_tests/**/*.js'
     ],
@@ -40,7 +41,8 @@ module.exports = {
     tests: loc.test
   },
   clean: {
-    dest: loc.dist
+    dest: loc.dist,
+    releaseDest: loc.prod + '/charts/'
   },
   styles: {
     cwd:      loc.src + '/static/css',
@@ -64,7 +66,7 @@ module.exports = {
     src: [
       loc.src + '/static/js/metadata.js',
       loc.src + '/static/js/bar.js',
-      loc.src + '/static/js/bar-builder.js',
+      loc.src + '/static/js/tile-map.js',
       loc.src + '/static/js/formatDates.js',
       loc.src + '/static/js/templates/charts.js',
       loc.src + '/static/js/utils/getFilePath.js',

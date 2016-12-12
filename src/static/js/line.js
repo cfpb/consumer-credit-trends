@@ -4,7 +4,9 @@ var d3 = require( 'd3' );
 var formatDates = require( './formatDates.js' );
 var charts = require( './templates/charts.js' ); 
 var DATA_FILE_PATH = 'https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/';
-var getFilePath = require( './utils/getFilePath.js' );
+
+
+function init() {
 
 // Chart options
 var margin = {top: 100, right: 20, bottom: 20, left: 70};
@@ -16,17 +18,15 @@ for ( var i = 0; i < charts.length; i++ ) {
   var source = chart.source;
   var chartID = chart.elementID;
   var chartType = chart.chartType;
+  var chartGroup = chart.group ? chart.group : null;
 
-  getFilePath( chart );
-
-  if ( chartType === 'line' ) {
-    getData( source, chartID );    
+  if ( chartType === 'line' && document.getElementById( chartID ) ) {
+    getData( source, chartID, chartGroup );  
   }
 };
 
 // Get the data
-function getData( file, elementID ) {
-
+function getData( file, elementID, chartGroup ) {
 
   var yLabel = 'Loan volume (in billions of dollars)';
   var Y_VALUE_SCALE = 'B'; // M for Millions, B for Billions
@@ -48,7 +48,7 @@ function getData( file, elementID ) {
 
   var valueline = d3.line()
         .x(function(d) { return x(d.month); })
-        .y(function(d) { return y(d.num); });
+        .y(function(d) { return y(d.volume); });
 
   // append the svg obgect to the line graph element
   // appends a 'group' element to 'svg'
@@ -66,22 +66,37 @@ function getData( file, elementID ) {
   d3.csv( DATA_FILE_PATH + file, function( error, data ) {
     if ( error ) throw error;
 
+    // Reformat the columns:
+    // Convert 'num' to 'volume' for files that don't use the same header
+    if ( data.columns[1] === 'num' ) {
+      data.columns[1] = 'volume';
+    }
+    // Convert 'group' to seasonal for lending level data which puts this info in the 'group' column.
+    if ( data.columns[3] !== 'seasonal' ) {
+      data.columns[2] = 'seasonal';
+    }
+
     // format the data
     data.forEach(function(d) {
         var monthIndex = +d.month;
         d.month = +d.month;
+        if ( !chartGroup ) {
+          d.volume = d.num;
+          d.seasonal = d.group;
+        }
         
         if ( Y_VALUE_SCALE === 'B' ) {
-          d.num = +d.num / Math.pow(10, 9);
+          d.volume = +d.volume / Math.pow(10, 9);
         } else if (Y_VALUE_SCALE === 'M' ) {
-          d.num = +d.num / Math.pow(10, 6);
+          d.volume = +d.volume / Math.pow(10, 6);
         }
 
-        if (d.group == 'Seasonally Adjusted') {
-          d.group = true;
+        if (d.seasonal == 'Seasonally Adjusted') {
+          d.seasonal = true;
         } else {
-          d.group = false;
+          d.seasonal = false;
         }
+
         var humanDate = formatDates(monthIndex); // January 2000
         var parsedDate = parseTime(humanDate); // timestamp
         d.month = parsedDate;
@@ -93,23 +108,32 @@ function getData( file, elementID ) {
     });
     var projectedDate = d3.timeMonth.offset(lastMonth, -5);
 
+    // Filter data by group
+    if ( chartGroup !== null ) {
+      // filter the data by group to make this specific chart
+      console.log( 'the group for , ' + elementID + ' is ' + chartGroup)
+      data = data.filter(function(d) {
+        return d.group == chartGroup;
+      } );
+    }
+
     // Filter the data to get 2 sets for each line: Seasonally Adjusted and Unadjusted
-    var adjustedData = data.filter(function(d) { return d.group == true && d.month <= projectedDate; 
+    var adjustedData = data.filter(function(d) { return d.seasonal == true && d.month <= projectedDate; 
     } );
 
-    var unadjustedData = data.filter(function(d) { return d.group == false && d.month <= projectedDate; 
+    var unadjustedData = data.filter(function(d) { return d.seasonal == false && d.month <= projectedDate;
     } );
 
     var projectedAdjustedData = data.filter(function(d) {
-      return d.group == true && d.month >= projectedDate; // last 6 months;
+      return d.seasonal == true && d.month >= projectedDate; // last 6 months;
     } );
 
     var projectedUnadjustedData = data.filter(function(d) {
-      return d.group == false && d.month >= projectedDate; // last 6 months;
+      return d.seasonal == false && d.month >= projectedDate; // last 6 months;
     } );
 
     var minY = d3.min(data, function(d) {
-      return d.num;
+      return d.volume;
     } );
     // @todo display on Y axis!
     console.log(minY)
@@ -120,7 +144,7 @@ function getData( file, elementID ) {
     } ) );
 
     y.domain( d3.extent( data, function(d) {
-      return d.num;
+      return d.volume;
     } ) );
 
     // Add the X Axis
@@ -165,6 +189,7 @@ function getData( file, elementID ) {
       .data([projectedAdjustedData])
       .classed("line line__adjusted line__projected", true)
       .attr("d", valueline);
+
 
 
     // Add the projected data axis + tick
@@ -217,3 +242,7 @@ function getData( file, elementID ) {
   } );
 
 }
+
+}
+
+module.exports = init;

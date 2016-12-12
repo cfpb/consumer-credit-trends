@@ -13,6 +13,13 @@
     overflow-x: auto;
 
     .chart {
+          text.gray-text {
+            fill: @gray-80;
+          }
+
+          text.y-axis-label {
+            fill: @gray-80;
+          }
     }
 
     .chart__line {
@@ -21,16 +28,8 @@
 
     .line {
       fill: none;
-      stroke: steelblue;
+      stroke: @gray-80;
       stroke-width: 3px;
-    }
-
-    .line__adjusted {
-        stroke: @green;    
-    }
-
-    .line__unadjusted {
-        stroke: @green-60;
     }
 
     .line__projected {
@@ -92,4 +91,82 @@
             }
         });
     }
+
+    text {
+        .webfont-regular();
+    }
+
+
+    text.state-abbreviation {
+        .webfont-demi();
+    }
+
+    .axis path.domain {
+      display: none;
+    }
+
+    // Line and bar colors for each type of report
+    &[data-report-type='origination-activity'] {
+        .line__adjusted {
+            stroke: @green;    
+        }
+        .line__unadjusted {
+            stroke: @green-60;
+        }
+        .bar {
+            fill: @green;
+        }
+        .bar__projected {
+            fill: @green-60;
+        }
+    }
+
+    &[data-report-type='borrower-risk-profiles'] {
+        .line__adjusted {
+            stroke: @pacific;
+        }
+        .line__unadjusted {
+            stroke: @pacific-60;
+        }
+        .bar {
+            fill: @pacific;
+        }
+
+        .bar__projected {
+            fill: @pacific-60;
+        }
+    }
+
+    &[data-report-type='income-level'] {
+        .line__adjusted {
+            stroke: @teal;
+        }
+        .line__unadjusted {
+            stroke: @teal-60;
+        }
+        .bar {
+            fill: @teal;
+        }
+
+        .bar__projected {
+            fill: @teal-60;
+        }
+    }
+
+    &[data-report-type='borrower-age'] {
+        .line__adjusted {
+            stroke: @navy;
+        }
+        .line__unadjusted {
+            stroke: @navy-60;
+        }
+        .bar {
+            fill: @navy;
+        }
+
+        .bar__projected {
+            fill: @navy-60;
+        }
+    }
+
 }
