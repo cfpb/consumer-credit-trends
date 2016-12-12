@@ -22,7 +22,9 @@ gulp.task( 'handlebars:dom',
 } );
 
 // Compile templates for each chart using charts config js.
-gulp.task( 'handlebars:compile', function () {
+gulp.task( 'handlebars:compile', 
+  [ 'clean' ],
+  function () {
 
   for ( var i=0; i < charts.length; i++ ) {
     var chart = charts[i];
@@ -46,7 +48,9 @@ gulp.task( 'handlebars:compile', function () {
 } );
 
 // Compile index file containing every chart.
-gulp.task( 'handlebars:index', function () {
+gulp.task( 'handlebars:index', 
+  [ 'clean' ],
+  function () {
 
   var indexSrc = [
     './src/static/js/templates/index.hbs',

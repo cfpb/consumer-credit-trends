@@ -41,7 +41,8 @@ module.exports = {
     tests: loc.test
   },
   clean: {
-    dest: loc.dist
+    dest: loc.dist,
+    releaseDest: loc.prod + '/charts/'
   },
   styles: {
     cwd:      loc.src + '/static/css',
