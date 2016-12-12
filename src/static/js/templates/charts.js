@@ -141,6 +141,83 @@ var charts = [{
   "figureID": "figure-2b",
   "source": "yoy_data_Score_Level_AUT.csv",
   "elementID": "auto-loan_yoy-superprime"
+},
+// Income level
+{ // Lending level Line charts
+  "title": "Low income (relative income less than 50%)",
+  "chartType": "line",
+  "market": "auto-loans",
+  "reportType": "income-level",  
+  "figureID": "figure-3a",
+  "source": "volume_data_Income_Level_AUT.csv",
+  "elementID": "figure-3a__low",
+  "group": "Low"
+},
+{
+  "title": "Moderate income (relative income 50 to 79%)",
+  "chartType": "line",
+  "market": "auto-loans",
+  "reportType": "income-level",  
+  "figureID": "figure-3a",
+  "source": "volume_data_Income_Level_AUT.csv",
+  "elementID": "figure-3a__moderate",
+  "group": "Moderate"
+},
+{
+  "title": "Middle income (relative income 80 to 119%)",
+  "chartType": "line",
+  "market": "auto-loans",
+  "reportType": "income-level",  
+  "figureID": "figure-3a",
+  "source": "volume_data_Income_Level_AUT.csv",
+  "elementID": "figure-3a__middle",
+  "group": "Middle"
+},
+{
+  "title": "High income (relative income 120% or above)",
+  "chartType": "line",
+  "market": "auto-loans",
+  "reportType": "income-level",  
+  "figureID": "figure-3a",
+  "source": "volume_data_Income_Level_AUT.csv",
+  "elementID": "figure-3a__high",
+  "group": "High"
+},
+{ // Year over year bar charts
+  "title": "Low income (relative income less than 50%)",
+  "chartType": "bar",
+  "market": "auto-loans",
+  "reportType": "report",  
+  "figureID": "figure-3b",
+  "source": "source.csv",
+  "elementID": "element"
+},
+{
+  "title": "Moderate income (relative income 50 to 79%)",
+  "chartType": "bar",
+  "market": "auto-loans",
+  "reportType": "report",  
+  "figureID": "figure-3b",
+  "source": "source.csv",
+  "elementID": "element"
+},
+{
+  "title": "Middle income (relative income 80 to 119%)",
+  "chartType": "bar",
+  "market": "auto-loans",
+  "reportType": "report",  
+  "figureID": "figure-3b",
+  "source": "source.csv",
+  "elementID": "element"
+},
+{
+  "title": "High income (relative income 120% or above)",
+  "chartType": "bar",
+  "market": "auto-loans",
+  "reportType": "report",  
+  "figureID": "figure-3b",
+  "source": "source.csv",
+  "elementID": "element"
 },]
 
 module.exports = charts;
