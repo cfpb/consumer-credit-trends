@@ -15,5 +15,5 @@ var tileMap = require( './tile-map.js' );
 var getMetadata = require( './metadata.js' );
 
 getMetadata.init();
-// tileMap();
+tileMap();
 line();

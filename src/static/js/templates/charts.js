@@ -19,33 +19,33 @@ var charts = [{
   "source": "vol_data_AUT.csv",
   "elementID": "figure-1a__volume"
 },
-// {
-//   "title": "",
-//   "chartType": "map",
-//   "market": "auto-loans",
-//   "reportType": "origination-activity",  
-//   "figureID": "figure-1c",
-//   "source": "map_data_AUT.csv",
-//   "elementID": "auto-loan_geo-changes"
-// },
-// {
-//   "title": "Number of loans originated",
-//   "chartType": "bar",
-//   "market": "auto-loans",
-//   "reportType": "origination-activity",  
-//   "figureID": "figure-1b",
-//   "source": "yoy_data_all_AUT.csv",
-//   "elementID": "auto-loan_yoy-number"
-// },
-// {
-//   "title": "Volume of loans originated",
-//   "chartType": "bar",
-//   "market": "auto-loans",
-//   "reportType": "origination-activity",  
-//   "figureID": "figure-1b",
-//   "source": "yoy_data_all_AUT.csv",
-//   "elementID": "auto-loan_yoy-volume"
-// },
+{
+  "title": "",
+  "chartType": "map",
+  "market": "auto-loans",
+  "reportType": "origination-activity",  
+  "figureID": "figure-1c",
+  "source": "map_data_AUT.csv",
+  "elementID": "auto-loan_geo-changes"
+},
+{
+  "title": "Number of loans originated",
+  "chartType": "bar",
+  "market": "auto-loans",
+  "reportType": "origination-activity",  
+  "figureID": "figure-1b",
+  "source": "yoy_data_all_AUT.csv",
+  "elementID": "auto-loan_yoy-number"
+},
+{
+  "title": "Volume of loans originated",
+  "chartType": "bar",
+  "market": "auto-loans",
+  "reportType": "origination-activity",  
+  "figureID": "figure-1b",
+  "source": "yoy_data_all_AUT.csv",
+  "elementID": "auto-loan_yoy-volume"
+},
 { // Borrower Risk Profiles: Credit score
   "title": "Deep subprime (credit scores below 580)",
   "chartType": "line",
