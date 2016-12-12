@@ -26,7 +26,7 @@ var charts = [{
   "reportType": "origination-activity",  
   "figureID": "figure-1c",
   "source": "map_data_AUT.csv",
-  "elementID": "auto-loan_geo-changes"
+  "elementID": "figure-1c__map__auto"
 },
 {
   "title": "Number of loans originated",
@@ -314,15 +314,15 @@ var charts = [{
   "source": "vol_data_CRC.csv",
   "elementID": "figure-1a__volume__credit-cards"
 },
-// {
-//   "title": "",
-//   "chartType": "map",
-//   "market": "credit-cards",
-//   "reportType": "origination-activity",  
-//   "figureID": "figure-1c",
-//   "source": "map_data_AUT.csv",
-//   "elementID": "auto-loan_geo-changes"
-// },
+{
+  "title": "",
+  "chartType": "map",
+  "market": "credit-cards",
+  "reportType": "origination-activity",  
+  "figureID": "figure-1c",
+  "source": "map_data_CRC.csv",
+  "elementID": "figure-1c__map__credit-cards"
+},
 // {
 //   "title": "Number of loans originated",
 //   "chartType": "bar",
@@ -610,15 +610,15 @@ var charts = [{
   "source": "vol_data_MTG.csv",
   "elementID": "figure-1a__volume__mortgage"
 },
-// {
-//   "title": "",
-//   "chartType": "map",
-//   "market": "mortgages",
-//   "reportType": "origination-activity",  
-//   "figureID": "figure-1c",
-//   "source": "map_data_MTG.csv",
-//   "elementID": "auto-loan_geo-changes"
-// },
+{
+  "title": "",
+  "chartType": "map",
+  "market": "mortgages",
+  "reportType": "origination-activity",  
+  "figureID": "figure-1c",
+  "source": "map_data_MTG.csv",
+  "elementID": "figure-1c__map__mortgage"
+},
 // {
 //   "title": "Number of loans originated",
 //   "chartType": "bar",
@@ -906,15 +906,15 @@ var charts = [{
   "source": "vol_data_STU.csv",
   "elementID": "figure-1a__volume__student"
 },
-// {
-//   "title": "",
-//   "chartType": "map",
-//   "market": "student-loans",
-//   "reportType": "origination-activity",  
-//   "figureID": "figure-1c",
-//   "source": "map_data_STU.csv",
-//   "elementID": "auto-loan_geo-changes"
-// },
+{
+  "title": "",
+  "chartType": "map",
+  "market": "student-loans",
+  "reportType": "origination-activity",  
+  "figureID": "figure-1c",
+  "source": "map_data_STU.csv",
+  "elementID": "figure-1c__map__student"
+},
 // {
 //   "title": "Number of loans originated",
 //   "chartType": "bar",
