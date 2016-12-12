@@ -26,6 +26,9 @@ clean(){
 install(){
   echo 'Installing project dependencies...'
   npm install
+  echo 'Shrinkwrapping project dependencies...'
+  npm prune
+  npm shrinkwrap --dev
 }
 
 # Run tasks to build the project for distribution.
