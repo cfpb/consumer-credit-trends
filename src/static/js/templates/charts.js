@@ -4,6 +4,7 @@ var charts = [{
   // Auto loans: Origination activity
   "title": "Number of loans originated",
   "chartType": "line",
+  "yAxisUnit": "M",
   "market": "auto-loans",
   "reportType": "origination-activity",
   "figureID": "figure-1a",
@@ -13,6 +14,7 @@ var charts = [{
 {
   "title": "Volume of loans originated",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "auto-loans",
   "reportType": "origination-activity",
   "figureID": "figure-1a",
@@ -49,6 +51,7 @@ var charts = [{
 { // Borrower Risk Profiles: Credit score
   "title": "Deep subprime (credit scores below 580)",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "auto-loans",
   "reportType": "borrower-risk-profiles",  
   "figureID": "figure-2a",
@@ -60,6 +63,7 @@ var charts = [{
 {
   "title": "Subprime (credit scores 580 - 619)",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "auto-loans",
   "reportType": "borrower-risk-profiles",  
   "figureID": "figure-2a",
@@ -70,6 +74,7 @@ var charts = [{
 {
   "title": "Near prime (credit scores 620 - 679)",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "auto-loans",
   "reportType": "borrower-risk-profiles",  
   "figureID": "figure-2a",
@@ -80,6 +85,7 @@ var charts = [{
 {
   "title": "Prime (credit scores 680 - 719)",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "auto-loans",
   "reportType": "borrower-risk-profiles",  
   "figureID": "figure-2a",
@@ -90,6 +96,7 @@ var charts = [{
 {
   "title": "Superprime (credit scores 720 and above)",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "auto-loans",
   "reportType": "borrower-risk-profiles",  
   "figureID": "figure-2a",
@@ -146,6 +153,7 @@ var charts = [{
 { // Lending level Line charts
   "title": "Low income (relative income less than 50%)",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "auto-loans",
   "reportType": "income-level",  
   "figureID": "figure-3a",
@@ -156,6 +164,7 @@ var charts = [{
 {
   "title": "Moderate income (relative income 50 to 79%)",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "auto-loans",
   "reportType": "income-level",  
   "figureID": "figure-3a",
@@ -166,6 +175,7 @@ var charts = [{
 {
   "title": "Middle income (relative income 80 to 119%)",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "auto-loans",
   "reportType": "income-level",  
   "figureID": "figure-3a",
@@ -176,6 +186,7 @@ var charts = [{
 {
   "title": "High income (relative income 120% or above)",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "auto-loans",
   "reportType": "income-level",  
   "figureID": "figure-3a",
@@ -223,6 +234,7 @@ var charts = [{
 { // Lending level Line charts
   "title": "Younger than 30",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "auto-loans",
   "reportType": "borrower-age",  
   "figureID": "figure-4a",
@@ -233,6 +245,7 @@ var charts = [{
 {
   "title": "Age 30 to 44",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "auto-loans",
   "reportType": "borrower-age",  
   "figureID": "figure-4a",
@@ -243,6 +256,7 @@ var charts = [{
 {
   "title": "Age 45 to 64",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "auto-loans",
   "reportType": "borrower-age",  
   "figureID": "figure-4a",
@@ -253,6 +267,7 @@ var charts = [{
 {
   "title": "Age 65 and older",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "auto-loans",
   "reportType": "borrower-age",  
   "figureID": "figure-4a",
@@ -299,6 +314,7 @@ var charts = [{
 { // Credit cards: Origination activity
   "title": "Number of loans originated",
   "chartType": "line",
+  "yAxisUnit": "M",
   "market": "credit-cards",
   "reportType": "origination-activity",
   "figureID": "figure-1a",
@@ -308,6 +324,7 @@ var charts = [{
 {
   "title": "Volume of loans originated",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "credit-cards",
   "reportType": "origination-activity",
   "figureID": "figure-1a",
@@ -344,6 +361,7 @@ var charts = [{
 { // Borrower Risk Profiles: Credit score
   "title": "Deep subprime (credit scores below 580)",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "credit-cards",
   "reportType": "borrower-risk-profiles",  
   "figureID": "figure-2a",
@@ -355,6 +373,7 @@ var charts = [{
 {
   "title": "Subprime (credit scores 580 - 619)",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "credit-cards",
   "reportType": "borrower-risk-profiles",  
   "figureID": "figure-2a",
@@ -365,6 +384,7 @@ var charts = [{
 {
   "title": "Near prime (credit scores 620 - 679)",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "credit-cards",
   "reportType": "borrower-risk-profiles",  
   "figureID": "figure-2a",
@@ -375,6 +395,7 @@ var charts = [{
 {
   "title": "Prime (credit scores 680 - 719)",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "credit-cards",
   "reportType": "borrower-risk-profiles",  
   "figureID": "figure-2a",
@@ -385,6 +406,7 @@ var charts = [{
 {
   "title": "Superprime (credit scores 720 and above)",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "credit-cards",
   "reportType": "borrower-risk-profiles",  
   "figureID": "figure-2a",
@@ -441,6 +463,7 @@ var charts = [{
 { // Lending level Line charts
   "title": "Low income (relative income less than 50%)",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "credit-cards",
   "reportType": "income-level",  
   "figureID": "figure-3a",
@@ -451,6 +474,7 @@ var charts = [{
 {
   "title": "Moderate income (relative income 50 to 79%)",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "credit-cards",
   "reportType": "income-level",  
   "figureID": "figure-3a",
@@ -461,6 +485,7 @@ var charts = [{
 {
   "title": "Middle income (relative income 80 to 119%)",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "credit-cards",
   "reportType": "income-level",  
   "figureID": "figure-3a",
@@ -471,6 +496,7 @@ var charts = [{
 {
   "title": "High income (relative income 120% or above)",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "credit-cards",
   "reportType": "income-level",  
   "figureID": "figure-3a",
@@ -518,6 +544,7 @@ var charts = [{
 { // Lending level Line charts
   "title": "Younger than 30",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "credit-cards",
   "reportType": "borrower-age",  
   "figureID": "figure-4a",
@@ -528,6 +555,7 @@ var charts = [{
 {
   "title": "Age 30 to 44",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "credit-cards",
   "reportType": "borrower-age",  
   "figureID": "figure-4a",
@@ -538,6 +566,7 @@ var charts = [{
 {
   "title": "Age 45 to 64",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "credit-cards",
   "reportType": "borrower-age",  
   "figureID": "figure-4a",
@@ -548,6 +577,7 @@ var charts = [{
 {
   "title": "Age 65 and older",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "credit-cards",
   "reportType": "borrower-age",  
   "figureID": "figure-4a",
@@ -595,6 +625,7 @@ var charts = [{
   // Mortgages: Origination activity
   "title": "Number of loans originated",
   "chartType": "line",
+  "yAxisUnit": "M",
   "market": "mortgages",
   "reportType": "origination-activity",
   "figureID": "figure-1a",
@@ -604,6 +635,7 @@ var charts = [{
 {
   "title": "Volume of loans originated",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "mortgages",
   "reportType": "origination-activity",
   "figureID": "figure-1a",
@@ -640,6 +672,7 @@ var charts = [{
 { // Borrower Risk Profiles: Credit score
   "title": "Deep subprime (credit scores below 580)",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "mortgages",
   "reportType": "borrower-risk-profiles",  
   "figureID": "figure-2a",
@@ -651,6 +684,7 @@ var charts = [{
 {
   "title": "Subprime (credit scores 580 - 619)",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "mortgages",
   "reportType": "borrower-risk-profiles",  
   "figureID": "figure-2a",
@@ -661,6 +695,7 @@ var charts = [{
 {
   "title": "Near prime (credit scores 620 - 679)",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "mortgages",
   "reportType": "borrower-risk-profiles",  
   "figureID": "figure-2a",
@@ -671,6 +706,7 @@ var charts = [{
 {
   "title": "Prime (credit scores 680 - 719)",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "mortgages",
   "reportType": "borrower-risk-profiles",  
   "figureID": "figure-2a",
@@ -681,6 +717,7 @@ var charts = [{
 {
   "title": "Superprime (credit scores 720 and above)",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "mortgages",
   "reportType": "borrower-risk-profiles",  
   "figureID": "figure-2a",
@@ -737,6 +774,7 @@ var charts = [{
 { // Lending level Line charts
   "title": "Low income (relative income less than 50%)",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "mortgages",
   "reportType": "income-level",  
   "figureID": "figure-3a",
@@ -747,6 +785,7 @@ var charts = [{
 {
   "title": "Moderate income (relative income 50 to 79%)",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "mortgages",
   "reportType": "income-level",  
   "figureID": "figure-3a",
@@ -757,6 +796,7 @@ var charts = [{
 {
   "title": "Middle income (relative income 80 to 119%)",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "mortgages",
   "reportType": "income-level",  
   "figureID": "figure-3a",
@@ -767,6 +807,7 @@ var charts = [{
 {
   "title": "High income (relative income 120% or above)",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "mortgages",
   "reportType": "income-level",  
   "figureID": "figure-3a",
@@ -814,6 +855,7 @@ var charts = [{
 { // Lending level Line charts
   "title": "Younger than 30",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "mortgages",
   "reportType": "borrower-age",  
   "figureID": "figure-4a",
@@ -824,6 +866,7 @@ var charts = [{
 {
   "title": "Age 30 to 44",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "mortgages",
   "reportType": "borrower-age",  
   "figureID": "figure-4a",
@@ -834,6 +877,7 @@ var charts = [{
 {
   "title": "Age 45 to 64",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "mortgages",
   "reportType": "borrower-age",  
   "figureID": "figure-4a",
@@ -844,6 +888,7 @@ var charts = [{
 {
   "title": "Age 65 and older",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "mortgages",
   "reportType": "borrower-age",  
   "figureID": "figure-4a",
@@ -891,6 +936,7 @@ var charts = [{
   // Student loans: Origination activity
   "title": "Number of loans originated",
   "chartType": "line",
+  "yAxisUnit": "M",
   "market": "student-loans",
   "reportType": "origination-activity",
   "figureID": "figure-1a",
@@ -900,6 +946,7 @@ var charts = [{
 {
   "title": "Volume of loans originated",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "student-loans",
   "reportType": "origination-activity",
   "figureID": "figure-1a",
@@ -936,6 +983,7 @@ var charts = [{
 { // Borrower Risk Profiles: Credit score
   "title": "Deep subprime (credit scores below 580)",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "student-loans",
   "reportType": "borrower-risk-profiles",  
   "figureID": "figure-2a",
@@ -947,6 +995,7 @@ var charts = [{
 {
   "title": "Subprime (credit scores 580 - 619)",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "student-loans",
   "reportType": "borrower-risk-profiles",  
   "figureID": "figure-2a",
@@ -957,6 +1006,7 @@ var charts = [{
 {
   "title": "Near prime (credit scores 620 - 679)",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "student-loans",
   "reportType": "borrower-risk-profiles",  
   "figureID": "figure-2a",
@@ -967,6 +1017,7 @@ var charts = [{
 {
   "title": "Prime (credit scores 680 - 719)",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "student-loans",
   "reportType": "borrower-risk-profiles",  
   "figureID": "figure-2a",
@@ -977,6 +1028,7 @@ var charts = [{
 {
   "title": "Superprime (credit scores 720 and above)",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "student-loans",
   "reportType": "borrower-risk-profiles",  
   "figureID": "figure-2a",
@@ -1033,6 +1085,7 @@ var charts = [{
 { // Lending level Line charts
   "title": "Low income (relative income less than 50%)",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "student-loans",
   "reportType": "income-level",  
   "figureID": "figure-3a",
@@ -1043,6 +1096,7 @@ var charts = [{
 {
   "title": "Moderate income (relative income 50 to 79%)",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "student-loans",
   "reportType": "income-level",  
   "figureID": "figure-3a",
@@ -1053,6 +1107,7 @@ var charts = [{
 {
   "title": "Middle income (relative income 80 to 119%)",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "student-loans",
   "reportType": "income-level",  
   "figureID": "figure-3a",
@@ -1063,6 +1118,7 @@ var charts = [{
 {
   "title": "High income (relative income 120% or above)",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "student-loans",
   "reportType": "income-level",  
   "figureID": "figure-3a",
@@ -1110,6 +1166,7 @@ var charts = [{
 { // Lending level Line charts
   "title": "Younger than 30",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "student-loans",
   "reportType": "borrower-age",  
   "figureID": "figure-4a",
@@ -1120,6 +1177,7 @@ var charts = [{
 {
   "title": "Age 30 to 44",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "student-loans",
   "reportType": "borrower-age",  
   "figureID": "figure-4a",
@@ -1130,6 +1188,7 @@ var charts = [{
 {
   "title": "Age 45 to 64",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "student-loans",
   "reportType": "borrower-age",  
   "figureID": "figure-4a",
@@ -1140,6 +1199,7 @@ var charts = [{
 {
   "title": "Age 65 and older",
   "chartType": "line",
+  "yAxisUnit": "B",
   "market": "student-loans",
   "reportType": "borrower-age",  
   "figureID": "figure-4a",
