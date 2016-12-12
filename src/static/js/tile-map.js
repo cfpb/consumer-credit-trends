@@ -7,7 +7,10 @@ var dateTranslate = require( './utils/date-translate.js' );
 var strToNum = require( './utils/string-to-number.js' );
 var formatTime = d3.utcFormat( '%b %Y' );
 
-console.log( ' map it up')
+
+function init() {
+
+  console.log( ' map it up')
 
 var autoLoanMapData = [];
 var DATA_URLS = {
@@ -62,3 +65,7 @@ d3.csv( DATA_URLS.MAP, function( error, rawData ) {
   var AutoLoanMapChart = AutoLoanMap.drawGraph( AutoLoanMapOptions );
 
 } );
+
+}
+
+module.exports = init;

@@ -9,9 +9,10 @@ global.$ = require( 'jquery' );
 // require( './bar.js' );
 require( './formatDates.js' );
 require( './line.js' );
-require( './bar.js' );
-require( './tile-map.js' );
+// require( './bar.js' );
+var tileMap = require( './tile-map.js' );
 
 var getMetadata = require( './metadata.js' );
 
 getMetadata.init();
+tileMap();
