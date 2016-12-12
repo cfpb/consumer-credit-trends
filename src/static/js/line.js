@@ -12,7 +12,7 @@ var DATA_FILE_PATH = 'https://raw.githubusercontent.com/cfpb/consumer-credit-tre
 
 function init() {
 
-  // Draw bar chart for each object in charts config
+  // Draw line chart for each object in charts config
   for ( var i = 0; i < charts.length; i++ ) {
     var chartInfo = charts[i];
 
@@ -87,8 +87,6 @@ function makeDataIntoLineCharts( chartInfo ) {
           yAxisUnit: chartInfo.yAxisUnit
         }
     };
-
-  // console.log( props.data );
 
       var line = new chartBuilder.lineChart( props );
       var lineChart = line.drawGraph( defaultOpts );
