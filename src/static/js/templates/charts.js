@@ -8,7 +8,7 @@ var charts = [{
   "reportType": "origination-activity",
   "figureID": "figure-1a",
   "source": "num_data_AUT.csv",
-  "elementID": "figure-1a__number"
+  "elementID": "figure-1a__number__auto"
 },
 {
   "title": "Volume of loans originated",
@@ -17,7 +17,7 @@ var charts = [{
   "reportType": "origination-activity",
   "figureID": "figure-1a",
   "source": "vol_data_AUT.csv",
-  "elementID": "figure-1a__volume"
+  "elementID": "figure-1a__volume__auto"
 },
 {
   "title": "",
@@ -53,7 +53,7 @@ var charts = [{
   "reportType": "borrower-risk-profiles",  
   "figureID": "figure-2a",
   "source": "volume_data_Score_Level_AUT.csv",
-  "elementID": "figure-2a__deep-subprime",
+  "elementID": "figure-2a__deep-subprime__auto",
   // Only add a group property if the data file needs to be filtered!
   "group": "Deep Subprime"
 },
@@ -64,7 +64,7 @@ var charts = [{
   "reportType": "borrower-risk-profiles",  
   "figureID": "figure-2a",
   "source": "volume_data_Score_Level_AUT.csv",
-  "elementID": "figure-2a__subprime",
+  "elementID": "figure-2a__subprime__auto",
   "group": "Subprime"
 },
 {
@@ -74,7 +74,7 @@ var charts = [{
   "reportType": "borrower-risk-profiles",  
   "figureID": "figure-2a",
   "source": "volume_data_Score_Level_AUT.csv",
-  "elementID": "figure-2a__near-prime",
+  "elementID": "figure-2a__near-prime__auto",
   "group": "Near Prime"
 },
 {
@@ -84,7 +84,7 @@ var charts = [{
   "reportType": "borrower-risk-profiles",  
   "figureID": "figure-2a",
   "source": "volume_data_Score_Level_AUT.csv",
-  "elementID": "figure-2a__prime",
+  "elementID": "figure-2a__prime__auto",
   "group": "Prime"
 },
 {
@@ -94,7 +94,7 @@ var charts = [{
   "reportType": "borrower-risk-profiles",  
   "figureID": "figure-2a",
   "source": "volume_data_Score_Level_AUT.csv",
-  "elementID": "figure-2a__superprime",
+  "elementID": "figure-2a__superprime__auto",
   "group": "Superprime"
 },
 // { // Year over year changes
@@ -150,7 +150,7 @@ var charts = [{
   "reportType": "income-level",  
   "figureID": "figure-3a",
   "source": "volume_data_Income_Level_AUT.csv",
-  "elementID": "figure-3a__low",
+  "elementID": "figure-3a__low__auto",
   "group": "Low"
 },
 {
@@ -160,7 +160,7 @@ var charts = [{
   "reportType": "income-level",  
   "figureID": "figure-3a",
   "source": "volume_data_Income_Level_AUT.csv",
-  "elementID": "figure-3a__moderate",
+  "elementID": "figure-3a__moderate__auto",
   "group": "Moderate"
 },
 {
@@ -170,7 +170,7 @@ var charts = [{
   "reportType": "income-level",  
   "figureID": "figure-3a",
   "source": "volume_data_Income_Level_AUT.csv",
-  "elementID": "figure-3a__middle",
+  "elementID": "figure-3a__middle__auto",
   "group": "Middle"
 },
 {
@@ -180,7 +180,7 @@ var charts = [{
   "reportType": "income-level",  
   "figureID": "figure-3a",
   "source": "volume_data_Income_Level_AUT.csv",
-  "elementID": "figure-3a__high",
+  "elementID": "figure-3a__high__auto",
   "group": "High"
 },
 // { // Year over year bar charts
@@ -227,7 +227,7 @@ var charts = [{
   "reportType": "borrower-age",  
   "figureID": "figure-4a",
   "source": "volume_data_Age_Group_AUT.csv",
-  "elementID": "figure-4a__younger-than-30",
+  "elementID": "figure-4a__younger-than-30__auto",
   "group": "Younger than 30"
 },
 {
@@ -237,7 +237,7 @@ var charts = [{
   "reportType": "borrower-age",  
   "figureID": "figure-4a",
   "source": "volume_data_Age_Group_AUT.csv",
-  "elementID": "figure-4a__30-to-44",
+  "elementID": "figure-4a__30-to-44__auto",
   "group": "30 - 44"
 },
 {
@@ -247,7 +247,7 @@ var charts = [{
   "reportType": "borrower-age",  
   "figureID": "figure-4a",
   "source": "volume_data_Age_Group_AUT.csv",
-  "elementID": "figure-4a__45-to-64",
+  "elementID": "figure-4a__45-to-64__auto",
   "group": "45 - 64"
 },
 {
@@ -257,7 +257,7 @@ var charts = [{
   "reportType": "borrower-age",  
   "figureID": "figure-4a",
   "source": "volume_data_Age_Group_AUT.csv",
-  "elementID": "figure-4a__65-and-older",
+  "elementID": "figure-4a__65-and-older__auto",
   "group": "65 and older"
 },
 // { // Year over year bar charts
