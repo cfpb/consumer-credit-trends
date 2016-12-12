@@ -887,6 +887,302 @@ var charts = [{
 //   "source": "source.csv",
 //   "elementID": "element"
 // },
+{
+  // Student loans: Origination activity
+  "title": "Number of loans originated",
+  "chartType": "line",
+  "market": "student-loans",
+  "reportType": "origination-activity",
+  "figureID": "figure-1a",
+  "source": "num_data_STU.csv",
+  "elementID": "figure-1a__number__student"
+},
+{
+  "title": "Volume of loans originated",
+  "chartType": "line",
+  "market": "student-loans",
+  "reportType": "origination-activity",
+  "figureID": "figure-1a",
+  "source": "vol_data_STU.csv",
+  "elementID": "figure-1a__volume__student"
+},
+// {
+//   "title": "",
+//   "chartType": "map",
+//   "market": "student-loans",
+//   "reportType": "origination-activity",  
+//   "figureID": "figure-1c",
+//   "source": "map_data_STU.csv",
+//   "elementID": "auto-loan_geo-changes"
+// },
+// {
+//   "title": "Number of loans originated",
+//   "chartType": "bar",
+//   "market": "student-loans",
+//   "reportType": "origination-activity",  
+//   "figureID": "figure-1b",
+//   "source": "yoy_data_all_STU.csv",
+//   "elementID": "auto-loan_yoy-number"
+// },
+// {
+//   "title": "Volume of loans originated",
+//   "chartType": "bar",
+//   "market": "student-loans",
+//   "reportType": "origination-activity",  
+//   "figureID": "figure-1b",
+//   "source": "yoy_data_all_STU.csv",
+//   "elementID": "auto-loan_yoy-volume"
+// },
+{ // Borrower Risk Profiles: Credit score
+  "title": "Deep subprime (credit scores below 580)",
+  "chartType": "line",
+  "market": "student-loans",
+  "reportType": "borrower-risk-profiles",  
+  "figureID": "figure-2a",
+  "source": "volume_data_Score_Level_STU.csv",
+  "elementID": "figure-2a__deep-subprime__student",
+  // Only add a group property if the data file needs to be filtered!
+  "group": "Deep Subprime"
+},
+{
+  "title": "Subprime (credit scores 580 - 619)",
+  "chartType": "line",
+  "market": "student-loans",
+  "reportType": "borrower-risk-profiles",  
+  "figureID": "figure-2a",
+  "source": "volume_data_Score_Level_STU.csv",
+  "elementID": "figure-2a__subprime__student",
+  "group": "Subprime"
+},
+{
+  "title": "Near prime (credit scores 620 - 679)",
+  "chartType": "line",
+  "market": "student-loans",
+  "reportType": "borrower-risk-profiles",  
+  "figureID": "figure-2a",
+  "source": "volume_data_Score_Level_STU.csv",
+  "elementID": "figure-2a__near-prime__student",
+  "group": "Near Prime"
+},
+{
+  "title": "Prime (credit scores 680 - 719)",
+  "chartType": "line",
+  "market": "student-loans",
+  "reportType": "borrower-risk-profiles",  
+  "figureID": "figure-2a",
+  "source": "volume_data_Score_Level_STU.csv",
+  "elementID": "figure-2a__prime__student",
+  "group": "Prime"
+},
+{
+  "title": "Superprime (credit scores 720 and above)",
+  "chartType": "line",
+  "market": "student-loans",
+  "reportType": "borrower-risk-profiles",  
+  "figureID": "figure-2a",
+  "source": "volume_data_Score_Level_STU.csv",
+  "elementID": "figure-2a__superprime__student",
+  "group": "Superprime"
+},
+// { // Year over year changes
+//   "title": "Deep subprime (credit scores below 580)",
+//   "chartType": "bar",
+//   "market": "student-loans",
+//   "reportType": "borrower-risk-profiles",  
+//   "figureID": "figure-2b",
+//   "source": "yoy_data_Score_Level_STU.csv",
+//   "elementID": "auto-loan_yoy-deep-subprime"
+// },
+// {
+//   "title": "Subprime (credit scores 580 - 619)",
+//   "chartType": "bar",
+//   "market": "student-loans",
+//   "reportType": "borrower-risk-profiles",  
+//   "figureID": "figure-2b",
+//   "source": "yoy_data_Score_Level_STU.csv",
+//   "elementID": "auto-loan_yoy-subprime"
+// },
+// {
+//   "title": "Near prime (credit scores 620 - 679)",
+//   "chartType": "bar",
+//   "market": "student-loans",
+//   "reportType": "borrower-risk-profiles",  
+//   "figureID": "figure-2b",
+//   "source": "yoy_data_Score_Level_STU.csv",
+//   "elementID": "auto-loan_yoy-near-prime"
+// },
+// {
+//   "title": "Prime (credit scores 680 - 719)",
+//   "chartType": "bar",
+//   "market": "student-loans",
+//   "reportType": "borrower-risk-profiles",  
+//   "figureID": "figure-2b",
+//   "source": "yoy_data_Score_Level_STU.csv",
+//   "elementID": "auto-loan_yoy-prime"
+// },
+// {
+//   "title": "Superprime (credit scores 720 and above)",
+//   "chartType": "bar",
+//   "market": "student-loans",
+//   "reportType": "borrower-risk-profiles",  
+//   "figureID": "figure-2b",
+//   "source": "yoy_data_Score_Level_STU.csv",
+//   "elementID": "auto-loan_yoy-superprime"
+// },
+// Income level
+{ // Lending level Line charts
+  "title": "Low income (relative income less than 50%)",
+  "chartType": "line",
+  "market": "student-loans",
+  "reportType": "income-level",  
+  "figureID": "figure-3a",
+  "source": "volume_data_Income_Level_STU.csv",
+  "elementID": "figure-3a__low__student",
+  "group": "Low"
+},
+{
+  "title": "Moderate income (relative income 50 to 79%)",
+  "chartType": "line",
+  "market": "student-loans",
+  "reportType": "income-level",  
+  "figureID": "figure-3a",
+  "source": "volume_data_Income_Level_STU.csv",
+  "elementID": "figure-3a__moderate__student",
+  "group": "Moderate"
+},
+{
+  "title": "Middle income (relative income 80 to 119%)",
+  "chartType": "line",
+  "market": "student-loans",
+  "reportType": "income-level",  
+  "figureID": "figure-3a",
+  "source": "volume_data_Income_Level_STU.csv",
+  "elementID": "figure-3a__middle__student",
+  "group": "Middle"
+},
+{
+  "title": "High income (relative income 120% or above)",
+  "chartType": "line",
+  "market": "student-loans",
+  "reportType": "income-level",  
+  "figureID": "figure-3a",
+  "source": "volume_data_Income_Level_STU.csv",
+  "elementID": "figure-3a__high__student",
+  "group": "High"
+},
+// { // Year over year bar charts
+//   "title": "Low income (relative income less than 50%)",
+//   "chartType": "bar",
+//   "market": "student-loans",
+//   "reportType": "income-level",  
+//   "figureID": "figure-3b",
+//   "source": "source.csv",
+//   "elementID": "element"
+// },
+// {
+//   "title": "Moderate income (relative income 50 to 79%)",
+//   "chartType": "bar",
+//   "market": "student-loans",
+//   "reportType": "income-level",  
+//   "figureID": "figure-3b",
+//   "source": "source.csv",
+//   "elementID": "element"
+// },
+// {
+//   "title": "Middle income (relative income 80 to 119%)",
+//   "chartType": "bar",
+//   "market": "student-loans",
+//   "reportType": "income-level",  
+//   "figureID": "figure-3b",
+//   "source": "source.csv",
+//   "elementID": "element"
+// },
+// {
+//   "title": "High income (relative income 120% or above)",
+//   "chartType": "bar",
+//   "market": "student-loans",
+//   "reportType": "income-level",  
+//   "figureID": "figure-3b",
+//   "source": "source.csv",
+//   "elementID": "element"
+// }
+// Borrower age
+{ // Lending level Line charts
+  "title": "Younger than 30",
+  "chartType": "line",
+  "market": "student-loans",
+  "reportType": "borrower-age",  
+  "figureID": "figure-4a",
+  "source": "volume_data_Age_Group_STU.csv",
+  "elementID": "figure-4a__younger-than-30__student",
+  "group": "Younger than 30"
+},
+{
+  "title": "Age 30 to 44",
+  "chartType": "line",
+  "market": "student-loans",
+  "reportType": "borrower-age",  
+  "figureID": "figure-4a",
+  "source": "volume_data_Age_Group_STU.csv",
+  "elementID": "figure-4a__30-to-44__student",
+  "group": "30 - 44"
+},
+{
+  "title": "Age 45 to 64",
+  "chartType": "line",
+  "market": "student-loans",
+  "reportType": "borrower-age",  
+  "figureID": "figure-4a",
+  "source": "volume_data_Age_Group_STU.csv",
+  "elementID": "figure-4a__45-to-64__student",
+  "group": "45 - 64"
+},
+{
+  "title": "Age 65 and older",
+  "chartType": "line",
+  "market": "student-loans",
+  "reportType": "borrower-age",  
+  "figureID": "figure-4a",
+  "source": "volume_data_Age_Group_STU.csv",
+  "elementID": "figure-4a__65-and-older__student",
+  "group": "65 and older"
+},
+// { // Year over year bar charts
+//   "title": "Younger than 30",
+//   "chartType": "bar",
+//   "market": "student-loans",
+//   "reportType": "borrower-age",  
+//   "figureID": "figure-4b",
+//   "source": "source.csv",
+//   "elementID": "element"
+// },
+// {
+//   "title": "Age 30 to 44",
+//   "chartType": "bar",
+//   "market": "student-loans",
+//   "reportType": "borrower-age",  
+//   "figureID": "figure-4b",
+//   "source": "source.csv",
+//   "elementID": "element"
+// },
+// {
+  // "title": "Age 45 to 64",
+//   "chartType": "bar",
+//   "market": "student-loans",
+//   "reportType": "borrower-age",  
+//   "figureID": "figure-4b",
+//   "source": "source.csv",
+//   "elementID": "element"
+// },
+// {
+  // "title": "Age 65 and older",
+//   "chartType": "bar",
+//   "market": "student-loans",
+//   "reportType": "borrower-age",  
+//   "figureID": "figure-4b",
+//   "source": "source.csv",
+//   "elementID": "element"
+// },
 ]
 
 module.exports = charts;
