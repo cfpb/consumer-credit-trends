@@ -1,7 +1,7 @@
 "use strict";
 
 var charts = [{
-  // Auto loans: Lending Levels
+  // Auto loans: Origination activity
   "title": "Number of loans originated",
   "chartType": "line",
   "market": "auto-loans",
@@ -296,7 +296,7 @@ var charts = [{
 //   "source": "source.csv",
 //   "elementID": "element"
 // },
-{ // Credit cards: Lending Levels
+{ // Credit cards: Origination activity
   "title": "Number of loans originated",
   "chartType": "line",
   "market": "credit-cards",
@@ -591,6 +591,302 @@ var charts = [{
 //   "source": "source.csv",
 //   "elementID": "element"
 // }
+{
+  // Mortgages: Origination activity
+  "title": "Number of loans originated",
+  "chartType": "line",
+  "market": "mortgages",
+  "reportType": "origination-activity",
+  "figureID": "figure-1a",
+  "source": "num_data_MTG.csv",
+  "elementID": "figure-1a__number__mortgage"
+},
+{
+  "title": "Volume of loans originated",
+  "chartType": "line",
+  "market": "mortgages",
+  "reportType": "origination-activity",
+  "figureID": "figure-1a",
+  "source": "vol_data_MTG.csv",
+  "elementID": "figure-1a__volume__mortgage"
+},
+// {
+//   "title": "",
+//   "chartType": "map",
+//   "market": "mortgages",
+//   "reportType": "origination-activity",  
+//   "figureID": "figure-1c",
+//   "source": "map_data_MTG.csv",
+//   "elementID": "auto-loan_geo-changes"
+// },
+// {
+//   "title": "Number of loans originated",
+//   "chartType": "bar",
+//   "market": "mortgages",
+//   "reportType": "origination-activity",  
+//   "figureID": "figure-1b",
+//   "source": "yoy_data_all_MTG.csv",
+//   "elementID": "auto-loan_yoy-number"
+// },
+// {
+//   "title": "Volume of loans originated",
+//   "chartType": "bar",
+//   "market": "mortgages",
+//   "reportType": "origination-activity",  
+//   "figureID": "figure-1b",
+//   "source": "yoy_data_all_MTG.csv",
+//   "elementID": "auto-loan_yoy-volume"
+// },
+{ // Borrower Risk Profiles: Credit score
+  "title": "Deep subprime (credit scores below 580)",
+  "chartType": "line",
+  "market": "mortgages",
+  "reportType": "borrower-risk-profiles",  
+  "figureID": "figure-2a",
+  "source": "volume_data_Score_Level_MTG.csv",
+  "elementID": "figure-2a__deep-subprime__mortgage",
+  // Only add a group property if the data file needs to be filtered!
+  "group": "Deep Subprime"
+},
+{
+  "title": "Subprime (credit scores 580 - 619)",
+  "chartType": "line",
+  "market": "mortgages",
+  "reportType": "borrower-risk-profiles",  
+  "figureID": "figure-2a",
+  "source": "volume_data_Score_Level_MTG.csv",
+  "elementID": "figure-2a__subprime__mortgage",
+  "group": "Subprime"
+},
+{
+  "title": "Near prime (credit scores 620 - 679)",
+  "chartType": "line",
+  "market": "mortgages",
+  "reportType": "borrower-risk-profiles",  
+  "figureID": "figure-2a",
+  "source": "volume_data_Score_Level_MTG.csv",
+  "elementID": "figure-2a__near-prime__mortgage",
+  "group": "Near Prime"
+},
+{
+  "title": "Prime (credit scores 680 - 719)",
+  "chartType": "line",
+  "market": "mortgages",
+  "reportType": "borrower-risk-profiles",  
+  "figureID": "figure-2a",
+  "source": "volume_data_Score_Level_MTG.csv",
+  "elementID": "figure-2a__prime__mortgage",
+  "group": "Prime"
+},
+{
+  "title": "Superprime (credit scores 720 and above)",
+  "chartType": "line",
+  "market": "mortgages",
+  "reportType": "borrower-risk-profiles",  
+  "figureID": "figure-2a",
+  "source": "volume_data_Score_Level_MTG.csv",
+  "elementID": "figure-2a__superprime__mortgage",
+  "group": "Superprime"
+},
+// { // Year over year changes
+//   "title": "Deep subprime (credit scores below 580)",
+//   "chartType": "bar",
+//   "market": "mortgages",
+//   "reportType": "borrower-risk-profiles",  
+//   "figureID": "figure-2b",
+//   "source": "yoy_data_Score_Level_MTG.csv",
+//   "elementID": "auto-loan_yoy-deep-subprime"
+// },
+// {
+//   "title": "Subprime (credit scores 580 - 619)",
+//   "chartType": "bar",
+//   "market": "mortgages",
+//   "reportType": "borrower-risk-profiles",  
+//   "figureID": "figure-2b",
+//   "source": "yoy_data_Score_Level_MTG.csv",
+//   "elementID": "auto-loan_yoy-subprime"
+// },
+// {
+//   "title": "Near prime (credit scores 620 - 679)",
+//   "chartType": "bar",
+//   "market": "mortgages",
+//   "reportType": "borrower-risk-profiles",  
+//   "figureID": "figure-2b",
+//   "source": "yoy_data_Score_Level_MTG.csv",
+//   "elementID": "auto-loan_yoy-near-prime"
+// },
+// {
+//   "title": "Prime (credit scores 680 - 719)",
+//   "chartType": "bar",
+//   "market": "mortgages",
+//   "reportType": "borrower-risk-profiles",  
+//   "figureID": "figure-2b",
+//   "source": "yoy_data_Score_Level_MTG.csv",
+//   "elementID": "auto-loan_yoy-prime"
+// },
+// {
+//   "title": "Superprime (credit scores 720 and above)",
+//   "chartType": "bar",
+//   "market": "mortgages",
+//   "reportType": "borrower-risk-profiles",  
+//   "figureID": "figure-2b",
+//   "source": "yoy_data_Score_Level_MTG.csv",
+//   "elementID": "auto-loan_yoy-superprime"
+// },
+// Income level
+{ // Lending level Line charts
+  "title": "Low income (relative income less than 50%)",
+  "chartType": "line",
+  "market": "mortgages",
+  "reportType": "income-level",  
+  "figureID": "figure-3a",
+  "source": "volume_data_Income_Level_MTG.csv",
+  "elementID": "figure-3a__low__mortgage",
+  "group": "Low"
+},
+{
+  "title": "Moderate income (relative income 50 to 79%)",
+  "chartType": "line",
+  "market": "mortgages",
+  "reportType": "income-level",  
+  "figureID": "figure-3a",
+  "source": "volume_data_Income_Level_MTG.csv",
+  "elementID": "figure-3a__moderate__mortgage",
+  "group": "Moderate"
+},
+{
+  "title": "Middle income (relative income 80 to 119%)",
+  "chartType": "line",
+  "market": "mortgages",
+  "reportType": "income-level",  
+  "figureID": "figure-3a",
+  "source": "volume_data_Income_Level_MTG.csv",
+  "elementID": "figure-3a__middle__mortgage",
+  "group": "Middle"
+},
+{
+  "title": "High income (relative income 120% or above)",
+  "chartType": "line",
+  "market": "mortgages",
+  "reportType": "income-level",  
+  "figureID": "figure-3a",
+  "source": "volume_data_Income_Level_MTG.csv",
+  "elementID": "figure-3a__high__mortgage",
+  "group": "High"
+},
+// { // Year over year bar charts
+//   "title": "Low income (relative income less than 50%)",
+//   "chartType": "bar",
+//   "market": "mortgages",
+//   "reportType": "income-level",  
+//   "figureID": "figure-3b",
+//   "source": "source.csv",
+//   "elementID": "element"
+// },
+// {
+//   "title": "Moderate income (relative income 50 to 79%)",
+//   "chartType": "bar",
+//   "market": "mortgages",
+//   "reportType": "income-level",  
+//   "figureID": "figure-3b",
+//   "source": "source.csv",
+//   "elementID": "element"
+// },
+// {
+//   "title": "Middle income (relative income 80 to 119%)",
+//   "chartType": "bar",
+//   "market": "mortgages",
+//   "reportType": "income-level",  
+//   "figureID": "figure-3b",
+//   "source": "source.csv",
+//   "elementID": "element"
+// },
+// {
+//   "title": "High income (relative income 120% or above)",
+//   "chartType": "bar",
+//   "market": "mortgages",
+//   "reportType": "income-level",  
+//   "figureID": "figure-3b",
+//   "source": "source.csv",
+//   "elementID": "element"
+// }
+// Borrower age
+{ // Lending level Line charts
+  "title": "Younger than 30",
+  "chartType": "line",
+  "market": "mortgages",
+  "reportType": "borrower-age",  
+  "figureID": "figure-4a",
+  "source": "volume_data_Age_Group_MTG.csv",
+  "elementID": "figure-4a__younger-than-30__mortgage",
+  "group": "Younger than 30"
+},
+{
+  "title": "Age 30 to 44",
+  "chartType": "line",
+  "market": "mortgages",
+  "reportType": "borrower-age",  
+  "figureID": "figure-4a",
+  "source": "volume_data_Age_Group_MTG.csv",
+  "elementID": "figure-4a__30-to-44__mortgage",
+  "group": "30 - 44"
+},
+{
+  "title": "Age 45 to 64",
+  "chartType": "line",
+  "market": "mortgages",
+  "reportType": "borrower-age",  
+  "figureID": "figure-4a",
+  "source": "volume_data_Age_Group_MTG.csv",
+  "elementID": "figure-4a__45-to-64__mortgage",
+  "group": "45 - 64"
+},
+{
+  "title": "Age 65 and older",
+  "chartType": "line",
+  "market": "mortgages",
+  "reportType": "borrower-age",  
+  "figureID": "figure-4a",
+  "source": "volume_data_Age_Group_MTG.csv",
+  "elementID": "figure-4a__65-and-older__mortgage",
+  "group": "65 and older"
+},
+// { // Year over year bar charts
+//   "title": "Younger than 30",
+//   "chartType": "bar",
+//   "market": "mortgages",
+//   "reportType": "borrower-age",  
+//   "figureID": "figure-4b",
+//   "source": "source.csv",
+//   "elementID": "element"
+// },
+// {
+//   "title": "Age 30 to 44",
+//   "chartType": "bar",
+//   "market": "mortgages",
+//   "reportType": "borrower-age",  
+//   "figureID": "figure-4b",
+//   "source": "source.csv",
+//   "elementID": "element"
+// },
+// {
+  // "title": "Age 45 to 64",
+//   "chartType": "bar",
+//   "market": "mortgages",
+//   "reportType": "borrower-age",  
+//   "figureID": "figure-4b",
+//   "source": "source.csv",
+//   "elementID": "element"
+// },
+// {
+  // "title": "Age 65 and older",
+//   "chartType": "bar",
+//   "market": "mortgages",
+//   "reportType": "borrower-age",  
+//   "figureID": "figure-4b",
+//   "source": "source.csv",
+//   "elementID": "element"
+// },
 ]
 
 module.exports = charts;
