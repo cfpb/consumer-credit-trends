@@ -219,6 +219,83 @@ var charts = [{
 //   "source": "source.csv",
 //   "elementID": "element"
 // }
+// Borrower age
+{ // Lending level Line charts
+  "title": "Younger than 30",
+  "chartType": "line",
+  "market": "auto-loans",
+  "reportType": "borrower-age",  
+  "figureID": "figure-4a",
+  "source": "volume_data_Age_Group_AUT.csv",
+  "elementID": "figure-4a__younger-than-30",
+  "group": "Younger than 30"
+},
+{
+  "title": "Age 30 to 44",
+  "chartType": "line",
+  "market": "auto-loans",
+  "reportType": "borrower-age",  
+  "figureID": "figure-4a",
+  "source": "volume_data_Age_Group_AUT.csv",
+  "elementID": "figure-4a__30-to-44",
+  "group": "30 - 44"
+},
+{
+  "title": "Age 45 to 64",
+  "chartType": "line",
+  "market": "auto-loans",
+  "reportType": "borrower-age",  
+  "figureID": "figure-4a",
+  "source": "volume_data_Age_Group_AUT.csv",
+  "elementID": "figure-4a__45-to-64",
+  "group": "45 - 64"
+},
+{
+  "title": "Age 65 and older",
+  "chartType": "line",
+  "market": "auto-loans",
+  "reportType": "borrower-age",  
+  "figureID": "figure-4a",
+  "source": "volume_data_Age_Group_AUT.csv",
+  "elementID": "figure-4a__65-and-older",
+  "group": "65 and older"
+},
+// { // Year over year bar charts
+//   "title": "Younger than 30",
+//   "chartType": "bar",
+//   "market": "auto-loans",
+//   "reportType": "borrower-age",  
+//   "figureID": "figure-4b",
+//   "source": "source.csv",
+//   "elementID": "element"
+// },
+// {
+//   "title": "Age 30 to 44",
+//   "chartType": "bar",
+//   "market": "auto-loans",
+//   "reportType": "borrower-age",  
+//   "figureID": "figure-4b",
+//   "source": "source.csv",
+//   "elementID": "element"
+// },
+// {
+  // "title": "Age 45 to 64",
+//   "chartType": "bar",
+//   "market": "auto-loans",
+//   "reportType": "borrower-age",  
+//   "figureID": "figure-4b",
+//   "source": "source.csv",
+//   "elementID": "element"
+// },
+// {
+  // "title": "Age 65 and older",
+//   "chartType": "bar",
+//   "market": "auto-loans",
+//   "reportType": "borrower-age",  
+//   "figureID": "figure-4b",
+//   "source": "source.csv",
+//   "elementID": "element"
+// }
 ]
 
 module.exports = charts;
