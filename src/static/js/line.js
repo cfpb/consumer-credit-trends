@@ -12,11 +12,12 @@ var DATA_FILE_PATH = 'https://raw.githubusercontent.com/cfpb/consumer-credit-tre
 
 function init() {
 
-  // Draw line chart for each object in charts config
+  // Draw bar chart for each object in charts config
   for ( var i = 0; i < charts.length; i++ ) {
     var chartInfo = charts[i];
 
-    if ( chartInfo.chartType === 'line' && document.getElementById( chartInfo.elementID ) ) {
+    if ( chartInfo.chartType === 'line' && document.getElementById( chartInfo.elementID ) 
+      ) {
       chartInfo.dataUrl = DATA_FILE_PATH + chartInfo.source;
       makeDataIntoLineCharts( chartInfo );
     }
@@ -66,19 +67,19 @@ function makeDataIntoLineCharts( chartInfo ) {
       yAxisTickFactor: chartInfo.yAxisTickFactor,
         lineSets: {
           'Unadjusted': {
-            classes: 'line line__adjusted',
+            classes: 'line line__unadjusted',
             showInLegend: true
           },
           'Unadjusted Projected': {
-            classes: 'line line__adjusted line__projected',
+            classes: 'line line__unadjusted line__projected',
             showInLegend: false
           },
           'Seasonally Adjusted': {
-            classes: 'line line_unadjusted',
+            classes: 'line line__adjusted',
             showInLegend: true
           },
           'Seasonally Adjusted Projected': {
-            classes: 'line line_unadjusted line__projected',
+            classes: 'line line__adjusted line__projected',
             showInLegend: false
           }
         },
