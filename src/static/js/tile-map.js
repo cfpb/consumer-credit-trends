@@ -8,31 +8,9 @@ var strToNum = require( './utils/string-to-number.js' );
 var formatTime = d3.utcFormat( '%b %Y' );
 var charts = require( './templates/charts.js' ); 
 
+var DATA_FILE_PATH = 'https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/';
+
 function init() {
-
-  console.log( ' map it upppp')
-
-  var tileMaps = {
-    'Auto Loans': {
-      'selector': '#figure-1c__map__auto',
-      'dataUrl': 'https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/map_data_AUT.csv'
-    },
-    'Credit Cards': {
-      'selector': '#figure-1c__map__credit-cards',
-      'dataUrl': 'https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/map_data_CRC.csv'
-    },
-    'Mortgages': {
-      'selector': '#figure-1c__map__mortgage',
-      // 'selector': '#mortgage_geo-changes',
-      'dataUrl': 'https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/map_data_MTG.csv'
-    },
-    'Student Loans': {
-      'selector': '#figure-1c__map__student',
-      // 'selector': '#student-loan_geo-changes',
-      'dataUrl': 'https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/map_data_STU.csv'
-    }
-  };
-
 
   var defaultOpts = {
     baseWidth: 770,
@@ -50,10 +28,10 @@ function init() {
 
   // Make the Tile Maps
 
-  function makeDataIntoTileMaps( chartInfo ) {
+  function makeDataIntoTileMaps( file, elementID, chartGroup ) {
 
 
-    d3.csv( chartInfo.dataUrl, function( error, rawData ) {
+    d3.csv( DATA_FILE_PATH + file, function( error, rawData ) {
       var data = [];
       for (var x = 0; x < rawData.length; x++ ) {
         var obj = {};
@@ -74,7 +52,7 @@ function init() {
 
       var autoLoanMapProps = {
         data: data,
-        selector: chartInfo.selector,
+        selector: '#' + elementID,
         valueGrid: valudGrid,
         legendLabels: legendLabels,
       }
@@ -95,10 +73,17 @@ function init() {
     } );
   }
 
-  for( var key in tileMaps ) {
-    var chartInfo = tileMaps[key];
-    makeDataIntoTileMaps( chartInfo );
-  }
+  for ( var i = 0; i < charts.length; i++ ) {
+    var chart = charts[i];
+    var source = chart.source;
+    var chartID = chart.elementID;
+    var chartType = chart.chartType;
+    var chartGroup = chart.group ? chart.group : null;
+
+    if ( chartType === 'map' && document.getElementById( chartID ) ) {
+      makeDataIntoTileMaps( source, chartID, chartGroup );
+    }
+  };
 
 
 }
