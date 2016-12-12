@@ -17,7 +17,7 @@ function init() {
   for ( var i = 0; i < charts.length; i++ ) {
     var chartInfo = charts[i];
 
-    if ( chartInfo.chartType === 'bar' ) {
+    if ( chartInfo.chartType === 'bar' && document.getElementById( chartInfo.elementID ) ) {
       chartInfo.dataUrl = DATA_FILE_PATH + chartInfo.source;
       makeDataIntoBarCharts( chartInfo );
     }
