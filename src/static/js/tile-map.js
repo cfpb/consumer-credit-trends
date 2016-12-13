@@ -6,7 +6,7 @@ var getFipsAbbr = require( './utils/state-fips.js' ).getAbbr;
 var dateTranslate = require( './utils/date-translate.js' );
 var strToNum = require( './utils/string-to-number.js' );
 var formatTime = d3.utcFormat( '%b %Y' );
-var charts = require( './templates/charts.js' ); 
+var charts = require( './templates/charts.js' );
 
 var DATA_FILE_PATH = 'https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/';
 
@@ -48,7 +48,7 @@ function init() {
         { maxValue: 'any', fillColor: '#6abf69' }
       ];
 
-      var legendLabels = [ '-25%', '-15%', '-5%', '5%', '15%', '25%' ];
+      var legendLabels = [ '-25% or less', '-15%', '-5%', '5%', '15%', '25% or more' ];
 
       var autoLoanMapProps = {
         data: data,
@@ -61,7 +61,7 @@ function init() {
 
       var tileOpts = {
         baseWidth: 650,
-        baseHeight: 650,
+        baseHeight: 560,
         paddingDecimal: .1,
         margin: {
           top: 20, right: 20, bottom: 20, left: 20
