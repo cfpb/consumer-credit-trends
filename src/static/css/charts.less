@@ -104,6 +104,20 @@
       display: none;
     }
 
+    [data-chart-type="map"] {
+        .legend {
+            transform: translate(30px, 0);
+            text {
+                &:first-of-type {
+                    transform: translate(-13px, 0);
+                }
+                &:last-of-type {
+                    transform: translate(20px, 0);
+                }
+            }
+        }
+    }
+
     // Line and bar colors for each type of report
     [data-report-type='origination-activity'] {
         .line__adjusted {
