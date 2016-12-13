@@ -1,29 +1,31 @@
-<div class="chart_wrapper"
-    id="{{ elementID }}"
-    data-chart-type="{{ chartType }}" 
-    data-source="{{ source }}" 
-    data-title="{{ title }}" 
-    data-market="{{ market }}"
-    data-report-type="{{ reportType }}"
->
-<!-- build:css -->
-{{#unless indexPage}}
-<link rel="stylesheet" href="../../../static/css/charts.min.css">
-{{/unless}}
-<!-- endbuild -->
-
+<div class="chart_wrapper">
     <h3>{{ title }}</h3>
-</div>
-    
-<p class="block__sub block__border-top block short-desc chart_footnote">
 
-    <strong>Source:</strong> <a href="https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/{{ source }}">https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/{{ source }}</a><br>
-    <strong>Date published:</strong> December 2016<br>
-    <strong>Note:</strong> Data from the last 6 months is not final.
+    <div class="svg_wrapper"
+        id="{{ elementID }}"
+        data-chart-type="{{ chartType }}" 
+        data-source="{{ source }}" 
+        data-title="{{ title }}" 
+        data-market="{{ market }}"
+        data-report-type="{{ reportType }}"
+    >
 
-</p>
+        <!-- build:css -->
+        {{#unless indexPage}}
+        <link rel="stylesheet" href="../../../static/css/charts.min.css">
+        {{/unless}}
+        <!-- endbuild -->
+
+    </div><!-- .svg_wrapper -->
+
+    <p class="block__sub block__border-top block short-desc chart_footnote">
+        <strong>Source:</strong> <a href="https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/{{ source }}">https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/{{ source }}</a><br>
+        <strong>Date published:</strong> December 2016<br>
+        <strong>Note:</strong> Data from the last 6 months is not final.
+    </p>
 
 
-{{#unless indexPage}}
-<script src="../../../static/js/main.min.js"></script>
-{{/unless}}
+    {{#unless indexPage}}
+    <script src="../../../static/js/main.min.js"></script>
+    {{/unless}}
+</div><!-- .chart_wrapper -->
