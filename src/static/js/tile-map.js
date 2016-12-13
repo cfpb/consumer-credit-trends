@@ -61,7 +61,7 @@ function init() {
 
       var tileOpts = {
         baseWidth: 650,
-        baseHeight: 650,
+        baseHeight: 560,
         paddingDecimal: .1,
         margin: {
           top: 20, right: 20, bottom: 20, left: 20
