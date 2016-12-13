@@ -33,7 +33,7 @@ function makeDataIntoBarCharts( chartInfo ) {
     var data = rawData;
 
     var defaultOpts = {
-      baseWidth: 670,
+      baseWidth: 650,
       baseHeight: 500,
       paddingDecimal: .1,
       margin: {
