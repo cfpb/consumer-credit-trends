@@ -10,7 +10,6 @@
 
 
 .chart_wrapper {
-    overflow-x: auto;
 
     .chart {
           text.gray-text {
@@ -106,7 +105,7 @@
     }
 
     // Line and bar colors for each type of report
-    &[data-report-type='origination-activity'] {
+    [data-report-type='origination-activity'] {
         .line__adjusted {
             stroke: @green;    
         }
@@ -121,7 +120,7 @@
         }
     }
 
-    &[data-report-type='borrower-risk-profiles'] {
+    [data-report-type='borrower-risk-profiles'] {
         .line__adjusted {
             stroke: @pacific;
         }
@@ -137,7 +136,7 @@
         }
     }
 
-    &[data-report-type='income-level'] {
+    [data-report-type='income-level'] {
         .line__adjusted {
             stroke: @teal;
         }
@@ -153,7 +152,7 @@
         }
     }
 
-    &[data-report-type='borrower-age'] {
+    [data-report-type='borrower-age'] {
         .line__adjusted {
             stroke: @navy;
         }
@@ -169,4 +168,16 @@
         }
     }
 
+}
+
+.svg_wrapper {
+    overflow-x: auto;
+}
+
+.chart_footnote {
+    padding-top: unit(15px / @base-font-size-px, em);
+    margin-top: unit(30px / @base-font-size-px, em);
+    color: @gray-80;
+    @font-size: 12px;
+    font-size: unit(@font-size / @base-font-size-px, em);
 }
