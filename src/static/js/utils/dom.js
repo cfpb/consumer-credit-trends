@@ -24,7 +24,7 @@ for ( var i = 0; i < charts.length; i++ ) {
         process.stdout.write( 'writing to: ' + filePath + '\n');
       }
 
-      window.setTimeout( getSVG, 10000 );
+      window.setTimeout( getSVG, 15000 );
 
     }
   } );
