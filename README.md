@@ -57,7 +57,7 @@ For publishing the graphs to compiled HTML for use in a production environment, 
   gulp release
   ```
 
-1. Review your production HTML locally to check that it's ready to commit (no server required - just open the HTML file at `consumer-credit-trends/index.html` in your browser).
+1. Review your production HTML locally to check that it's ready to commit (no server required - just open any HTML file at `consumer-credit-trends/charts` in your browser).
 1. Commit your production ready files, `index.html` and the `charts` folder, to your release branch and push to Github:
 
   ```
