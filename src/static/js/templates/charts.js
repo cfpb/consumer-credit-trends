@@ -41,7 +41,8 @@ var charts = [
   "reportType": "origination-activity",  
   "figureID": "figure-1b",
   "source": "yoy_data_all_AUT.csv",
-  "elementID": "figure-1b__yoy-number__auto-loans"
+  "elementID": "figure-1b__yoy-number__auto-loans",
+  "group": "Number of Loans"
 },
 {
   "title": "Volume of loans originated",
@@ -50,7 +51,8 @@ var charts = [
   "reportType": "origination-activity",  
   "figureID": "figure-1b",
   "source": "yoy_data_all_AUT.csv",
-  "elementID": "figure-1b__yoy-volume__auto-loans"
+  "elementID": "figure-1b__yoy-volume__auto-loans",
+  "group": "Dollar Volume"
 },
 { // Borrower Risk Profiles: Credit score
   "title": "Deep subprime (credit scores below 580)",
@@ -341,7 +343,7 @@ var charts = [
   "reportType": "origination-activity",
   "figureID": "figure-1a",
   "source": "num_data_CRC.csv",
-  "elementID": "figure-1a__number__credit-cards",
+  "elementID": "figure-1a__number__credit-cards"
 },
 {
   "title": "Volume of loans originated",
@@ -368,8 +370,9 @@ var charts = [
   "market": "credit-cards",
   "reportType": "origination-activity",  
   "figureID": "figure-1b",
-  "source": "yoy_data_all_AUT.csv",
-  "elementID": "figure-1b__yoy-number__credit-cards"
+  "source": "yoy_data_all_CRC.csv",
+  "elementID": "figure-1b__yoy-number__credit-cards",
+  "group": "Number of Loans"
 },
 {
   "title": "Volume of loans originated",
@@ -377,8 +380,9 @@ var charts = [
   "market": "credit-cards",
   "reportType": "origination-activity",  
   "figureID": "figure-1b",
-  "source": "yoy_data_all_AUT.csv",
-  "elementID": "figure-1b__yoy-volume__credit-cards"
+  "source": "yoy_data_all_CRC.csv",
+  "elementID": "figure-1b__yoy-volume__credit-cards",
+  "group": "Dollar Volume"
 },
 { // Borrower Risk Profiles: Credit score
   "title": "Deep subprime (credit scores below 580)",
@@ -669,7 +673,7 @@ var charts = [
   "reportType": "origination-activity",
   "figureID": "figure-1a",
   "source": "num_data_MTG.csv",
-  "elementID": "figure-1a__number__mortgages",
+  "elementID": "figure-1a__number__mortgages"
 },
 {
   "title": "Volume of loans originated",
@@ -696,8 +700,9 @@ var charts = [
   "market": "mortgages",
   "reportType": "origination-activity",  
   "figureID": "figure-1b",
-  "source": "yoy_data_all_AUT.csv",
-  "elementID": "figure-1b__yoy-number__mortgages"
+  "source": "yoy_data_all_MTG.csv",
+  "elementID": "figure-1b__yoy-number__mortgages",
+  "group": "Number of Loans"
 },
 {
   "title": "Volume of loans originated",
@@ -705,8 +710,9 @@ var charts = [
   "market": "mortgages",
   "reportType": "origination-activity",  
   "figureID": "figure-1b",
-  "source": "yoy_data_all_AUT.csv",
-  "elementID": "figure-1b__yoy-volume__mortgages"
+  "source": "yoy_data_all_MTG.csv",
+  "elementID": "figure-1b__yoy-volume__mortgages",
+  "group": "Dollar Volume"
 },
 { // Borrower Risk Profiles: Credit score
   "title": "Deep subprime (credit scores below 580)",
@@ -1024,8 +1030,9 @@ var charts = [
   "market": "student-loans",
   "reportType": "origination-activity",  
   "figureID": "figure-1b",
-  "source": "yoy_data_all_AUT.csv",
-  "elementID": "figure-1b__yoy-number__student-loans"
+  "source": "yoy_data_all_STU.csv",
+  "elementID": "figure-1b__yoy-number__student-loans",
+  "group": "Number of Loans"
 },
 {
   "title": "Volume of loans originated",
@@ -1033,8 +1040,9 @@ var charts = [
   "market": "student-loans",
   "reportType": "origination-activity",  
   "figureID": "figure-1b",
-  "source": "yoy_data_all_AUT.csv",
-  "elementID": "figure-1b__yoy-volume__student-loans"
+  "source": "yoy_data_all_STU.csv",
+  "elementID": "figure-1b__yoy-volume__student-loans",
+  "group": "Dollar Volume"
 },
 { // Borrower Risk Profiles: Credit score
   "title": "Deep subprime (credit scores below 580)",
