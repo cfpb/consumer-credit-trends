@@ -35,8 +35,8 @@ function makeDataIntoLineCharts( chartInfo ) {
   d3.csv( chartInfo.dataUrl, function( error, rawData ) {
 
     var defaultOpts = {
-      baseWidth: 770,
-      baseHeight: 550,
+      baseWidth: 650,
+      baseHeight: 500,
       paddingDecimal: .1,
       margin: {
         top: 85, right: 20, bottom: 30, left: 75
