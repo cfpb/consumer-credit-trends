@@ -22,6 +22,8 @@ function init() {
       makeDataIntoLineCharts( chartInfo );
     }
   };
+
+
 }
 
 
@@ -37,7 +39,7 @@ function makeDataIntoLineCharts( chartInfo ) {
       baseHeight: 500,
       paddingDecimal: .1,
       margin: {
-        top: 85, right: 20, bottom: 50, left: 75
+        top: 85, right: 20, bottom: 30, left: 75
       }
     }
 
@@ -139,7 +141,7 @@ function reformatLineData( rawData, maxMonth, multiGroup ) {
     } 
 
     // add data if it's 2009 or after
-    if ( obj.x >= parseTime( '2009-01-01') ) {
+    if ( obj.x >= parseTime( '2009-0-01') ) {
       data.push( obj );
     }
   };
