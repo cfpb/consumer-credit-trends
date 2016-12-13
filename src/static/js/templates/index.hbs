@@ -86,10 +86,9 @@
 
 {{#each charts}}
 <div style="border-bottom: 4px solid gray">
-<h4>{{ market }}, {{ reportType }}, {{chartType}}</h4>
-<h5>{{ figureID }}</h5>
-{{> svg indexPage=true }}
-
+    <h4>{{ market }}, {{ reportType }}, {{chartType}}</h4>
+    <h5>{{ figureID }}</h5>
+    {{> svg indexPage=true }}
 </div>
 {{/each}}
 
