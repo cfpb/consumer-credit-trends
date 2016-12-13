@@ -39,7 +39,7 @@ function makeDataIntoLineCharts( chartInfo ) {
       baseHeight: 550,
       paddingDecimal: .1,
       margin: {
-        top: 100, right: 20, bottom: 70, left: 75
+        top: 85, right: 20, bottom: 30, left: 75
       }
     }
 
