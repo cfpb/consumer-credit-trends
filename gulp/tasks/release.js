@@ -23,6 +23,10 @@ gulp.task('release:addStyleElement', [ 'release:copyFiles' ], function() {
       'css': {
         src: gulp.src( './dist/static/css/charts.min.css' ),
         tpl: '<style>%s</style>'
+      },
+      'main-css': {
+        src: gulp.src( './dist/static/css/main.min.css' ),
+        tpl: '<style>%s</style>'
       }
     }))
 
