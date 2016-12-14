@@ -116,11 +116,11 @@ function addProjectedToBar( svg, options ) {
     .attr( 'class', 'bar__projected' );
 
   var line = svg.chart.append( 'line' )
-        .style( 'stroke', ' #919395' )
         .attr( 'x1', x )
         .attr( 'x2', x )
         .attr( 'y1', -30 )
-        .attr( 'y2', height );
+        .attr( 'y2', height )
+        .classed( 'axis__projected', true);
 
   svg.chart.append( 'text' )
       .attr('x', x )

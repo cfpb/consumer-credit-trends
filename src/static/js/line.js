@@ -159,11 +159,11 @@ function addProjectedToLine( chartObject, date, height ) {
       y = chartObject.y;
 
   var line = chartObject.chart.append( 'line' )
-      .style( 'stroke', ' #919395' )
       .attr( 'x1', x( date ) )
       .attr( 'x2', x( date ) )
       .attr( 'y1', -30 )
-      .attr( 'y2', height );
+      .attr( 'y2', height )
+      .classed( 'axis__projected', true);
 
   chartObject.chart.append( 'text' )
       .attr('x', x( date ) )
