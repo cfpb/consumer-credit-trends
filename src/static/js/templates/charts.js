@@ -336,7 +336,7 @@ var charts = [
 // ************************* //
 
 { // Credit cards: Lending Levels
-  "title": "Number of loans originated",
+  "title": "Number of credit cards originated",
   "chartType": "line",
   "yAxisUnit": "M",
   "market": "credit-cards",
@@ -346,7 +346,7 @@ var charts = [
   "elementID": "figure-1a__number__credit-cards"
 },
 {
-  "title": "Volume of loans originated",
+  "title": "Volume of credit cards originated",
   "chartType": "line",
   "yAxisUnit": "B",
   "market": "credit-cards",
@@ -365,7 +365,7 @@ var charts = [
   "elementID": "figure-1c__map__credit-cards"
 },
 {
-  "title": "Number of loans originated",
+  "title": "Number of credit cards originated",
   "chartType": "bar",
   "market": "credit-cards",
   "reportType": "origination-activity",  
@@ -375,7 +375,7 @@ var charts = [
   "group": "Number of Loans"
 },
 {
-  "title": "Volume of loans originated",
+  "title": "Volume of credit cards originated",
   "chartType": "bar",
   "market": "credit-cards",
   "reportType": "origination-activity",  
