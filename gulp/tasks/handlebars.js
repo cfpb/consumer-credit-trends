@@ -64,7 +64,7 @@ gulp.task( 'handlebars:index',
     charts: charts
   }
 
-  console.log(chartData.charts)
+  // console.log(chartData.charts)
 
   gulp.src( indexSrc )
     .pipe( handlebars( chartData, options ) )
