@@ -27,6 +27,10 @@ gulp.task('release:addStyleElement', [ 'release:copyFiles' ], function() {
       'main-css': {
         src: gulp.src( './dist/static/css/main.min.css' ),
         tpl: '<style>%s</style>'
+      },
+      'ie-css': {
+        src: gulp.src( './dist/static/css/main.ie.css' ),
+        tpl: '<style>%s</style>'
       }
     }))
 
