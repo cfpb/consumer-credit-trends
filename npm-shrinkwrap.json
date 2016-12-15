@@ -673,8 +673,8 @@
     },
     "cfpb-chart-builder": {
       "version": "0.0.8",
-      "from": "cfpb-chart-builder@0.0.8",
-      "resolved": "https://registry.npmjs.org/cfpb-chart-builder/-/cfpb-chart-builder-0.0.8.tgz"
+      "from": "git://github.com/cfpb/cfpb-chart-builder.git#22eff8c70f449324eb7152cb409cc377568dcc23",
+      "resolved": "git://github.com/cfpb/cfpb-chart-builder.git#22eff8c70f449324eb7152cb409cc377568dcc23"
     },
     "chalk": {
       "version": "1.1.3",
