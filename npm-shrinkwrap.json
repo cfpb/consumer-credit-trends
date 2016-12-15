@@ -672,9 +672,8 @@
       "resolved": "https://registry.npmjs.org/cf-typography/-/cf-typography-3.1.0.tgz"
     },
     "cfpb-chart-builder": {
-      "version": "0.0.8",
-      "from": "cfpb-chart-builder@0.0.8",
-      "resolved": "https://registry.npmjs.org/cfpb-chart-builder/-/cfpb-chart-builder-0.0.8.tgz"
+      "version": "0.0.9",
+      "from": "cfpb-chart-builder@0.0.9"
     },
     "chalk": {
       "version": "1.1.3",
