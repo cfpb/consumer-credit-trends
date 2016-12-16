@@ -942,7 +942,6 @@ rules:
           - '!'
         exceptions:
           - '*'
-        balanced: true
 
   # Require or disallow the Unicode BOM.
   unicode-bom:
