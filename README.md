@@ -82,7 +82,7 @@ For publishing the graphs to compiled HTML for use in a production environment, 
 
 <small><a name="watch-note"></a><strong>*</strong>Note that you must run the `watch` task so that the release task can access your localhost environment to grab the rendered svg code.</small>
 
-## Documentation
+## About the data
 
 [Documentation about the data](data/README.md) is available and contains definitions for each column and field value in the csv files.
 
