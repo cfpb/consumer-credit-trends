@@ -6,14 +6,13 @@
 */
 
 var gulp = require( 'gulp' );
-var connect = require( 'gulp-connect' );
 var config = require( '../config' );
 
 gulp.task( 'watch', [ 'connect', 'browserSync' ], function() {
   gulp.watch( config.scripts.src, [ 'scripts', 'handlebars' ] );
-  gulp.watch( config.handlebarsTemplates.dom, [ 'release' ] )
-  gulp.watch( config.handlebarsTemplates.charts, [ 'handlebars' ] )
-  gulp.watch( config.handlebarsTemplates.src, [ 'handlebars' ] )
+  gulp.watch( config.handlebarsTemplates.dom, [ 'release' ] );
+  gulp.watch( config.handlebarsTemplates.charts, [ 'handlebars' ] );
+  gulp.watch( config.handlebarsTemplates.src, [ 'handlebars' ] );
   gulp.watch( config.styles.cwd + '/**/*.less', [ 'styles' ] );
   gulp.watch( config.chartStyles.cwd + '/**/*.less', [ 'styles' ] );
   gulp.watch( config.images.src, [ 'images' ] );
