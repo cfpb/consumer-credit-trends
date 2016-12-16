@@ -4,7 +4,7 @@ Explore recent developments in consumer credit markets.
 ![Screenshot of consumer-credit-trends](screenshot.png)
 
 ## This project is a work in progress
-Nothing presented in the issues or in this repo is a final product unless it is marked as such or appears on www.consumerfinance.gov. Some copy or formulas may be replaced with dummy text to ensure that we follow any and all privacy and security procedures at the CFPB. All the designs, layouts, and evolution of our decision making process are accurate.
+Nothing presented in the issues or in this repo is a final product unless it is marked as such or appears on http://www.consumerfinance.gov/data-research/consumer-credit-trends/. Some copy or formulas may be replaced with dummy text to ensure that we follow any and all privacy and security procedures at the CFPB. All the designs, layouts, and evolution of our decision making process are accurate.
 
 ## We want your feedback, but will not be able to respond to everyone
 We are working under an agile framework, and plan to use this repo to publish, receive feedback, and iterate on that feedback as often as possible. Our goal is to see user trends and reactions to our work. We want as much feedback as possible to help us make informed decisions so that we can make this tool better. Unfortunately, we will not be able to respond to every piece of feedback or comment we receive, but intend to respond with our progress through the evolution of the tool.
