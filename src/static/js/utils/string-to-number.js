@@ -29,7 +29,15 @@ function handleStringInput( numberString ) {
   // Strip non-numeric values, maintaining periods
   numberString = numberString.replace( /[^0-9\.]+/g, '' );
 
-  // Strip any periods after the first
+  /**
+   * Function passed to the JavaScript .replace() method to be invoked after
+    the match has been performed. Strips any periods after the first.
+   * @param  {String} match -   The matched substring.
+   * @param  {Number} offset -  The offset of the matched substring within the
+    whole string being examined.
+   * @param  {String} full - The full string being examined.
+   * @returns {String} period or empty string
+   */
   function replaceCommas( match, offset, full ) {
     if ( offset === full.indexOf( '.' ) ) {
       return '.';

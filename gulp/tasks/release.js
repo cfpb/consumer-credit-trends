@@ -1,60 +1,61 @@
 'use strict';
 
 /* Notes:
-   - The release task copies all the HTML files from the development directory, 'dist', to the 'charts' directory
-   - The 'charts' folder is tracked in version control and deployed to Github for review and production use.
+   - The release task copies all the HTML files from the development directory,
+  'dist', to the 'charts' directory
+   - The 'charts' folder is tracked in version control and deployed to Github
+    for review and production use.
 */
 
 
 var gulp = require( 'gulp' );
-var plugins = require( 'gulp-load-plugins' )();
 var config = require( '../config' );
 var handleErrors = require( '../utils/handle-errors' );
 var browserSync = require( 'browser-sync' );
 var release = config.copy.release;
-var deleteLines = require('gulp-delete-lines');
-var htmlreplace = require('gulp-html-replace');
-var htmlmin = require('gulp-htmlmin');
+var deleteLines = require( 'gulp-delete-lines' );
+var htmlreplace = require( 'gulp-html-replace' );
+var htmlmin = require( 'gulp-htmlmin' );
 
 // Add charts.min.css to static chart files as <style> tag
-gulp.task('release:addStyleElement', [ 'release:copyFiles' ], function() {
+gulp.task( 'release:addStyleElement', [ 'release:copyFiles' ], function() {
   gulp.src( './dist/**/*.html' )
-    .pipe(htmlreplace({
-      'css': {
+    .pipe( htmlreplace( {
+      css: {
         src: gulp.src( './dist/static/css/charts.min.css' ),
         tpl: '<style>%s</style>'
       }
-    }))
+    } ) )
 
-    .pipe(gulp.dest( './dist' ));
-});
+    .pipe( gulp.dest( './dist' ) );
+} );
 
-gulp.task( 'release:copyFiles', 
+gulp.task( 'release:copyFiles',
   [ 'clean:releaseFiles' ],
   function() {
-  return gulp.src( release.src )
+    return gulp.src( release.src )
     .on( 'error', handleErrors )
     .pipe( gulp.dest( release.dest ) )
     .pipe( browserSync.reload( {
       stream: true
     } ) );
-} );
+  } );
 
 gulp.task( 'release',
   [
-    'handlebars:dom',
+    'handlebars:dom'
   ], function() {
 
   // remove scripts
-  gulp.src( release.destFiles )
+    gulp.src( release.destFiles )
     .pipe( deleteLines( {
-      'filters': [
+      filters: [
         /<script\s+class=/i
       ]
     } ) )
-    .pipe(htmlmin( {
+    .pipe( htmlmin( {
       collapseWhitespace: true
     } ) )
-    .pipe( gulp.dest( release.dest + '/charts/') );
+    .pipe( gulp.dest( release.dest + '/charts/' ) );
 
-} );
+  } );
