@@ -64,6 +64,10 @@ function makeDataIntoLineCharts( chartInfo ) {
     var props = {
       data: data,
       selector: '#' + chartInfo.elementID,
+      tableSelector: '#' + chartInfo.elementID + '_table',
+      content: {
+        thead: '<tr><th>X</th><th>Y</th><th>Data Set</th></tr>'
+      },
       yAxisTickFactor: chartInfo.yAxisTickFactor,
         lineSets: {
           'Unadjusted': {
@@ -86,6 +90,11 @@ function makeDataIntoLineCharts( chartInfo ) {
         labels: {
           yAxisLabel: chartInfo.yAxisLabel,
           yAxisUnit: chartInfo.yAxisUnit
+        },
+        classes: {
+          'table': 'a-table',
+          'tr': 'a-tr',
+          'td': 'a-td'
         }
     };
 
@@ -94,6 +103,7 @@ function makeDataIntoLineCharts( chartInfo ) {
       addProjectedToLine( lineChart, maxMonth - 6,
         defaultOpts.baseHeight - defaultOpts.margin.top - defaultOpts.margin.bottom );
 
+      var table = line.appendTable();
   } );
 }
 
@@ -137,7 +147,7 @@ function reformatLineData( rawData, maxMonth, multiGroup ) {
 
     // If data is from last seven months, add 'Projected' to set
     if ( +rawData[x].month >= maxMonth - 6 ) {
-      obj.set += ' Projected'
+      obj.set += ' Projected';
     } 
 
     // add data if it's 2009 or after

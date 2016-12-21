@@ -53,6 +53,7 @@ function init() {
       var autoLoanMapProps = {
         data: data,
         selector: '#' + elementID,
+        tableSelector: '#' + elementID + '_table',
         valueGrid: valudGrid,
         legendLabels: legendLabels,
       }
@@ -69,6 +70,7 @@ function init() {
       }
 
       var tileMapChart = tileMapObj.drawGraph( tileOpts );
+      var table = tileMapObj.appendTable();
 
     } );
   }

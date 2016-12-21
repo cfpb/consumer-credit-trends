@@ -49,15 +49,20 @@ function makeDataIntoBarCharts( chartInfo ) {
     var props = {
       data: reformatBarData( data ),
       selector: '#' + chartInfo.elementID,
+      tableSelector: '#' + chartInfo.elementID + '_table',
       labels: {
         yAxisLabel: 'Year-over-year change (%)',
         yTickUnit: '%'
+      },
+      content: {
+        thead: '<tr><th>Month</th><th>Percent Change</th></tr>'
       }
     };
 
     var bars = new chartBuilder.barChart( props );
     var barChart = bars.drawGraph( defaultOpts );
     addProjectedToBar( barChart, defaultOpts );
+    var table = bars.appendTable();
 
   } );
 }
