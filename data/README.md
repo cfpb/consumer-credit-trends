@@ -271,11 +271,11 @@ The credit score groups in this data are described in the following table:
     </tr>
     <tr>
       <td>Near-prime</td>
-      <td>620 - 679</td>
+      <td>620 - 659</td>
     </tr>
     <tr>
       <td>Prime</td>
-      <td>680 - 719</td>
+      <td>660 - 719</td>
     </tr>
     <tr>
       <td>Superprime</td>

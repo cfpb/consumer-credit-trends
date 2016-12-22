@@ -80,7 +80,7 @@ var charts = [
     'group': 'Subprime'
   },
   {
-    'title': 'Near prime (credit scores 620 - 679)',
+    'title': 'Near prime (credit scores 620 - 659)',
     'chartType': 'line',
     'yAxisUnit': 'B',
     'market': 'auto-loans',
@@ -91,7 +91,7 @@ var charts = [
     'group': 'Near Prime'
   },
   {
-    'title': 'Prime (credit scores 680 - 719)',
+    'title': 'Prime (credit scores 660 - 719)',
     'chartType': 'line',
     'yAxisUnit': 'B',
     'market': 'auto-loans',
@@ -134,7 +134,7 @@ var charts = [
     'group': 'Subprime'
   },
   {
-    'title': 'Near prime (credit scores 620 - 679)',
+    'title': 'Near prime (credit scores 620 - 659)',
     'chartType': 'bar',
     'market': 'auto-loans',
     'reportType': 'borrower-risk-profiles',
@@ -144,7 +144,7 @@ var charts = [
     'group': 'Near Prime'
   },
   {
-    'title': 'Prime (credit scores 680 - 719)',
+    'title': 'Prime (credit scores 660 - 719)',
     'chartType': 'bar',
     'market': 'auto-loans',
     'reportType': 'borrower-risk-profiles',
@@ -416,7 +416,7 @@ var charts = [
     'group': 'Subprime'
   },
   {
-    'title': 'Near prime (credit scores 620 - 679)',
+    'title': 'Near prime (credit scores 620 - 659)',
     'chartType': 'line',
     'yAxisUnit': 'B',
     'market': 'credit-cards',
@@ -427,7 +427,7 @@ var charts = [
     'group': 'Near Prime'
   },
   {
-    'title': 'Prime (credit scores 680 - 719)',
+    'title': 'Prime (credit scores 660 - 719)',
     'chartType': 'line',
     'yAxisUnit': 'B',
     'market': 'credit-cards',
@@ -470,7 +470,7 @@ var charts = [
     'group': 'Subprime'
   },
   {
-    'title': 'Near prime (credit scores 620 - 679)',
+    'title': 'Near prime (credit scores 620 - 659)',
     'chartType': 'bar',
     'market': 'credit-cards',
     'reportType': 'borrower-risk-profiles',
@@ -480,7 +480,7 @@ var charts = [
     'group': 'Near Prime'
   },
   {
-    'title': 'Prime (credit scores 680 - 719)',
+    'title': 'Prime (credit scores 660 - 719)',
     'chartType': 'bar',
     'market': 'credit-cards',
     'reportType': 'borrower-risk-profiles',
@@ -753,7 +753,7 @@ var charts = [
     'group': 'Subprime'
   },
   {
-    'title': 'Near prime (credit scores 620 - 679)',
+    'title': 'Near prime (credit scores 620 - 659)',
     'chartType': 'line',
     'yAxisUnit': 'B',
     'market': 'mortgages',
@@ -764,7 +764,7 @@ var charts = [
     'group': 'Near Prime'
   },
   {
-    'title': 'Prime (credit scores 680 - 719)',
+    'title': 'Prime (credit scores 660 - 719)',
     'chartType': 'line',
     'yAxisUnit': 'B',
     'market': 'mortgages',
@@ -807,7 +807,7 @@ var charts = [
     'group': 'Subprime'
   },
   {
-    'title': 'Near prime (credit scores 620 - 679)',
+    'title': 'Near prime (credit scores 620 - 659)',
     'chartType': 'bar',
     'market': 'mortgages',
     'reportType': 'borrower-risk-profiles',
@@ -817,7 +817,7 @@ var charts = [
     'group': 'Near Prime'
   },
   {
-    'title': 'Prime (credit scores 680 - 719)',
+    'title': 'Prime (credit scores 660 - 719)',
     'chartType': 'bar',
     'market': 'mortgages',
     'reportType': 'borrower-risk-profiles',
@@ -1090,7 +1090,7 @@ var charts = [
     'group': 'Subprime'
   },
   {
-    'title': 'Near prime (credit scores 620 - 679)',
+    'title': 'Near prime (credit scores 620 - 659)',
     'chartType': 'line',
     'yAxisUnit': 'B',
     'market': 'student-loans',
@@ -1101,7 +1101,7 @@ var charts = [
     'group': 'Near Prime'
   },
   {
-    'title': 'Prime (credit scores 680 - 719)',
+    'title': 'Prime (credit scores 660 - 719)',
     'chartType': 'line',
     'yAxisUnit': 'B',
     'market': 'student-loans',
@@ -1144,7 +1144,7 @@ var charts = [
     'group': 'Subprime'
   },
   {
-    'title': 'Near prime (credit scores 620 - 679)',
+    'title': 'Near prime (credit scores 620 - 659)',
     'chartType': 'bar',
     'market': 'student-loans',
     'reportType': 'borrower-risk-profiles',
@@ -1154,7 +1154,7 @@ var charts = [
     'group': 'Near Prime'
   },
   {
-    'title': 'Prime (credit scores 680 - 719)',
+    'title': 'Prime (credit scores 660 - 719)',
     'chartType': 'bar',
     'market': 'student-loans',
     'reportType': 'borrower-risk-profiles',
