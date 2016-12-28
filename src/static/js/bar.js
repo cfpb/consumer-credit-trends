@@ -9,15 +9,20 @@ var formatTime = d3.utcFormat( '%b %Y' );
 var parseTime = d3.utcParse( '%Y-%m-%d' );
 
 // @todo define these shared constants in charts.js
-var DATA_FILE_PATH = 'https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/';
+var DATA_FILE_PATH =
+  'https://raw.githubusercontent.com/cfpb/consumer-credit-trends/master/data/';
 
+/**
+ * Initialize bar chart for each element selector on the page.
+ */
 function init() {
 
   // Draw bar chart for each object in charts config
   for ( var i = 0; i < charts.length; i++ ) {
     var chartInfo = charts[i];
 
-    if ( chartInfo.chartType === 'bar' && document.getElementById( chartInfo.elementID ) ) {
+    if ( chartInfo.chartType === 'bar' &&
+     document.getElementById( chartInfo.elementID ) ) {
       chartInfo.dataUrl = DATA_FILE_PATH + chartInfo.source;
       makeDataIntoBarCharts( chartInfo );
     }
@@ -27,7 +32,12 @@ function init() {
 
 
 // HELPER FUNCTIONS
-
+/**
+ * Turns a string into a number.
+ * Assumes each number in the string should be preserved (unlike parseInt)
+ * Assumes the first instance of a decimal point is the intended one
+ * @param  {Object} chartInfo - object from charts.js config file, defining data source, title, graph type, etc for each chart
+ */
 function makeDataIntoBarCharts( chartInfo ) {
   d3.csv( chartInfo.dataUrl, function( error, rawData ) {
     var data = rawData;
