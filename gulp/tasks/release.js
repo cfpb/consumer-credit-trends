@@ -16,6 +16,7 @@ var release = config.copy.release;
 var deleteLines = require( 'gulp-delete-lines' );
 var htmlreplace = require( 'gulp-html-replace' );
 var htmlmin = require( 'gulp-htmlmin' );
+var exit = require( 'gulp-exit' );
 
 // Add charts.min.css to static chart files as <style> tag
 gulp.task( 'release:addStyleElement', [ 'release:copyFiles' ], function() {
@@ -43,6 +44,7 @@ gulp.task( 'release:copyFiles',
 
 gulp.task( 'release',
   [
+    'connect',
     'handlebars:dom'
   ], function() {
 
@@ -56,6 +58,7 @@ gulp.task( 'release',
     .pipe( htmlmin( {
       collapseWhitespace: true
     } ) )
-    .pipe( gulp.dest( release.dest + '/charts/' ) );
+    .pipe( gulp.dest( release.dest + '/charts/' ) )
+    .pipe( exit() );
 
   } );
