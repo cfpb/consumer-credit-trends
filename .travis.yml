@@ -3,7 +3,7 @@ node_js:
   - "5"
 install:
   - npm install -g gulp
-  - setup.sh
+  - ./setup.sh
 script:
   - npm test
 deploy:
