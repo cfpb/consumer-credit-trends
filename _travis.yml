@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+  - "5"
+install:
+  - npm install -g gulp
+  - setup.sh
+script:
+  - npm test
+deploy:
+  provider: pages
+  local_dir: charts
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
+  on:
+    branch: master
