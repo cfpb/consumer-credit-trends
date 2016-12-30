@@ -92,7 +92,9 @@ module.exports = {
     release: {
       src: loc.dev + '/**/*.html',
       destFiles: loc.prod + '/charts/**/*.html',
-      dest: loc.prod
+      dest: loc.prod,
+      static: loc.dev + '/static/**',
+      staticDest: loc.prod + '/static'
     },
     files: {
       src: [

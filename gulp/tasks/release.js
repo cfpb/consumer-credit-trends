@@ -17,7 +17,7 @@ var htmlmin = require( 'gulp-htmlmin' );
 var exit = require( 'gulp-exit' );
 
 // Add charts.min.css to static chart files as <style> tag
-gulp.task( 'release:addStyleElement', [ 'release:copyFiles' ], function() {
+gulp.task( 'release:addStyleElement', [ 'release:copyStatic' ], function() {
   gulp.src( './dev/**/*.html' )
     .pipe( htmlreplace( {
       css: {
@@ -35,6 +35,17 @@ gulp.task( 'release:copyFiles',
     return gulp.src( release.src )
     .on( 'error', handleErrors )
     .pipe( gulp.dest( release.dest ) )
+    .pipe( browserSync.reload( {
+      stream: true
+    } ) );
+  } );
+
+gulp.task( 'release:copyStatic',
+  [ 'release:copyFiles' ],
+  function() {
+    return gulp.src( release.static )
+    .on( 'error', handleErrors )
+    .pipe( gulp.dest( release.staticDest ) )
     .pipe( browserSync.reload( {
       stream: true
     } ) );
