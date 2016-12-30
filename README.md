@@ -26,7 +26,7 @@ To run this website locally:
   ```
   gulp watch
   ```
-  This should open a new window in your browser with the `/dist/index.html` file visible at [`http://localhost:3000/`](http://localhost:3000/)
+  This should open a new window in your browser with the `/dev/index.html` file visible at [`http://localhost:3000/`](http://localhost:3000/)
 
 ## Release workflow
 

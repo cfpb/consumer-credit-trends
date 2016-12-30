@@ -28,7 +28,7 @@ gulp.task( 'handlebars:compile',
       var market = chart.market;
       var reportType = chart.reportType;
       var elementID = chart.elementID;
-      var filePath = './dist/charts/' + market + '/' + reportType;
+      var filePath = './dev/charts/' + market + '/' + reportType;
 
       gulp.src( templateSrc )
             .pipe( handlebars( chart ) )
@@ -49,7 +49,7 @@ gulp.task( 'handlebars:index',
       './src/static/js/templates/index.hbs',
       './src/static/js/templates/auto.hbs'
     ];
-    var indexDest = './dist/';
+    var indexDest = './dev/';
 
     var options = {
       batch: [ './src/static/js/templates/' ]

@@ -2,7 +2,7 @@
 
 /* Notes:
    - The release task copies all the HTML files from the development directory,
-  'dist', to the 'charts' directory
+  'dev', to the 'charts' directory
    - The 'charts' folder is tracked in version control and deployed to Github
     for review and production use.
 */
@@ -20,15 +20,15 @@ var exit = require( 'gulp-exit' );
 
 // Add charts.min.css to static chart files as <style> tag
 gulp.task( 'release:addStyleElement', [ 'release:copyFiles' ], function() {
-  gulp.src( './dist/**/*.html' )
+  gulp.src( './dev/**/*.html' )
     .pipe( htmlreplace( {
       css: {
-        src: gulp.src( './dist/static/css/charts.min.css' ),
+        src: gulp.src( './dev/static/css/charts.min.css' ),
         tpl: '<style>%s</style>'
       }
     } ) )
 
-    .pipe( gulp.dest( './dist' ) );
+    .pipe( gulp.dest( './dev' ) );
 } );
 
 gulp.task( 'release:copyFiles',

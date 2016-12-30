@@ -69,6 +69,6 @@ node_modules/
 bower_components/
 .grunt/
 src/vendor/
-dist/
+dev/
 *.workflow
 env.js
