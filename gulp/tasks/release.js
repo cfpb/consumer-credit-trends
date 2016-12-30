@@ -2,11 +2,9 @@
 
 /* Notes:
    - The release task copies all the HTML files from the development directory,
-  'dev', to the 'charts' directory
-   - The 'charts' folder is tracked in version control and deployed to Github
-    for review and production use.
+  'dev', to the 'dist' directory
+   - The 'dist' folder is compiled by Travis CI to a gh-pages branch for review and deployment to production.
 */
-
 
 var gulp = require( 'gulp' );
 var config = require( '../config' );
