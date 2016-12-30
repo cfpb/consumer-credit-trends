@@ -72,5 +72,3 @@ src/vendor/
 dev/
 *.workflow
 env.js
-dist/
-charts/
