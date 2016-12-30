@@ -54,11 +54,17 @@ You only need to do these steps once.
 
 1. Fork the consumer-credit-trends repository to your personal Github account. 
 
-1. Enable Travis for the forked repository by visiting TraviSCI....
+1. Enable Travis for the forked repository by visiting [https://travis-ci.org/yourGithubUsername/consumer-credit-trends/](https://travis-ci.org/yourGithubUsername/consumer-credit-trends/) updating the URL with your Github username. Click 'Activate repository' to allow Travis CI to access your repo.
 
-1. First, create a Personal Access Token on Github in your Settings page.
+1. Go to Settings from your repo. This is where you will add your Github Personal Access Token to trigger the build to your fork's `gh-pages` branch.
 
-1. Copy the Personal Access Token
+1. Create a [Personal Access Token in your Github Settings page](https://github.com/settings/tokens).
+
+1. Copy the Personal Access Token and paste it into the value field in Travis CI Settings under 'Environment Variables.'
+
+1. Enter 'GITHUB_TOKEN' in the 'name' field for Travis CI. 
+
+1. **Do NOT** turn on the 'Display value in build log' button. Click Add.
 
 ### Push your feature branches to your forked Github Pages site
 
