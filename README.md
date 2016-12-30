@@ -34,6 +34,49 @@ When working on feature branches that are still in development, use the workflow
 
 For publishing the graphs to compiled HTML for use in a production environment, use the following Release workflow.
 
+1. Create a pull request for any new code contributions.
+
+1. To share the compiled files with your code changes, follow the [Github Pages and Travis setup](#Github-Pages-and-Travis-setup) steps.
+
+1. Once your pull requested is reviewed and merged, Travis CI will deploy the compiled HTML files to Github pages, which can be reviewed at [https://cfpb.github.io/consumer-credit-trends/](https://cfpb.github.io/consumer-credit-trends/).
+
+1. When the Github pages charts are approved for deployment to production, use Jenkins to trigger the deployment to consumerfinance.gov.
+
+## Github Pages and Travis setup
+
+Generate compiled files for sharing your work with reviewers by pushing your PR feature branch code to your forked repo. This requires some configuration in Travis.
+
+.... add steps here to fork and set up github token and all that.
+
+### Set up your Travis CI for your forked repo
+
+You only need to do these steps once.
+
+1. Fork the consumer-credit-trends repository to your personal Github account. 
+
+1. Enable Travis for the forked repository by visiting TraviSCI....
+
+1. First, create a Personal Access Token on Github in your Settings page.
+
+1. Copy the Personal Access Token
+
+### Push your feature branches to your forked Github Pages site
+
+1. Push your code from your local feature branch to your fork's master branch (here named `origin`):
+  ```
+  git push origin feature-branch:master
+  ```
+
+1. This will trigger a Travis CI deployment to gh-pages. View your build in Travis at 
+
+1. View your changes on your forked gh-pages branch at the following URL, replacing with your username: [https://yourUsername.github.io/consumer-credit-trends/](https://yourUsername.github.io/consumer-credit-trends/)
+
+## Testing locally before a deployment
+
+To test the release workflow on your local machine, follow these steps to generate compiled HTML files of the graphs.
+
+gulp release
+
 1. Check out and pull from the latest `gh-pages` branch from upstream.
 
   ```
@@ -50,10 +93,10 @@ For publishing the graphs to compiled HTML for use in a production environment, 
   ```
   git merge feature-branch-2000
   ```
-1. Build the front end using the watch task:[*](#watch-note)
+1. Build the front end using gulp:
 
   ```
-  gulp watch
+  gulp build
   ```
 1. In a new Terminal window, run the release task to generate your production-ready HTML:
 
@@ -80,8 +123,6 @@ For publishing the graphs to compiled HTML for use in a production environment, 
   ```
 1. Once it's merged, visit https://cfpb.github.io/consumer-credit-trends/ to view the published HTML files.
 
-<small><a name="watch-note"></a><strong>*</strong>Note that you must run the `watch` task so that the release task can access your localhost environment to grab the rendered svg code.</small>
-
 ## About the data
 
 [Documentation about the data](data/README.md) is available and contains definitions for each column and field value in the csv files.
@@ -91,6 +132,9 @@ For publishing the graphs to compiled HTML for use in a production environment, 
 Common errors and their causes:
 
 #### Scenario: Running `gulp release` task
+
+##### setTimeout error
+
 ```bash
       window.setTimeout( getSVG, 10000 );
             ^
@@ -98,6 +142,24 @@ Common errors and their causes:
 TypeError: Cannot read property 'setTimeout' of undefined
 ```
 This error happens when you run `gulp release` without a local server running. Make sure you have the `gulp watch` task running in a separate Terminal window when you run `gulp release`. See [Release Workflow](#release-workflow) instructions for more details.
+
+##### release:copyFiles error
+
+```bash
+Using gulpfile ~/Sites/consumer-credit-trends/gulpfile.js
+Starting 'connect'...
+Finished 'connect' after 35 ms
+Starting 'clean:releaseFiles'...
+Finished 'clean:releaseFiles' after 6.93 ms
+Starting 'release:copyFiles'...
+events.js:160
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE :::8081
+```
+
+You are already running a server with `gulp watch`, so the release task fails. Close the terminal process or window running `gulp watch` and re-run the `gulp release` task.
 
 ## Getting help
 
