@@ -34,17 +34,19 @@ MAP_OUTPUT_SCHEMA = ["fips_code", "state_abbr", "value"]
 SUMMARY_NUM_OUTPUT_SCHEMA = ["month","date","num","num_unadj"]
 SUMMARY_VOL_OUTPUT_SCHEMA = ["month","date","vol","vol_unadj"]
 YOY_SUMMARY_OUTPUT_SCHEMA = ["month","date","yoy_num","yoy_vol"]
-GROUP_VOL_OUTPUT_SCHEMA = ["month","date","volume","volume_unadj","{}_group"]
 
 # Output: "month","date","yoy_<type>","yoy_<type>",...,"yoy_<type>"
+# All the "yoy_<type>" inputs get added in processing
 GROUP_YOY_OUTPUT_SCHEMA = ["month","date"]
 
-# Groups
+GROUP_VOL_OUTPUT_SCHEMA = ["month","date","volume","volume_unadj","{}_group"]
+
+# Groups - become column name prefixes
 AGE = "age"
-INCOME = "income"
-SCORE = "score"
+INCOME = "income_level"
+SCORE = "credit_score"
 
-
+# Market names - become directory names
 MARKET_NAMES = {"AUT": "auto-loan",     # Auto loans
                 "CRC": "credit-card",   # Credit cards
                 "HCE": "hece",          # Home Equity, Closed End
@@ -55,13 +57,13 @@ MARKET_NAMES = {"AUT": "auto-loan",     # Auto loans
                 "STU": "student-loan",  # Student loans
                 }
 
-GROUP_NAMES = {"age": "age",        # Age groups
-               "income": "income",  # Income levels
-               "score": "score",    # Credit score levels
-               "all": "all",        # Summary data
-               }
+# GROUP_NAMES = {"age": "age",        # Age groups
+#                "income": "income",  # Income levels
+#                "score": "score",    # Credit score levels
+#                "all": "all",        # Summary data
+#                }
 
-# State FIPS codes
+# State FIPS codes - used to translate state codes into abbr
 FIPS_CODES = {1:  "AL",
               2:  "AK",
               4:  "AZ",
@@ -311,39 +313,90 @@ def process_file_summary(filename, output_schema):
 
 
 ## Process volume files with groups (borrower age, income level, credit score)
+# Output columns: "month","date","volume","volume_unadj","<type>_group"
 
 def process_group_age_vol(filename):
     """Helper function that calls process_group_file with correct
     group and output schema"""
-    # Output columns: "month","date","vol","vol_unadj"
-    return process_group_file(filename, AGE, GROUP_VOL_OUTPUT_SCHEMA)
+
+    schema = list(GROUP_VOL_OUTPUT_SCHEMA)
+    schema[-1] = schema[-1].format(AGE)
+
+    return process_group_file(filename, schema)
 
 
 def process_group_income_vol(filename):
     """Helper function that calls process_group_file with correct
     group and output schema"""
-    # Output columns: "month","date","vol","vol_unadj"
-    return process_group_file(filename, INCOME, GROUP_VOL_OUTPUT_SCHEMA)
+
+    schema = list(GROUP_VOL_OUTPUT_SCHEMA)
+    schema[-1] = schema[-1].format(INCOME)
+
+    return process_group_file(filename, schema)
 
 
 def process_group_score_vol(filename):
     """Helper function that calls process_group_file with correct
     group and output schema"""
-    # Output columns: "month","date","vol","vol_unadj"
-    return process_group_file(filename, SCORE, GROUP_VOL_OUTPUT_SCHEMA)
+
+    schema = list(GROUP_VOL_OUTPUT_SCHEMA)
+    schema[-1] = schema[-1].format(SCORE)
+
+    return process_group_file(filename, schema)
 
 
-def process_group_file(filename, group_type, output_schema):
-    # Output columns: "month","date","volume","volume_unadj","<type>_group"
-    # print("Processing file with groups '{}'".format(filename))
+def process_group_file(filename, output_schema):
+    """Processes specified group volume file and outputs data per the schema"""
 
-    return False, []
+    # Load specified file as input data
+    inputdata = load_csv(filename)
+
+    # Initialize output data with column headers
+    data = []
+    proc = {}
+
+    # Process data
+    for row in inputdata:
+        monthstr, value, group, is_adj_str = row
+        monthnum = int(monthstr)
+        if not proc.has_key(monthnum):
+            proc[monthnum] = {}
+
+        if not proc[monthnum].has_key(group):
+            proc[monthnum][group] = {"adj": None, "unadj": None}
+
+        if "unadjust" in is_adj_str.lower():
+            proc[monthnum][group]["unadj"] = value
+        elif "seasonal" in is_adj_str.lower():
+            proc[monthnum][group]["adj"] = value
+        else:
+            raise TypeError("Data row (below) does not specify seasonal " +
+                            "adjustment in {}\n{}".format(
+                            filename, ",".join(row)))
+
+    # Turn dictionaries into a data list for output
+    # This order MUST match the provided schema order
+    for monthnum, group in proc.items():
+        for groupname, value in group.items():
+            data.append([monthnum,
+                         actual_date(monthnum),
+                         value["adj"],
+                         value["unadj"],
+                         groupname])
+
+    # Prep for output by sorting (by month number) and inserting a header
+    data.sort()
+    data.insert(0, output_schema)
+
+    # Check if any data exists besides column headers
+    if len(data) > 1:
+        return True, data
+    else:
+        return True, []
 
 
 ## Process year-over-year files with groups (borrower age, income level, credit score)
-# process_group_age_yoy,
-# process_group_income_yoy,
-# process_group_score_yoy,
+# Output columns: "month","date","yoy_<type>","yoy_<type>",...,"yoy_<type>"
 
 def process_group_age_yoy(filename):
     """Helper function that calls process_group_yoy_groups with correct
@@ -364,7 +417,6 @@ def process_group_score_yoy(filename):
 
 
 def process_group_yoy_groups(filename, group_type, output_schema):
-    # Output columns: "month","date","yoy_<type>","yoy_<type>",...,"yoy_<type>"
     # print("Processing year-over-year file '{}'".format(filename))
 
     return False, []
