@@ -38,8 +38,16 @@ YOY_SUMMARY_OUTPUT_SCHEMA = ["month","date","yoy_num","yoy_vol"]
 # Output: "month","date","yoy_<type>","yoy_<type>",...,"yoy_<type>"
 # All the "yoy_<type>" inputs get added in processing
 GROUP_YOY_OUTPUT_SCHEMA = ["month","date"]
+# YOY Groups
+AGE_YOY = ["Younger than 30","30 - 44","45 - 64","65 and older"]
+AGE_YOY_COLS = ["younger-than-30","30-44","45-64","65-and-older"]
+INCOME_YOY = ["Low","Moderate","Middle","High"]
+INCOME_YOY_COLS = ["low","moderate","middle","high"]
+SCORE_YOY = ["Deep Subprime","Subprime","Near Prime","Prime","Superprime"]
+SCORE_YOY_COLS = ["deep-subprime","subprime","near-prime","prime","super-prime"]
 
-GROUP_VOL_OUTPUT_SCHEMA = ["month","date","volume","volume_unadj","{}_group"]
+# Output: "month","date","vol","vol_unadj","<grouptype>_group"
+GROUP_VOL_OUTPUT_SCHEMA = ["month","date","vol","vol_unadj","{}_group"]
 
 # Groups - become column name prefixes
 AGE = "age"
@@ -401,25 +409,74 @@ def process_group_file(filename, output_schema):
 def process_group_age_yoy(filename):
     """Helper function that calls process_group_yoy_groups with correct
     group and output schema"""
-    return process_group_yoy_groups(filename, AGE, GROUP_YOY_OUTPUT_SCHEMA)
+    # Generate output schema from group YOY column names
+    postfix = "{}_yoy"
+    output_schema = list(GROUP_YOY_OUTPUT_SCHEMA)
+    output_schema += [postfix.format(gname) for gname in AGE_YOY_COLS]
+
+    return process_group_yoy_groups(filename, AGE_YOY, output_schema)
 
 
 def process_group_income_yoy(filename):
     """Helper function that calls process_group_yoy_groups with correct
     group and output schema"""
-    return process_group_yoy_groups(filename, INCOME, GROUP_YOY_OUTPUT_SCHEMA)
+    # Generate output schema from group YOY column names
+    postfix = "{}_yoy"
+    output_schema = list(GROUP_YOY_OUTPUT_SCHEMA)
+    output_schema += [postfix.format(gname) for gname in INCOME_YOY_COLS]
+
+    return process_group_yoy_groups(filename, INCOME_YOY, output_schema)
 
 
 def process_group_score_yoy(filename):
     """Helper function that calls process_group_yoy_groups with correct
     group and output schema"""
-    return process_group_yoy_groups(filename, SCORE, GROUP_YOY_OUTPUT_SCHEMA)
+    # Generate output schema from group YOY column names
+    postfix = "{}_yoy"
+    output_schema = list(GROUP_YOY_OUTPUT_SCHEMA)
+    output_schema += [postfix.format(gname) for gname in SCORE_YOY_COLS]
+
+    return process_group_yoy_groups(filename, SCORE_YOY, output_schema)
 
 
-def process_group_yoy_groups(filename, group_type, output_schema):
-    # print("Processing year-over-year file '{}'".format(filename))
+def process_group_yoy_groups(filename, group_names, output_schema):
+    """Processes specified group year-over-year file and outputs data per the schema"""
 
-    return False, []
+    # Load specified file as input data
+    inputdata = load_csv(filename)
+
+    # Initialize output data with column headers
+    data = []
+    proc = {}
+
+    # Process data
+    for row in inputdata:
+        monthstr, value, group = row
+        monthnum = int(monthstr)
+        
+        if not proc.has_key(monthnum):
+            proc[monthnum] = {gname: None for gname in group_names}
+
+        if group in group_names:
+            proc[monthnum][group] = value
+        else:
+            raise TypeError("Data row (below) contains illegal group " +
+                            "name '{}'\n{}".format(filename, ",".join(row)))
+
+    # Turn dictionaries into a data list for output
+    for monthnum, values in proc.items():
+        data.append([monthnum, actual_date(monthnum)] +
+                    [values[gname] for gname in group_names])
+
+    # Prep for output by sorting (by month number) and inserting a header
+    data.sort()
+    data.insert(0, output_schema)
+
+    # Check if any data exists besides column headers
+    if len(data) > 1:
+        return True, data
+    else:
+        return True, []
 
 
 ## Process summary year-over-year files
