@@ -12,7 +12,6 @@ import os
 import csv
 import datetime
 from pprint import pformat
-# import logging
 
 
 __author__ = "Hillary Jeffrey"
@@ -592,7 +591,6 @@ if __name__ == '__main__':
     parser.add_argument('-o', '--output-path', metavar="OUTPUTDIR", type=str,
                         dest='outputdir', default=DEFAULT_OUTPUT_FOLDER,
                         help='Specifies path for root folder to put processed data files (default: "")')
-    # parser.add_argument('-j', '--suppress-json')
 
     args = parser.parse_args()
 
