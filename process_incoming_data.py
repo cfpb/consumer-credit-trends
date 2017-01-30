@@ -29,11 +29,19 @@ __status__ = "Development"
 DEFAULT_INPUT_FOLDER = "~/Github/consumer-credit-trends-data/data"
 DEFAULT_OUTPUT_FOLDER = "~/Github/consumer-credit-trends-data/processed_data/"
 
+# Data base year
+BASE_YEAR = 2000
+
 # Input/output schemas
 MAP_OUTPUT_SCHEMA = ["fips_code", "state_abbr", "value"]
 SUMMARY_NUM_OUTPUT_SCHEMA = ["month","date","num","num_unadj"]
 SUMMARY_VOL_OUTPUT_SCHEMA = ["month","date","vol","vol_unadj"]
 YOY_SUMMARY_OUTPUT_SCHEMA = ["month","date","yoy_num","yoy_vol"]
+
+# Groups - become column name prefixes
+AGE = "age"
+INCOME = "income_level"
+SCORE = "credit_score"
 
 # Output: "month","date","yoy_<type>","yoy_<type>",...,"yoy_<type>"
 # All the "yoy_<type>" inputs get added in processing
@@ -49,11 +57,6 @@ SCORE_YOY_COLS = ["deep-subprime","subprime","near-prime","prime","super-prime"]
 # Output: "month","date","vol","vol_unadj","<grouptype>_group"
 GROUP_VOL_OUTPUT_SCHEMA = ["month","date","vol","vol_unadj","{}_group"]
 
-# Groups - become column name prefixes
-AGE = "age"
-INCOME = "income_level"
-SCORE = "credit_score"
-
 # Market names - become directory names
 MARKET_NAMES = {"AUT": "auto-loan",     # Auto loans
                 "CRC": "credit-card",   # Credit cards
@@ -65,11 +68,17 @@ MARKET_NAMES = {"AUT": "auto-loan",     # Auto loans
                 "STU": "student-loan",  # Student loans
                 }
 
-# GROUP_NAMES = {"age": "age",        # Age groups
-#                "income": "income",  # Income levels
-#                "score": "score",    # Credit score levels
-#                "all": "all",        # Summary data
-#                }
+# Fixes input text to follow agency guidelines
+TEXT_FIXES = {"Younger than 30": "Younger than 30",
+              "30 - 44": "Age 30-44",
+              "45 - 64": "Age 45-64",
+              "65 and older": "Age 65 and older",
+              "Deep Subprime":"Deep subprime",
+              "Subprime":"Subprime",
+              "Near Prime":"Near-prime",
+              "Prime":"Prime",
+              "Superprime":"Super-prime",
+             }
 
 # State FIPS codes - used to translate state codes into abbr
 FIPS_CODES = {1:  "AL",
@@ -133,6 +142,7 @@ def save_csv(filename, content, writemode='wb'):
         os.makedirs(os.path.dirname(filename))
         print("Created directories for {}".format(os.path.dirname(filename)))
 
+    # Write output as a csv file
     with open(filename, writemode) as csvfile:
         writer = csv.writer(csvfile, delimiter=',')
         writer.writerows(content)
@@ -144,7 +154,6 @@ def load_csv(filename, skipheaderrow=True):
     """Loads CSV data from a file"""
     with open(filename, 'rb') as csvfile:
         reader = csv.reader(csvfile)
-        # TODO: Handle header row, consider creating list of dictionaries with DictReader
         data = list(reader)
 
     if skipheaderrow:
@@ -157,17 +166,6 @@ def load_paths(inputpath=DEFAULT_INPUT_FOLDER, outputpath=DEFAULT_OUTPUT_FOLDER)
     """Loads the root path and destination paths and performs path checking"""
     inpath = expand_path(inputpath)
     outpath = expand_path(outputpath)
-    # TODO: Make sure paths exist
-
-    # TODO: Do we want the path made or throw an error if it doesn't exist?
-    # try:
-    #     os.makedirs(destpath)
-    # except:
-    #     # Exception occurs when attempting to makedirs that exist
-    #     # Ignore this exception
-    #     # TODO: Parse for specific exception type so we don't ignore
-    #     # unexpected exceptions
-    #     pass
 
     return inpath, outpath
 
@@ -185,6 +183,29 @@ def get_csv_list(path):
              and os.path.isfile(os.path.join(path, f))]
 
     return files
+
+
+def find_market(input, possible_names=MARKET_NAMES):
+    """Uses the input string and a specified dictionary of market names to
+    determine which credit market the input string describes."""
+    for abbr, name in possible_names.items():
+        if abbr in input:
+            return name
+
+    return None
+
+
+def actual_date(month):
+    """
+    Takes a month number and computes an actual date from it.
+    January 2000 = month zero
+    """
+    addl_years = int(month/12)
+    addl_months = (month % 12) + 1  # offset for January, as month input is 1-12
+
+    date = datetime.date(BASE_YEAR + addl_years, addl_months, 1)
+
+    return date.strftime("%Y-%m")
 
 
 ## Program flow
@@ -256,8 +277,8 @@ def process_map(filename, output_schema=MAP_OUTPUT_SCHEMA):
     # Check if any data exists besides column headers
     if len(data) > 1:
         return True, data
-    else:
-        return True, []
+    
+    return True, []
 
 
 ## Process summary files with loan numbers or volumes
@@ -316,8 +337,8 @@ def process_file_summary(filename, output_schema):
     # Check if any data exists besides column headers
     if len(data) > 1:
         return True, data
-    else:
-        return True, []
+    
+    return True, []
 
 
 ## Process volume files with groups (borrower age, income level, credit score)
@@ -386,11 +407,19 @@ def process_group_file(filename, output_schema):
     # This order MUST match the provided schema order
     for monthnum, group in proc.items():
         for groupname, value in group.items():
-            data.append([monthnum,
-                         actual_date(monthnum),
-                         value["adj"],
-                         value["unadj"],
-                         groupname])
+            # Parse for any text fixes required
+            if groupname in TEXT_FIXES.keys():
+                data.append([monthnum,
+                             actual_date(monthnum),
+                             value["adj"],
+                             value["unadj"],
+                             TEXT_FIXES[groupname]])
+            else:
+                data.append([monthnum,
+                             actual_date(monthnum),
+                             value["adj"],
+                             value["unadj"],
+                             groupname])
 
     # Prep for output by sorting (by month number) and inserting a header
     data.sort()
@@ -399,8 +428,8 @@ def process_group_file(filename, output_schema):
     # Check if any data exists besides column headers
     if len(data) > 1:
         return True, data
-    else:
-        return True, []
+    
+    return True, []
 
 
 ## Process year-over-year files with groups (borrower age, income level, credit score)
@@ -475,8 +504,8 @@ def process_group_yoy_groups(filename, group_names, output_schema):
     # Check if any data exists besides column headers
     if len(data) > 1:
         return True, data
-    else:
-        return True, []
+    
+    return True, []
 
 
 ## Process summary year-over-year files
@@ -524,37 +553,8 @@ def process_yoy_summary(filename, output_schema=YOY_SUMMARY_OUTPUT_SCHEMA):
     # Check if any data exists besides column headers
     if len(data) > 1:
         return True, data
-    else:
-        return True, []
-
-
-## Helper functions
-
-def find_market(input, possible_names=MARKET_NAMES):
-    """Uses the input string and a specified dictionary of market names to
-    determine which credit market the input string describes."""
-    for abbr, name in possible_names.items():
-        if abbr in input:
-            return name
-
-    return None
-
-
-def actual_date(month):
-    """
-    Takes a month number and computes an actual date from it.
-    January 2000 = month zero
-    """
-    addl_years = int(month/12)
-    addl_months = (month % 12) + 1  # offset for January as month input is 1-12
-
-    try:
-        date = datetime.date(2000+addl_years, addl_months, 1)
-    except Exception, e:
-        print("{} = {}*12 + {}".format(month, addl_years, addl_months))
-        raise e
-
-    return date.strftime("%Y-%m")
+    
+    return True, []
 
 
 ###########################################################
