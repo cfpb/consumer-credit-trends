@@ -5977,6 +5977,58 @@
       "from": "sntp@>=1.0.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/sntp/-/sntp-1.0.9.tgz"
     },
+    "snyk": {
+      "version": "1.21.2",
+      "from": "snyk@1.21.2",
+      "resolved": "https://registry.npmjs.org/snyk/-/snyk-1.21.2.tgz"
+    },
+    "snyk-config": {
+      "version": "1.0.1",
+      "from": "snyk-config@1.0.1",
+      "resolved": "https://registry.npmjs.org/snyk-config/-/snyk-config-1.0.1.tgz"
+    },
+    "snyk-module": {
+      "version": "1.7.0",
+      "from": "snyk-module@1.7.0",
+      "resolved": "https://registry.npmjs.org/snyk-module/-/snyk-module-1.7.0.tgz"
+    },
+    "snyk-policy": {
+      "version": "1.5.2",
+      "from": "snyk-policy@1.5.2",
+      "resolved": "https://registry.npmjs.org/snyk-policy/-/snyk-policy-1.5.2.tgz"
+    },
+    "snyk-recursive-readdir": {
+      "version": "2.0.0",
+      "from": "snyk-recursive-readdir@>=2.0.0 <3.0.0",
+      "resolved": "https://registry.npmjs.org/snyk-recursive-readdir/-/snyk-recursive-readdir-2.0.0.tgz"
+    },
+    "snyk-resolve": {
+      "version": "1.0.0",
+      "from": "snyk-resolve@1.0.0",
+      "resolved": "https://registry.npmjs.org/snyk-resolve/-/snyk-resolve-1.0.0.tgz"
+    },
+    "snyk-resolve-deps": {
+      "version": "1.7.0",
+      "from": "snyk-resolve-deps@1.7.0",
+      "resolved": "https://registry.npmjs.org/snyk-resolve-deps/-/snyk-resolve-deps-1.7.0.tgz",
+      "dependencies": {
+        "minimist": {
+          "version": "1.2.0",
+          "from": "minimist@>=1.2.0 <2.0.0",
+          "resolved": "https://registry.npmjs.org/minimist/-/minimist-1.2.0.tgz"
+        }
+      }
+    },
+    "snyk-tree": {
+      "version": "1.0.0",
+      "from": "snyk-tree@>=1.0.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/snyk-tree/-/snyk-tree-1.0.0.tgz"
+    },
+    "snyk-try-require": {
+      "version": "1.2.0",
+      "from": "snyk-try-require@>=1.2.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/snyk-try-require/-/snyk-try-require-1.2.0.tgz"
+    },
     "socket.io": {
       "version": "1.6.0",
       "from": "socket.io@1.6.0",

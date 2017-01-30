@@ -30,7 +30,8 @@
     "cfpb-chart-builder": "0.0.9",
     "github-api": "2.3.0",
     "html5shiv": "3.7.3",
-    "moment": "2.17.1"
+    "moment": "2.17.1",
+    "snyk": "1.21.2"
   },
   "devDependencies": {
     "browser-sync": "2.18.5",
@@ -66,5 +67,9 @@
     "require-dir": "0.3.1"
   },
   "scripts": {
+    "test": "snyk test",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
+  "snyk": true
 }

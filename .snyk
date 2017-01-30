@@ -1,0 +1,18 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.7.0
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  'npm:jquery:20150627':
+    - cf-tables > jquery:
+        reason: None given
+        expires: '2017-01-28T20:27:05.669Z'
+    - cf-expandables > jquery:
+        reason: None given
+        expires: '2017-01-28T20:27:05.672Z'
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  'npm:negotiator:20160616':
+    - gulp-connect > connect > compression > accepts > negotiator:
+        patched: '2016-12-12T17:12:40.886Z'
+    - gulp-connect > connect > serve-index > accepts > negotiator:
+        patched: '2016-12-12T17:12:40.886Z'
