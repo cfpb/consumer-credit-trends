@@ -68,14 +68,11 @@ MARKET_NAMES = {"AUT": "auto-loan",     # Auto loans
                 }
 
 # Fixes input text to follow agency guidelines
-TEXT_FIXES = {"Younger than 30": "Younger than 30",
-              "30 - 44": "Age 30-44",
+TEXT_FIXES = {"30 - 44": "Age 30-44",
               "45 - 64": "Age 45-64",
               "65 and older": "Age 65 and older",
-              "Deep Subprime":"Deep subprime",
-              "Subprime":"Subprime",
-              "Near Prime":"Near-prime",
-              "Prime":"Prime",
+              "Deep Subprime": "Deep subprime",
+              "Near Prime": "Near-prime",
               "Superprime":"Super-prime",
              }
 
