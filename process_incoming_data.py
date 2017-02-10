@@ -14,13 +14,12 @@ import datetime
 from pprint import pformat
 
 
-__author__ = "Hillary Jeffrey"
-__copyright__ = "Copyright 2017"
+__author__ = "Consumer Financial Protection Bureau"
 __credits__ = ["Hillary Jeffrey"]
-__license__ = "GPL"
+__license__ = "CC0-1.0"
 __version__ = "0.1"
 __maintainer__ = "CFPB"
-__email__ = "hillary.jeffrey@cfpb.gov"
+__email__ = "tech@cfpb.gov"
 __status__ = "Development"
 
 ## Global variables
