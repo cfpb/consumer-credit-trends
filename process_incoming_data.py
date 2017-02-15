@@ -11,6 +11,7 @@ www.github.com/cfpb/consumer-credit-trends
 import os
 import csv
 import datetime
+import math
 from pprint import pformat
 
 
@@ -26,6 +27,29 @@ __status__ = "Development"
 # Default save folder if another folder is not specified
 DEFAULT_INPUT_FOLDER = "~/Github/consumer-credit-trends-data/data"
 DEFAULT_OUTPUT_FOLDER = "~/Github/consumer-credit-trends-data/processed_data/"
+
+# Data Snapshot default name
+DEFAULT_SNAPSHOT_FNAME = "data_snapshot.csv"
+
+# Data Snapshot snippet template
+SNAPSHOT_HTML = """<h3><b>{}</b><br>{} originated</h3>
+                   <h3><br><b>${}&nbsp;{}</b><br>Dollar volume of new {}</h3>
+                   <h3><br><b>{}% {}&nbsp;</b><br>In year-over-year originations</h3>"""
+
+# Text filler for Data Snapshot templates
+MARKET_NAMES = {"AUT": ["Auto loans", "loans"],     # Auto loans
+                "CRC": ["Credit cards", "cards"],   # Credit cards
+                "HCE": ["HECE loans", "loans"],     # Home Equity, Closed End
+                "HLC": ["HELOCs", "HELOCs"],        # Home Equity Line of Credit (HELOC)
+                "MTG": ["Mortgages", "mortgages"],  # Mortgages
+                "PER": ["Personal loans", "loans"], # Personal loans
+                "RET": ["Retail loans", "loans"],   # Retail loans
+                "STU": ["Student loans", "loans"],  # Student loans
+                }
+
+
+# Market+.csv filename suffix length
+MKT_SFX_LEN = -8
 
 # Data base year
 BASE_YEAR = 2000
@@ -202,10 +226,35 @@ def actual_date(month):
 
     return date.strftime("%Y-%m")
 
+# Modified from an answer at:
+# http://stackoverflow.com/questions/3154460/python-human-readable-large-numbers
+def human_numbers(num, decimal_places=1):
+    """Given a number, returns a human-based number to the specified number
+    of decimal places (default: 1) - e.g. 1100000 returns '1.1 million'"""
+    numnames = ['', 'thousand', 'million', 'billion', 'trillion', 'quadrillion']
+
+    n = float(num)
+    idx = max(0,min(len(numnames) - 1,
+                    int(math.floor(0 if n == 0 else math.log10(abs(n))/3))))
+
+    # Calculate the output number by order of magnitude
+    outnum = n / 10**(3 * idx)
+
+    # Create the output string with the requested number of decimal places
+    # This has to be a separate step from the format() call because otherwise
+    # format() gets called on the final fragment only
+    outstr = '{:.' + str(decimal_places) + 'f} {}'
+
+    return outstr.format(outnum, numnames[idx])
+
 
 ## Program flow
 
-def process_data_files(inputpath, outputpath, report_success=True, report_failure=True):
+def process_data_files(inputpath,
+                       outputpath,
+                       data_snapshot_fname=DEFAULT_SNAPSHOT_FNAME,
+                       report_success=True,
+                       report_failure=True):
     """Processes raw data from the Office of Research"""
     # Get a list of files in the raw data directory
     inputfiles = get_csv_list(inputpath)
@@ -214,6 +263,7 @@ def process_data_files(inputpath, outputpath, report_success=True, report_failur
 
     # For each file, open and munge data
     for filename in inputfiles:
+        filepath = os.path.join(inputpath, filename)
         # Check for market in filename
         market = find_market(filename)
         if market is None:
@@ -221,9 +271,8 @@ def process_data_files(inputpath, outputpath, report_success=True, report_failur
             failures.append(filename)
             continue
 
-        # Run file per file-type
-        filepath = os.path.join(inputpath, filename)
-        cond, data = FILE_PREFIXES[filename[:-8].lower()](filepath)
+        # Run file per market-type
+        cond, data = FILE_PREFIXES[filename[:MKT_SFX_LEN].lower()](filepath)
 
         if cond:
             # Determine output directory
@@ -513,7 +562,7 @@ def process_yoy_summary(filename, output_schema=YOY_SUMMARY_OUTPUT_SCHEMA):
     # Load specified file as input data
     inputdata = load_csv(filename)
 
-    # Initialize output data with column headers
+    # Initialize output data
     data = []
     proc = {}
 
@@ -550,6 +599,42 @@ def process_yoy_summary(filename, output_schema=YOY_SUMMARY_OUTPUT_SCHEMA):
         return True, data
     
     return True, []
+
+
+## Process data snapshot into separate HTML snippets
+
+def process_data_snapshot(filepath):
+    """Process a file that contains data snapshot information for
+    all markets"""
+
+    # Load specified file as input data
+    inputdata = load_csv(filename)
+
+    # Initialize output data with column headers
+    data = []
+    proc = {}
+    cond = False
+
+    for row in inputdata:
+        market, monthnum, orig, vol, yoy = row
+
+        # Determine market
+        output_mkt = find_market(market)
+
+        orig_desc, vol_desc = SNAPSHOT_HTML[market]
+
+        # Parse numbers
+
+
+        # Insert into output snippet
+        out_html = SNAPSHOT_HTML.format(orig_fmt, orig_desc,
+                                        vol_fmt, vol_desc,
+                                        yoy_fmt)
+
+        # Save HTML snippet into market-specific directory
+
+
+    return cond
 
 
 ###########################################################
