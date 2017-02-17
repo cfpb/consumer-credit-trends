@@ -28,22 +28,22 @@ __status__ = "Development"
 DEFAULT_INPUT_FOLDER = "~/Github/consumer-credit-trends-data/data"
 DEFAULT_OUTPUT_FOLDER = "~/Github/consumer-credit-trends-data/processed_data/"
 
-## Data Snapshot variables
-# Data Snapshot default name
+## Data snapshot variables
+# Data snapshot default name
 SNAPSHOT_FNAME_KEY = "data_snapshot"
 SNAPSHOT_FNAME_HTML = "data_snapshot.html"
 
-# Data Snapshot snippet template
+# Data snapshot snippet template
 SNAPSHOT_HTML = \
 """<h3><b>{}</b><br>{} originated</h3>
 <h3><br><b>${}</b><br>Dollar volume of new {}</h3>
 <h3><br><b>{}% {}&nbsp;</b><br>In year-over-year originations</h3>
 """
 
-# Text filler for Data Snapshot templates
+# Text filler for data snapshot templates
 HTML_MKT_NAMES = {"AUT": ["Auto loans", "loans"],     # Auto loans
                   "CRC": ["Credit cards", "cards"],   # Credit cards
-                  "HCE": ["HECE loans", "loans"],     # Home Equity, Closed End
+                  "HCE": ["HECE loans", "loans"],     # Home Equity, Closed-End
                   "HLC": ["HELOCs", "HELOCs"],        # Home Equity Line of Credit (HELOC)
                   "MTG": ["Mortgages", "mortgages"],  # Mortgages
                   "PER": ["Personal loans", "loans"], # Personal loans
@@ -72,7 +72,7 @@ SCORE = "credit_score"
 # Output: "month","date","yoy_<type>","yoy_<type>",...,"yoy_<type>"
 # All the "yoy_<type>" inputs get added in processing
 GROUP_YOY_OUTPUT_SCHEMA = ["month","date"]
-# YOY Groups
+# YOY groups
 AGE_YOY = ["Younger than 30","30 - 44","45 - 64","65 and older"]
 AGE_YOY_COLS = ["younger-than-30","30-44","45-64","65-and-older"]
 INCOME_YOY = ["Low","Moderate","Middle","High"]
@@ -83,10 +83,10 @@ SCORE_YOY_COLS = ["deep-subprime","subprime","near-prime","prime","super-prime"]
 # Output: "month","date","vol","vol_unadj","<grouptype>_group"
 GROUP_VOL_OUTPUT_SCHEMA = ["month","date","vol","vol_unadj","{}_group"]
 
-# Market names - become directory names
+# Market names - these become directory names
 MARKET_NAMES = {"AUT": "auto-loan",     # Auto loans
                 "CRC": "credit-card",   # Credit cards
-                "HCE": "hece",          # Home Equity, Closed End
+                "HCE": "hece",          # Home Equity, Closed-End
                 "HLC": "heloc",         # Home Equity Line of Credit (HELOC)
                 "MTG": "mortgage",      # Mortgages
                 "PER": "personal-loan", # Personal loans
@@ -260,7 +260,7 @@ def process_data_files(inputpath,
                        data_snapshot_outname=SNAPSHOT_FNAME_HTML,
                        report_success=False,
                        report_failure=False):
-    """Processes raw data from the Office of Research"""
+    """Processes raw csv data from the Office of Research"""
     # Get a list of files in the raw data directory
     inputfiles = get_csv_list(inputpath)
     successes = []
