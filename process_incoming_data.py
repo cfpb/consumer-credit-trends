@@ -28,25 +28,29 @@ __status__ = "Development"
 DEFAULT_INPUT_FOLDER = "~/Github/consumer-credit-trends-data/data"
 DEFAULT_OUTPUT_FOLDER = "~/Github/consumer-credit-trends-data/processed_data/"
 
+## Data Snapshot variables
 # Data Snapshot default name
-DEFAULT_SNAPSHOT_FNAME = "data_snapshot.csv"
+SNAPSHOT_FNAME_KEY = "data_snapshot"
+SNAPSHOT_FNAME_HTML = "data_snapshot.html"
 
 # Data Snapshot snippet template
-SNAPSHOT_HTML = """<h3><b>{}</b><br>{} originated</h3>
-                   <h3><br><b>${}&nbsp;{}</b><br>Dollar volume of new {}</h3>
-                   <h3><br><b>{}% {}&nbsp;</b><br>In year-over-year originations</h3>"""
+SNAPSHOT_HTML = \
+"""<h3><b>{}</b><br>{} originated</h3>
+<h3><br><b>${}</b><br>Dollar volume of new {}</h3>
+<h3><br><b>{}% {}&nbsp;</b><br>In year-over-year originations</h3>
+"""
 
 # Text filler for Data Snapshot templates
-MARKET_NAMES = {"AUT": ["Auto loans", "loans"],     # Auto loans
-                "CRC": ["Credit cards", "cards"],   # Credit cards
-                "HCE": ["HECE loans", "loans"],     # Home Equity, Closed End
-                "HLC": ["HELOCs", "HELOCs"],        # Home Equity Line of Credit (HELOC)
-                "MTG": ["Mortgages", "mortgages"],  # Mortgages
-                "PER": ["Personal loans", "loans"], # Personal loans
-                "RET": ["Retail loans", "loans"],   # Retail loans
-                "STU": ["Student loans", "loans"],  # Student loans
-                }
-
+HTML_MKT_NAMES = {"AUT": ["Auto loans", "loans"],     # Auto loans
+                  "CRC": ["Credit cards", "cards"],   # Credit cards
+                  "HCE": ["HECE loans", "loans"],     # Home Equity, Closed End
+                  "HLC": ["HELOCs", "HELOCs"],        # Home Equity Line of Credit (HELOC)
+                  "MTG": ["Mortgages", "mortgages"],  # Mortgages
+                  "PER": ["Personal loans", "loans"], # Personal loans
+                  "RET": ["Retail loans", "loans"],   # Retail loans
+                  "STU": ["Student loans", "loans"],  # Student loans
+                  }
+HTML_DESC = ["decrease", "increase"]
 
 # Market+.csv filename suffix length
 MKT_SFX_LEN = -8
@@ -214,7 +218,7 @@ def find_market(input, possible_names=MARKET_NAMES):
     return None
 
 
-def actual_date(month):
+def actual_date(month, schema="%Y-%m"):
     """
     Takes a month number and computes an actual date from it.
     January 2000 = month zero
@@ -224,7 +228,7 @@ def actual_date(month):
 
     date = datetime.date(BASE_YEAR + addl_years, addl_months, 1)
 
-    return date.strftime("%Y-%m")
+    return date.strftime(schema)
 
 # Modified from an answer at:
 # http://stackoverflow.com/questions/3154460/python-human-readable-large-numbers
@@ -252,9 +256,10 @@ def human_numbers(num, decimal_places=1):
 
 def process_data_files(inputpath,
                        outputpath,
-                       data_snapshot_fname=DEFAULT_SNAPSHOT_FNAME,
-                       report_success=True,
-                       report_failure=True):
+                       data_snapshot_fname=SNAPSHOT_FNAME_KEY,
+                       data_snapshot_outname=SNAPSHOT_FNAME_HTML,
+                       report_success=False,
+                       report_failure=False):
     """Processes raw data from the Office of Research"""
     # Get a list of files in the raw data directory
     inputfiles = get_csv_list(inputpath)
@@ -266,29 +271,43 @@ def process_data_files(inputpath,
         filepath = os.path.join(inputpath, filename)
         # Check for market in filename
         market = find_market(filename)
+
         if market is None:
-            print("Found file '{}' does not specify market".format(filename))
-            failures.append(filename)
-            continue
-
-        # Run file per market-type
-        cond, data = FILE_PREFIXES[filename[:MKT_SFX_LEN].lower()](filepath)
-
-        if cond:
-            # Determine output directory
-            outpath = os.path.join(outputpath, market, filename)
-            if len(data) > 0:
-                cond = save_csv(outpath, data)
-            
-            if cond:
-                successes.append(filename)
-            else:
+            if data_snapshot_fname not in filename:
+                print("Found file '{}' does not specify market".format(filename))
                 failures.append(filename)
                 continue
-            # print("Successfully processed {}".format(filename))
+
+            # Check/process Data Snapshot file into HTML snippets
+            snippets = process_data_snapshot(filepath)
+            successes.append(filename)
+
+            # Determine output directory
+            for market, snippet in snippets.iteritems():
+                outpath = os.path.join(outputpath, market, data_snapshot_outname)
+
+                # print("{} snapshot snippet saving to {}".format(market, outpath))
+                
+                with open(outpath, 'w') as outfile:
+                    outfile.write(snippet)
+
         else:
-            failures.append(filename)
-            continue
+            # Run file per market-type
+            cond, data = FILE_PREFIXES[filename[:MKT_SFX_LEN].lower()](filepath)
+
+            if cond:
+                # Determine output directory
+                outpath = os.path.join(outputpath, market, filename)
+                if len(data) > 0:
+                    cond = save_csv(outpath, data)
+                
+                if cond:
+                    successes.append(filename)
+                else:
+                    failures.append(filename)
+
+            else:
+                failures.append(filename)
 
     # Processing complete - perform reporting
     if len(successes) > 0 and report_success:
@@ -608,33 +627,41 @@ def process_data_snapshot(filepath):
     all markets"""
 
     # Load specified file as input data
-    inputdata = load_csv(filename)
+    inputdata = load_csv(filepath)
 
     # Initialize output data with column headers
-    data = []
-    proc = {}
-    cond = False
+    data = {}
 
     for row in inputdata:
         market, monthnum, orig, vol, yoy = row
+        monthnum = int(monthnum)
+        orig = float(orig)
+        vol = float(vol)
+        yoy = float(yoy)
 
-        # Determine market
+        # Determine market and month
         output_mkt = find_market(market)
+        month = actual_date(monthnum, schema="%B %Y")
 
-        orig_desc, vol_desc = SNAPSHOT_HTML[market]
+        # Retrieve snapshot descriptors
+        orig_desc, vol_desc = HTML_MKT_NAMES[market]
 
         # Parse numbers
-
+        orig_fmt = "{:.0f}".format(orig)
+        vol_fmt = human_numbers(vol, decimal_places=1)
+        yoy_fmt = "{:.1f}".format(abs(yoy))
+        yoy_desc = HTML_DESC[yoy > 0]
 
         # Insert into output snippet
-        out_html = SNAPSHOT_HTML.format(orig_fmt, orig_desc,
+        out_html = SNAPSHOT_HTML.format(
+                                        orig_fmt, orig_desc,
                                         vol_fmt, vol_desc,
-                                        yoy_fmt)
+                                        yoy_fmt, yoy_desc
+                                        )
+        # Save snippet by market
+        data[output_mkt] = out_html
 
-        # Save HTML snippet into market-specific directory
-
-
-    return cond
+    return data
 
 
 ###########################################################
