@@ -37,7 +37,7 @@ SNAPSHOT_FNAME_HTML = "data_snapshot.html"
 SNAPSHOT_HTML = \
 """<h3><b>{}</b><br>{} originated</h3>
 <h3><br><b>${}</b><br>Dollar volume of new {}</h3>
-<h3><br><b>{}% {}&nbsp;</b><br>In year-over-year originations</h3>
+<h3><br><b>{}% {}</b><br>In year-over-year originations</h3>
 """
 
 # Text filler for data snapshot templates
@@ -238,35 +238,26 @@ def human_numbers(num, decimal_places=1, whole_units_only=1):
     (default: 1) - e.g. 1100000 returns '1.1 million'.
     If whole_units_only is specified, no parts less than one unit will
     be displayed, i.e. 67.012 becomes 67. This has no effect on numbers with modifiers."""
-    numnames = ['', '', 'million', 'billion', 'trillion', 'quadrillion']
+    numnames = ['', '', 'million', 'billion', 'trillion', 'quadrillion', 'quintillion']
     # TODO: Insert commas every 3 if not over millions
 
     n = float(num)
     idx = max(0,min(len(numnames) - 1,
                     int(math.floor(0 if n == 0 else math.log10(abs(n))/3))))
 
-    # Insert commas every 3 numbers if not over millions
-    if idx < 2:
-        # Create the output string with the requested number of decimal places
-        # This has to be a separate step from the format() call because otherwise
-        # format() gets called on the final fragment only
-        if whole_units_only:
-            return '{:,}'.format(int(round(n)))
+    # Insert commas every 3 numbers if not over millions and only whole units chosen
+    if idx < 2 and whole_units_only:
+        return '{:,}'.format(int(round(n)))
 
-        outstr = '{:,.' + str(decimal_places) + 'f} {}'
+    # Calculate the output number by order of magnitude
+    outnum = n / 10**(3 * idx)
 
-        return outstr.format(n)
+    # Create the output string with the requested number of decimal places
+    # This has to be a separate step from the format() call because otherwise
+    # format() gets called on the final fragment only
+    outstr = '{:,.' + str(decimal_places) + 'f} {}'
 
-    else:
-        # Calculate the output number by order of magnitude
-        outnum = n / 10**(3 * idx)
-
-        # Create the output string with the requested number of decimal places
-        # This has to be a separate step from the format() call because otherwise
-        # format() gets called on the final fragment only
-        outstr = '{:.' + str(decimal_places) + 'f} {}'
-
-        return outstr.format(outnum, numnames[idx])
+    return outstr.format(outnum, numnames[idx])
 
 
 ## Program flow
@@ -665,8 +656,8 @@ def process_data_snapshot(filepath):
 
         # Parse numbers
         # TODO: If originations are over millions, use human numbers
-        orig_fmt = human_numbers(orig, whole_units_only=1)
-        vol_fmt = human_numbers(vol, decimal_places=1)
+        orig_fmt = human_numbers(orig, whole_units_only=1).replace(" ", "&nbsp;")
+        vol_fmt = human_numbers(vol).replace(" ", "&nbsp;")
         yoy_fmt = "{:.1f}".format(abs(yoy))
         yoy_desc = HTML_DESC[yoy > 0]
 
