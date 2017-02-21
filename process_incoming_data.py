@@ -655,7 +655,6 @@ def process_data_snapshot(filepath):
         orig_desc, vol_desc = HTML_MKT_NAMES[market]
 
         # Parse numbers
-        # TODO: If originations are over millions, use human numbers
         orig_fmt = human_numbers(orig, whole_units_only=1).replace(" ", "&nbsp;")
         vol_fmt = human_numbers(vol).replace(" ", "&nbsp;")
         yoy_fmt = "{:.1f}".format(abs(yoy))
