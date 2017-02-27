@@ -63,6 +63,7 @@ MAP_OUTPUT_SCHEMA = ["fips_code", "state_abbr", "value"]
 SUMMARY_NUM_OUTPUT_SCHEMA = ["month","date","num","num_unadj"]
 SUMMARY_VOL_OUTPUT_SCHEMA = ["month","date","vol","vol_unadj"]
 YOY_SUMMARY_OUTPUT_SCHEMA = ["month","date","yoy_num","yoy_vol"]
+DATE_SCHEMA = "%Y-%m"
 
 # Groups - become column name prefixes
 AGE = "age"
@@ -173,6 +174,23 @@ def save_csv(filename, content, writemode='wb'):
     return True
 
 
+def save_json(filename, content, writemode='wb'):
+    """Dumps the specified JSON content into a .json file"""
+    if not os.path.exists(os.path.dirname(filename)):
+        os.makedirs(os.path.dirname(filename))
+        print("Created directories for {}".format(os.path.dirname(filename)))
+
+    # Write output as a json file
+    import json
+    with open(filename, writemode) as fp:
+        fp.write(json.dumps(content,
+                            sort_keys=True,
+                            indent=4,
+                            separators=(',', ': ')))
+
+    return True
+
+
 def load_csv(filename, skipheaderrow=True):
     """Loads CSV data from a file"""
     with open(filename, 'rb') as csvfile:
@@ -218,7 +236,7 @@ def find_market(input, possible_names=MARKET_NAMES):
     return None
 
 
-def actual_date(month, schema="%Y-%m"):
+def actual_date(month, schema=DATE_SCHEMA):
     """
     Takes a month number and computes an actual date from it.
     January 2000 = month zero
@@ -229,6 +247,17 @@ def actual_date(month, schema="%Y-%m"):
     date = datetime.date(BASE_YEAR + addl_years, addl_months, 1)
 
     return date.strftime(schema)
+
+
+# Unix Epoch conversion from
+# http://stackoverflow.com/questions/11743019/convert-python-datetime-to-epoch-with-strftime
+def epochtime(datestring, schema=DATE_SCHEMA):
+    """Converts a date string from specified schema to seconds since J70/Unix epoch"""
+
+    date = datetime.datetime.strptime(datestring, schema)
+
+    return int(round((date - datetime.datetime(1970, 1, 1)).total_seconds()))
+
 
 # Modified from an answer at:
 # http://stackoverflow.com/questions/3154460/python-human-readable-large-numbers
@@ -301,13 +330,18 @@ def process_data_files(inputpath,
 
         else:
             # Run file per market-type
-            cond, data = FILE_PREFIXES[filename[:MKT_SFX_LEN].lower()](filepath)
+            try:
+                cond, data, json = FILE_PREFIXES[filename[:MKT_SFX_LEN].lower()](filepath)
+            except ValueError, e:
+                print("Error occurred during {}".format(filename[:MKT_SFX_LEN].lower()))
+                raise e
 
             if cond:
                 # Determine output directory
                 outpath = os.path.join(outputpath, market, filename)
                 if len(data) > 0:
                     cond = save_csv(outpath, data)
+                    cond &= save_json(outpath.replace(".csv", ".json"), json)
                 
                 if cond:
                     successes.append(filename)
@@ -347,9 +381,10 @@ def process_map(filename, output_schema=MAP_OUTPUT_SCHEMA):
 
     # Check if any data exists besides column headers
     if len(data) > 1:
-        return True, data
+        json = json_for_tile_maps(data[1:])
+        return True, data, json
     
-    return True, []
+    return True, [], []
 
 
 ## Process summary files with loan numbers or volumes
@@ -407,9 +442,10 @@ def process_file_summary(filename, output_schema):
 
     # Check if any data exists besides column headers
     if len(data) > 1:
-        return True, data
+        json = json_for_line_chart(data[1:])
+        return True, data, json
     
-    return True, []
+    return True, [], []
 
 
 ## Process volume files with groups (borrower age, income level, credit score)
@@ -498,9 +534,10 @@ def process_group_file(filename, output_schema):
 
     # Check if any data exists besides column headers
     if len(data) > 1:
-        return True, data
+        json = json_for_group_line_charts(data[1:])
+        return True, data, json
     
-    return True, []
+    return True, [], []
 
 
 ## Process year-over-year files with groups (borrower age, income level, credit score)
@@ -514,7 +551,14 @@ def process_group_age_yoy(filename):
     output_schema = list(GROUP_YOY_OUTPUT_SCHEMA)
     output_schema += [postfix.format(gname) for gname in AGE_YOY_COLS]
 
-    return process_group_yoy_groups(filename, AGE_YOY, output_schema)
+    cond, data = process_group_yoy_groups(filename, AGE_YOY, output_schema)
+
+    json = []
+    if len(data) > 1:
+        json = json_for_group_bar_chart(data[1:], AGE_YOY_COLS)
+
+
+    return cond, data, json
 
 
 def process_group_income_yoy(filename):
@@ -525,7 +569,13 @@ def process_group_income_yoy(filename):
     output_schema = list(GROUP_YOY_OUTPUT_SCHEMA)
     output_schema += [postfix.format(gname) for gname in INCOME_YOY_COLS]
 
-    return process_group_yoy_groups(filename, INCOME_YOY, output_schema)
+    cond, data = process_group_yoy_groups(filename, INCOME_YOY, output_schema)
+
+    json = []
+    if len(data) > 1:
+        json = json_for_group_bar_chart(data[1:], INCOME_YOY_COLS)
+
+    return cond, data, json
 
 
 def process_group_score_yoy(filename):
@@ -536,7 +586,13 @@ def process_group_score_yoy(filename):
     output_schema = list(GROUP_YOY_OUTPUT_SCHEMA)
     output_schema += [postfix.format(gname) for gname in SCORE_YOY_COLS]
 
-    return process_group_yoy_groups(filename, SCORE_YOY, output_schema)
+    cond, data = process_group_yoy_groups(filename, SCORE_YOY, output_schema)
+
+    json = []
+    if len(data) > 1:
+        json = json_for_group_bar_chart(data[1:], SCORE_YOY_COLS)
+
+    return cond, data, json
 
 
 def process_group_yoy_groups(filename, group_names, output_schema):
@@ -573,6 +629,7 @@ def process_group_yoy_groups(filename, group_names, output_schema):
     data.insert(0, output_schema)
 
     # Check if any data exists besides column headers
+    # Unlike other methods, the individual group calls handle the JSON
     if len(data) > 1:
         return True, data
     
@@ -623,9 +680,99 @@ def process_yoy_summary(filename, output_schema=YOY_SUMMARY_OUTPUT_SCHEMA):
 
     # Check if any data exists besides column headers
     if len(data) > 1:
-        return True, data
+        json = json_for_bar_chart(data[1:])
+        return True, data, json
     
-    return True, []
+    return True, [], []
+
+
+## JSON Output calls
+
+def json_for_bar_chart(data):
+    """Takes input data and returns formatted values for dumping to a JSON file """
+    
+    outnum = []
+    outvol = []
+
+    for month, date, yoy_num, yoy_vol in data:
+        sec = epochtime(date)
+        if yoy_num is not "NA":
+            outnum.append([sec, yoy_num])
+        if yoy_vol is not "NA":
+            outvol.append([sec, yoy_vol])
+
+    return {"number": outnum, "volume": outvol}
+
+
+def json_for_group_bar_chart(data, val_cols):
+    """Takes input data and returns formatted values for dumping to a JSON file """
+    
+    out = {}
+    for col in val_cols:
+        out[col] = []
+
+    # Group bar charts (yoy) have variable numbers of columns depending on the groups
+    for row in data:
+        sec = epochtime(row[1])
+        for colnum in range(len(val_cols)):
+            out[val_cols[colnum]].append([sec, row[2+colnum]])
+    
+    return out
+
+
+def json_for_line_chart(data):
+    """Takes input data and returns formatted values for dumping to a JSON file """
+    
+    out = {"adjusted": [], "unadjusted": []}
+
+    for monthnum, date, val, val_unadj in data:
+        sec = epochtime(date)
+        out["adjusted"].append([sec, val])
+        out["unadjusted"].append([sec, val_unadj])
+
+    return out
+  
+
+def json_for_group_line_charts(data):
+    """Takes input data and returns formatted values for dumping to a JSON file"""
+
+    # TODO: Maybe use the known global key groups to init groupname dicts once
+    out = {}
+
+    # Group line charts (vol/num) have the group name in the last column
+    for month, date, val, val_unadj, groupname in data:
+        sec = epochtime(date)
+
+        if val is "NA" and val_unadj is "NA":
+            continue
+        # Initialize if first time groupname is encountered
+        if groupname not in out.keys():
+            out[groupname] = {"adjusted": [], "unadjusted": []}
+
+        out[groupname]["adjusted"].append([sec, val])
+        out[groupname]["unadjusted"].append([sec, val_unadj])
+
+    return out
+
+
+def json_for_tile_maps(data):
+    """Takes input data and returns a list of dicts of state names and percentages
+    for dumping to a JSON file:
+    Input is a list of lists: [[FIPS code, state abbr, percentages],...]
+    Output is list of dicts: [{"name": abbr, "value": percentage},...]
+    """
+
+    out = []
+    
+    for code, state, value in data:
+        try:
+            value = "{:0.2f}".format(float(value) * 100)
+        except ValueError:
+            pass
+          
+        out.append({"name": state, "value": value})
+
+    return out
 
 
 ## Process data snapshot into separate HTML snippets
