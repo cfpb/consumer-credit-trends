@@ -784,6 +784,10 @@ def process_data_snapshot(filepath):
     # Load specified file as input data
     inputdata = load_csv(filepath)
 
+    return process_snapshot_inputdata(inputdata)
+
+
+def process_snapshot_inputdata(inputdata):
     # Initialize output data with column headers
     data = {}
 
