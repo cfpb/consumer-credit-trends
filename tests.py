@@ -26,8 +26,11 @@ class ProcessingTestCase(unittest.TestCase):
     def tearDown(self):
         pass
 
+    # Test helper and formatting functions
     def test_epochtime(self):
-        pass
+        self.assertEqual(pid.epochtime("2000-01"), 946684800)
+        # JSON uses milliseconds, not seconds - test this conversion
+        self.assertEqual(pid.epochtime("2016-11") * pid.SEC_TO_MS, 1477958400000)
 
     def test_actual_date(self):
         self.assertEqual(pid.actual_date(0), "2000-01")
@@ -50,6 +53,7 @@ class ProcessingTestCase(unittest.TestCase):
         self.assertEqual(pid.human_numbers(123456789000000000000), "123.5 quintillion")
         self.assertEqual(pid.human_numbers(123456789000000000000000), "123,456.8 quintillion")
 
+    # Test data-processing functions
     def test_process_map(self):
         pass
 
@@ -65,6 +69,7 @@ class ProcessingTestCase(unittest.TestCase):
     def test_process_yoy_summary(self):
         pass
 
+    # Test JSON-formatting functions
     def test_json_for_bar_chart(self):
         pass
 
@@ -80,6 +85,7 @@ class ProcessingTestCase(unittest.TestCase):
     def test_json_for_tile_maps(self):
         pass
 
+    # Test Data Snapshot processing function
     def test_process_snapshot_inputdata(self):
         pass
 

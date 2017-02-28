@@ -57,6 +57,7 @@ MKT_SFX_LEN = -8
 
 # Data base year
 BASE_YEAR = 2000
+SEC_TO_MS = 1000
 
 # Input/output schemas
 MAP_OUTPUT_SCHEMA = ["fips_code", "state_abbr", "value"]
@@ -378,10 +379,12 @@ def process_map(filename, output_schema=MAP_OUTPUT_SCHEMA):
     data = [output_schema]
 
     # Process data
+    # TODO: Add error handling for unsupported FIPS codes
+    # TODO: Make sure all 50 states (or other expected data) is represented
     for row in inputdata:
         data.append([row[0], FIPS_CODES[int(row[0])], row[1]])
 
-    # Check if any data exists besides column headers
+    # Check if data exists and JSON-format
     if len(data) > 1:
         json = json_for_tile_maps(data[1:])
         return True, data, json
@@ -442,7 +445,7 @@ def process_file_summary(filename, output_schema):
     data.sort()
     data.insert(0, output_schema)
 
-    # Check if any data exists besides column headers
+    # Check if data exists and JSON-format
     if len(data) > 1:
         json = json_for_line_chart(data[1:])
         return True, data, json
@@ -534,7 +537,7 @@ def process_group_file(filename, output_schema):
     data.sort()
     data.insert(0, output_schema)
 
-    # Check if any data exists besides column headers
+    # Check if data exists and JSON-format
     if len(data) > 1:
         json = json_for_group_line_charts(data[1:])
         return True, data, json
@@ -555,6 +558,7 @@ def process_group_age_yoy(filename):
 
     cond, data = process_group_yoy_groups(filename, AGE_YOY, output_schema)
 
+    # Format for JSON
     json = []
     if len(data) > 1:
         json = json_for_group_bar_chart(data[1:], AGE_YOY_COLS)
@@ -573,6 +577,7 @@ def process_group_income_yoy(filename):
 
     cond, data = process_group_yoy_groups(filename, INCOME_YOY, output_schema)
 
+    # Format for JSON
     json = []
     if len(data) > 1:
         json = json_for_group_bar_chart(data[1:], INCOME_YOY_COLS)
@@ -590,6 +595,7 @@ def process_group_score_yoy(filename):
 
     cond, data = process_group_yoy_groups(filename, SCORE_YOY, output_schema)
 
+    # Format for JSON
     json = []
     if len(data) > 1:
         json = json_for_group_bar_chart(data[1:], SCORE_YOY_COLS)
@@ -630,7 +636,7 @@ def process_group_yoy_groups(filename, group_names, output_schema):
     data.sort()
     data.insert(0, output_schema)
 
-    # Check if any data exists besides column headers
+    # Check if data exists and JSON-format
     # Unlike other methods, the individual group calls handle the JSON
     if len(data) > 1:
         return True, data
@@ -680,7 +686,7 @@ def process_yoy_summary(filename, output_schema=YOY_SUMMARY_OUTPUT_SCHEMA):
     data.sort()
     data.insert(0, output_schema)
 
-    # Check if any data exists besides column headers
+    # Check if data exists and JSON-format
     if len(data) > 1:
         json = json_for_bar_chart(data[1:])
         return True, data, json
@@ -699,9 +705,9 @@ def json_for_bar_chart(data):
     for month, date, yoy_num, yoy_vol in data:
         sec = epochtime(date)
         if yoy_num is not "NA":
-            outnum.append([sec, yoy_num])
+            outnum.append([sec * SEC_TO_MS, yoy_num])
         if yoy_vol is not "NA":
-            outvol.append([sec, yoy_vol])
+            outvol.append([sec * SEC_TO_MS, yoy_vol])
 
     return {"number": outnum, "volume": outvol}
 
@@ -717,7 +723,7 @@ def json_for_group_bar_chart(data, val_cols):
     for row in data:
         sec = epochtime(row[1])
         for colnum in range(len(val_cols)):
-            out[val_cols[colnum]].append([sec, row[2+colnum]])
+            out[val_cols[colnum]].append([sec * SEC_TO_MS, row[2+colnum]])
     
     return out
 
@@ -729,8 +735,8 @@ def json_for_line_chart(data):
 
     for monthnum, date, val, val_unadj in data:
         sec = epochtime(date)
-        out["adjusted"].append([sec, val])
-        out["unadjusted"].append([sec, val_unadj])
+        out["adjusted"].append([sec * SEC_TO_MS, val])
+        out["unadjusted"].append([sec * SEC_TO_MS, val_unadj])
 
     return out
   
@@ -751,8 +757,8 @@ def json_for_group_line_charts(data):
         if groupname not in out.keys():
             out[groupname] = {"adjusted": [], "unadjusted": []}
 
-        out[groupname]["adjusted"].append([sec, val])
-        out[groupname]["unadjusted"].append([sec, val_unadj])
+        out[groupname]["adjusted"].append([sec * SEC_TO_MS, val])
+        out[groupname]["unadjusted"].append([sec * SEC_TO_MS, val_unadj])
 
     return out
 
