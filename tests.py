@@ -30,22 +30,25 @@ class ProcessingTestCase(unittest.TestCase):
         pass
 
     def test_actual_date(self):
-        pass
+        self.assertEqual(pid.actual_date(0), "2000-01")
+        self.assertEqual(pid.actual_date(60), "2005-01")
+        self.assertEqual(pid.actual_date(203), "2016-12")
 
     def test_human_numbers_whole_thousands(self):
-        pass
+        self.assertEqual(pid.human_numbers(123456.789, whole_units_only=1), "123,457")
 
     def test_human_numbers_thousands(self):
-        pass
+        self.assertEqual(pid.human_numbers(123456.789, decimal_places=1, whole_units_only=0), "123,456.8")
 
     def test_human_numbers_millions(self):
-        pass
+        self.assertEqual(pid.human_numbers(123456789), "123.5 million")
 
     def test_human_numbers_billions(self):
-        pass
+        self.assertEqual(pid.human_numbers(123456789000), "123.5 billion")
 
     def test_human_numbers_really_large(self):
-        pass
+        self.assertEqual(pid.human_numbers(123456789000000000000), "123.5 quintillion")
+        self.assertEqual(pid.human_numbers(123456789000000000000000), "123,456.8 quintillion")
 
     def test_process_map(self):
         pass

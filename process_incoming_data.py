@@ -274,17 +274,20 @@ def human_numbers(num, decimal_places=1, whole_units_only=1):
     idx = max(0,min(len(numnames) - 1,
                     int(math.floor(0 if n == 0 else math.log10(abs(n))/3))))
 
-    # Insert commas every 3 numbers if not over millions and only whole units chosen
-    if idx < 2 and whole_units_only:
-        return '{:,}'.format(int(round(n)))
-
-    # Calculate the output number by order of magnitude
-    outnum = n / 10**(3 * idx)
-
     # Create the output string with the requested number of decimal places
     # This has to be a separate step from the format() call because otherwise
     # format() gets called on the final fragment only
     outstr = '{:,.' + str(decimal_places) + 'f} {}'
+
+    # Insert commas every 3 numbers if not over millions and only whole units chosen
+    if idx < 2:
+        if whole_units_only:
+            return '{:,}'.format(int(round(n)))
+        else:
+            return outstr.format(n, numnames[idx]).strip()
+
+    # Calculate the output number by order of magnitude
+    outnum = n / 10**(3 * idx)
 
     return outstr.format(outnum, numnames[idx])
 
@@ -367,7 +370,6 @@ def process_map(filename, output_schema=MAP_OUTPUT_SCHEMA):
     """Processes specified map file and outputs data per the schema"""
     # Input  columns: "state","value"
     # Output columns: "fips_code","state_abbr","value"
-    # print("Processing map file '{}'".format(filename))
 
     # Load specified file as input data
     inputdata = load_csv(filename)
