@@ -328,6 +328,8 @@ def process_data_files(inputpath,
                 outpath = os.path.join(outputpath, market, data_snapshot_outname)
 
                 # print("{} snapshot snippet saving to {}".format(market, outpath))
+                if not os.path.exists(os.path.dirname(filename)):
+                    os.makedirs(os.path.dirname(filename))
                 
                 with open(outpath, 'w') as outfile:
                     outfile.write(snippet)
