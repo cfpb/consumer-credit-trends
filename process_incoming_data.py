@@ -620,11 +620,8 @@ def process_group_yoy_groups(filename, group_names, output_schema):
         monthstr, value, group = row
         monthnum = int(monthstr)
         
-        # Dict list comprehensions aren't available in Jenkins' Python 2.6 (Python 2.7 and above)
         if not proc.has_key(monthnum):
-            proc[monthnum] = {}
-            for gname in group_names:
-                proc[monthnum][gname] = None
+            proc[monthnum] = {gname: None for gname in group_names}
 
         if group in group_names:
             proc[monthnum][group] = value
