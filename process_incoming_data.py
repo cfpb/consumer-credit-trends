@@ -339,7 +339,7 @@ def process_data_files(inputpath,
             try:
                 cond, data, json = FILE_PREFIXES[filename[:MKT_SFX_LEN].lower()](filepath)
             except ValueError, e:
-                print("Error occurred during {}".format(filename[:MKT_SFX_LEN].lower()))
+                print("Error occurred during {}".format(filename))
                 raise e
 
             if cond:
