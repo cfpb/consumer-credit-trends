@@ -386,7 +386,7 @@ def process_map(filename, output_schema=MAP_OUTPUT_SCHEMA):
 
     # Check if data exists and JSON-format
     if len(data) > 1:
-        json = json_for_tile_maps(data[1:])
+        json = json_for_tile_map(data[1:])
         return True, data, json
     
     return True, [], []
@@ -539,7 +539,7 @@ def process_group_file(filename, output_schema):
 
     # Check if data exists and JSON-format
     if len(data) > 1:
-        json = json_for_group_line_charts(data[1:])
+        json = json_for_group_line_chart(data[1:])
         return True, data, json
     
     return True, [], []
@@ -741,7 +741,7 @@ def json_for_line_chart(data):
     return out
   
 
-def json_for_group_line_charts(data):
+def json_for_group_line_chart(data):
     """Takes input data and returns formatted values for dumping to a JSON file"""
 
     # TODO: Maybe use the known global key groups to init groupname dicts once
@@ -763,7 +763,7 @@ def json_for_group_line_charts(data):
     return out
 
 
-def json_for_tile_maps(data):
+def json_for_tile_map(data):
     """Takes input data and returns a list of dicts of state names and percentages
     for dumping to a JSON file:
     Input is a list of lists: [[FIPS code, state abbr, percentages],...]
@@ -827,7 +827,7 @@ def process_snapshot_inputdata(inputdata):
                                         )
         # Save snippet by market
         data[output_mkt] = out_html
-
+    
     return data
 
 
