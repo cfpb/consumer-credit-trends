@@ -563,7 +563,7 @@ def process_group_age_yoy(filename):
     # Format for JSON
     json = []
     if len(data) > 1:
-        json = json_for_group_bar_chart(data[1:], AGE_YOY_COLS)
+        json = json_for_group_bar_chart(data[1:], AGE_YOY_COLS, AGE_YOY)
 
 
     return cond, data, json
@@ -582,7 +582,7 @@ def process_group_income_yoy(filename):
     # Format for JSON
     json = []
     if len(data) > 1:
-        json = json_for_group_bar_chart(data[1:], INCOME_YOY_COLS)
+        json = json_for_group_bar_chart(data[1:], INCOME_YOY_COLS, INCOME_YOY)
 
     return cond, data, json
 
@@ -600,7 +600,7 @@ def process_group_score_yoy(filename):
     # Format for JSON
     json = []
     if len(data) > 1:
-        json = json_for_group_bar_chart(data[1:], SCORE_YOY_COLS)
+        json = json_for_group_bar_chart(data[1:], SCORE_YOY_COLS, SCORE_YOY)
 
     return cond, data, json
 
@@ -706,26 +706,39 @@ def json_for_bar_chart(data):
 
     for month, date, yoy_num, yoy_vol in data:
         sec = epochtime(date)
-        if yoy_num is not "NA":
-            outnum.append([sec * SEC_TO_MS, yoy_num])
-        if yoy_vol is not "NA":
-            outvol.append([sec * SEC_TO_MS, yoy_vol])
+        try:
+            outnum.append([sec * SEC_TO_MS, float(yoy_num)])
+            outvol.append([sec * SEC_TO_MS, float(yoy_vol)])
+        except ValueError:
+            continue
 
-    return {"number": outnum, "volume": outvol}
+    return {"Number of Loans": outnum, "Dollar Volume": outvol}
 
 
-def json_for_group_bar_chart(data, val_cols):
+def json_for_group_bar_chart(data, val_cols, out_names):
     """Takes input data and returns formatted values for dumping to a JSON file """
     
-    out = {}
+    tmp = {}
     for col in val_cols:
-        out[col] = []
+        tmp[col] = []
 
     # Group bar charts (yoy) have variable numbers of columns depending on the groups
     for row in data:
         sec = epochtime(row[1])
         for colnum in range(len(val_cols)):
-            out[val_cols[colnum]].append([sec * SEC_TO_MS, row[2+colnum]])
+            try:
+                tmp[val_cols[colnum]].append([sec * SEC_TO_MS, float(row[2+colnum])])
+            except ValueError:
+                continue
+
+    out = {}
+
+    # Translate into JSON output columns
+    for col_key in tmp.keys():
+        idx = val_cols.index(col_key)
+        if idx < 0:
+            raise IndexError("Key '{}' does not exist in {}".format(col_key, val_cols))
+        out[out_names[idx]] = tmp[col_key][:]
     
     return out
 
@@ -737,8 +750,11 @@ def json_for_line_chart(data):
 
     for monthnum, date, val, val_unadj in data:
         sec = epochtime(date)
-        out["adjusted"].append([sec * SEC_TO_MS, val])
-        out["unadjusted"].append([sec * SEC_TO_MS, val_unadj])
+        try:
+            out["adjusted"].append([sec * SEC_TO_MS, float(val)])
+            out["unadjusted"].append([sec * SEC_TO_MS, float(val_unadj)])
+        except ValueError:
+            continue
 
     return out
   
@@ -753,14 +769,16 @@ def json_for_group_line_chart(data):
     for month, date, val, val_unadj, groupname in data:
         sec = epochtime(date)
 
-        if val is "NA" and val_unadj is "NA":
-            continue
         # Initialize if first time groupname is encountered
         if groupname not in out.keys():
             out[groupname] = {"adjusted": [], "unadjusted": []}
 
-        out[groupname]["adjusted"].append([sec * SEC_TO_MS, val])
-        out[groupname]["unadjusted"].append([sec * SEC_TO_MS, val_unadj])
+        try:
+            out[groupname]["adjusted"].append([sec * SEC_TO_MS, float(val)])
+            out[groupname]["unadjusted"].append([sec * SEC_TO_MS, float(val_unadj)])
+        except ValueError:
+            # Discard "NA" values and other non-float-able values
+            continue
 
     return out
 
@@ -778,6 +796,7 @@ def json_for_tile_map(data):
         try:
             value = "{:0.2f}".format(float(value) * 100)
         except ValueError:
+            # Leave as NA for states if found
             pass
           
         out.append({"name": state, "value": value})
