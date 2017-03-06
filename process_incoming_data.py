@@ -75,12 +75,25 @@ SCORE = "credit_score"
 # All the "yoy_<type>" inputs get added in processing
 GROUP_YOY_OUTPUT_SCHEMA = ["month","date"]
 # YOY groups
-AGE_YOY = ["Younger than 30","30 - 44","45 - 64","65 and older"]
+# CFPB design standards: sentence case and no spaces around dashes
+AGE_YOY_IN = ["Younger than 30","30 - 44","45 - 64","65 and older"]
 AGE_YOY_COLS = ["younger-than-30","30-44","45-64","65-and-older"]
-INCOME_YOY = ["Low","Moderate","Middle","High"]
+AGE_YOY_JSON = ["Younger than 30","30-44","45-64","65 and older"]
+INCOME_YOY_IN = ["Low","Moderate","Middle","High"]
 INCOME_YOY_COLS = ["low","moderate","middle","high"]
-SCORE_YOY = ["Deep Subprime","Subprime","Near Prime","Prime","Superprime"]
+INCOME_YOY_JSON = INCOME_YOY_IN # No changes for dashes or caps
+SCORE_YOY_IN = ["Deep Subprime","Subprime","Near Prime","Prime","Superprime"]
 SCORE_YOY_COLS = ["deep-subprime","subprime","near-prime","prime","super-prime"]
+SCORE_YOY_JSON = ["Deep-subprime","Subprime","Near-prime","Prime","Super-prime"]
+
+# Fixes input text to follow agency guidelines
+TEXT_FIXES = {"30 - 44": "Age 30-44",
+              "45 - 64": "Age 45-64",
+              "65 and older": "Age 65 and older",
+              "Deep Subprime": "Deep subprime",
+              "Near Prime": "Near-prime",
+              "Superprime":"Super-prime",
+             }
 
 # Output: "month","date","vol","vol_unadj","<grouptype>_group"
 GROUP_VOL_OUTPUT_SCHEMA = ["month","date","vol","vol_unadj","{}_group"]
@@ -95,15 +108,6 @@ MARKET_NAMES = {"AUT": "auto-loan",     # Auto loans
                 "RET": "retail-loan",   # Retail loans
                 "STU": "student-loan",  # Student loans
                 }
-
-# Fixes input text to follow agency guidelines
-TEXT_FIXES = {"30 - 44": "Age 30-44",
-              "45 - 64": "Age 45-64",
-              "65 and older": "Age 65 and older",
-              "Deep Subprime": "Deep subprime",
-              "Near Prime": "Near-prime",
-              "Superprime":"Super-prime",
-             }
 
 # State FIPS codes - used to translate state codes into abbr
 FIPS_CODES = {1:  "AL",
@@ -558,12 +562,12 @@ def process_group_age_yoy(filename):
     output_schema = list(GROUP_YOY_OUTPUT_SCHEMA)
     output_schema += [postfix.format(gname) for gname in AGE_YOY_COLS]
 
-    cond, data = process_group_yoy_groups(filename, AGE_YOY, output_schema)
+    cond, data = process_group_yoy_groups(filename, AGE_YOY_IN, output_schema)
 
     # Format for JSON
     json = []
     if len(data) > 1:
-        json = json_for_group_bar_chart(data[1:], AGE_YOY_COLS)
+        json = json_for_group_bar_chart(data[1:], AGE_YOY_COLS, AGE_YOY_JSON)
 
 
     return cond, data, json
@@ -577,12 +581,12 @@ def process_group_income_yoy(filename):
     output_schema = list(GROUP_YOY_OUTPUT_SCHEMA)
     output_schema += [postfix.format(gname) for gname in INCOME_YOY_COLS]
 
-    cond, data = process_group_yoy_groups(filename, INCOME_YOY, output_schema)
+    cond, data = process_group_yoy_groups(filename, INCOME_YOY_IN, output_schema)
 
     # Format for JSON
     json = []
     if len(data) > 1:
-        json = json_for_group_bar_chart(data[1:], INCOME_YOY_COLS)
+        json = json_for_group_bar_chart(data[1:], INCOME_YOY_COLS, INCOME_YOY_JSON)
 
     return cond, data, json
 
@@ -595,12 +599,12 @@ def process_group_score_yoy(filename):
     output_schema = list(GROUP_YOY_OUTPUT_SCHEMA)
     output_schema += [postfix.format(gname) for gname in SCORE_YOY_COLS]
 
-    cond, data = process_group_yoy_groups(filename, SCORE_YOY, output_schema)
+    cond, data = process_group_yoy_groups(filename, SCORE_YOY_IN, output_schema)
 
     # Format for JSON
     json = []
     if len(data) > 1:
-        json = json_for_group_bar_chart(data[1:], SCORE_YOY_COLS)
+        json = json_for_group_bar_chart(data[1:], SCORE_YOY_COLS, SCORE_YOY_JSON)
 
     return cond, data, json
 
@@ -706,26 +710,39 @@ def json_for_bar_chart(data):
 
     for month, date, yoy_num, yoy_vol in data:
         sec = epochtime(date)
-        if yoy_num is not "NA":
-            outnum.append([sec * SEC_TO_MS, yoy_num])
-        if yoy_vol is not "NA":
-            outvol.append([sec * SEC_TO_MS, yoy_vol])
+        try:
+            outnum.append([sec * SEC_TO_MS, float(yoy_num)])
+            outvol.append([sec * SEC_TO_MS, float(yoy_vol)])
+        except ValueError:
+            continue
 
-    return {"number": outnum, "volume": outvol}
+    return {"Number of Loans": outnum, "Dollar Volume": outvol}
 
 
-def json_for_group_bar_chart(data, val_cols):
+def json_for_group_bar_chart(data, val_cols, out_names):
     """Takes input data and returns formatted values for dumping to a JSON file """
     
-    out = {}
+    tmp = {}
     for col in val_cols:
-        out[col] = []
+        tmp[col] = []
 
     # Group bar charts (yoy) have variable numbers of columns depending on the groups
     for row in data:
         sec = epochtime(row[1])
         for colnum in range(len(val_cols)):
-            out[val_cols[colnum]].append([sec * SEC_TO_MS, row[2+colnum]])
+            try:
+                tmp[val_cols[colnum]].append([sec * SEC_TO_MS, float(row[2+colnum])])
+            except ValueError:
+                continue
+
+    out = {}
+
+    # Translate into JSON output columns
+    for col_key in tmp.keys():
+        idx = val_cols.index(col_key)
+        if idx < 0:
+            raise IndexError("Key '{}' does not exist in {}".format(col_key, val_cols))
+        out[out_names[idx]] = tmp[col_key][:]
     
     return out
 
@@ -737,8 +754,11 @@ def json_for_line_chart(data):
 
     for monthnum, date, val, val_unadj in data:
         sec = epochtime(date)
-        out["adjusted"].append([sec * SEC_TO_MS, val])
-        out["unadjusted"].append([sec * SEC_TO_MS, val_unadj])
+        try:
+            out["adjusted"].append([sec * SEC_TO_MS, float(val)])
+            out["unadjusted"].append([sec * SEC_TO_MS, float(val_unadj)])
+        except ValueError:
+            continue
 
     return out
   
@@ -753,14 +773,16 @@ def json_for_group_line_chart(data):
     for month, date, val, val_unadj, groupname in data:
         sec = epochtime(date)
 
-        if val is "NA" and val_unadj is "NA":
-            continue
         # Initialize if first time groupname is encountered
         if groupname not in out.keys():
             out[groupname] = {"adjusted": [], "unadjusted": []}
 
-        out[groupname]["adjusted"].append([sec * SEC_TO_MS, val])
-        out[groupname]["unadjusted"].append([sec * SEC_TO_MS, val_unadj])
+        try:
+            out[groupname]["adjusted"].append([sec * SEC_TO_MS, float(val)])
+            out[groupname]["unadjusted"].append([sec * SEC_TO_MS, float(val_unadj)])
+        except ValueError:
+            # Discard "NA" values and other non-float-able values
+            continue
 
     return out
 
@@ -778,6 +800,7 @@ def json_for_tile_map(data):
         try:
             value = "{:0.2f}".format(float(value) * 100)
         except ValueError:
+            # Leave as NA for states if found
             pass
           
         out.append({"name": state, "value": value})
