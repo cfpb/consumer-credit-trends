@@ -75,12 +75,25 @@ SCORE = "credit_score"
 # All the "yoy_<type>" inputs get added in processing
 GROUP_YOY_OUTPUT_SCHEMA = ["month","date"]
 # YOY groups
-AGE_YOY = ["Younger than 30","30 - 44","45 - 64","65 and older"]
+# CFPB design standards: sentence case and no spaces around dashes
+AGE_YOY_IN = ["Younger than 30","30 - 44","45 - 64","65 and older"]
 AGE_YOY_COLS = ["younger-than-30","30-44","45-64","65-and-older"]
-INCOME_YOY = ["Low","Moderate","Middle","High"]
+AGE_YOY_JSON = ["Younger than 30","30-44","45-64","65 and older"]
+INCOME_YOY_IN = ["Low","Moderate","Middle","High"]
 INCOME_YOY_COLS = ["low","moderate","middle","high"]
-SCORE_YOY = ["Deep Subprime","Subprime","Near Prime","Prime","Superprime"]
+INCOME_YOY_JSON = INCOME_YOY_IN # No changes for dashes or caps
+SCORE_YOY_IN = ["Deep Subprime","Subprime","Near Prime","Prime","Superprime"]
 SCORE_YOY_COLS = ["deep-subprime","subprime","near-prime","prime","super-prime"]
+SCORE_YOY_JSON = ["Deep-subprime","Subprime","Near-prime","Prime","Super-prime"]
+
+# Fixes input text to follow agency guidelines
+TEXT_FIXES = {"30 - 44": "Age 30-44",
+              "45 - 64": "Age 45-64",
+              "65 and older": "Age 65 and older",
+              "Deep Subprime": "Deep subprime",
+              "Near Prime": "Near-prime",
+              "Superprime":"Super-prime",
+             }
 
 # Output: "month","date","vol","vol_unadj","<grouptype>_group"
 GROUP_VOL_OUTPUT_SCHEMA = ["month","date","vol","vol_unadj","{}_group"]
@@ -95,15 +108,6 @@ MARKET_NAMES = {"AUT": "auto-loan",     # Auto loans
                 "RET": "retail-loan",   # Retail loans
                 "STU": "student-loan",  # Student loans
                 }
-
-# Fixes input text to follow agency guidelines
-TEXT_FIXES = {"30 - 44": "Age 30-44",
-              "45 - 64": "Age 45-64",
-              "65 and older": "Age 65 and older",
-              "Deep Subprime": "Deep subprime",
-              "Near Prime": "Near-prime",
-              "Superprime":"Super-prime",
-             }
 
 # State FIPS codes - used to translate state codes into abbr
 FIPS_CODES = {1:  "AL",
@@ -558,12 +562,12 @@ def process_group_age_yoy(filename):
     output_schema = list(GROUP_YOY_OUTPUT_SCHEMA)
     output_schema += [postfix.format(gname) for gname in AGE_YOY_COLS]
 
-    cond, data = process_group_yoy_groups(filename, AGE_YOY, output_schema)
+    cond, data = process_group_yoy_groups(filename, AGE_YOY_IN, output_schema)
 
     # Format for JSON
     json = []
     if len(data) > 1:
-        json = json_for_group_bar_chart(data[1:], AGE_YOY_COLS, AGE_YOY)
+        json = json_for_group_bar_chart(data[1:], AGE_YOY_COLS, AGE_YOY_JSON)
 
 
     return cond, data, json
@@ -577,12 +581,12 @@ def process_group_income_yoy(filename):
     output_schema = list(GROUP_YOY_OUTPUT_SCHEMA)
     output_schema += [postfix.format(gname) for gname in INCOME_YOY_COLS]
 
-    cond, data = process_group_yoy_groups(filename, INCOME_YOY, output_schema)
+    cond, data = process_group_yoy_groups(filename, INCOME_YOY_IN, output_schema)
 
     # Format for JSON
     json = []
     if len(data) > 1:
-        json = json_for_group_bar_chart(data[1:], INCOME_YOY_COLS, INCOME_YOY)
+        json = json_for_group_bar_chart(data[1:], INCOME_YOY_COLS, INCOME_YOY_JSON)
 
     return cond, data, json
 
@@ -595,12 +599,12 @@ def process_group_score_yoy(filename):
     output_schema = list(GROUP_YOY_OUTPUT_SCHEMA)
     output_schema += [postfix.format(gname) for gname in SCORE_YOY_COLS]
 
-    cond, data = process_group_yoy_groups(filename, SCORE_YOY, output_schema)
+    cond, data = process_group_yoy_groups(filename, SCORE_YOY_IN, output_schema)
 
     # Format for JSON
     json = []
     if len(data) > 1:
-        json = json_for_group_bar_chart(data[1:], SCORE_YOY_COLS, SCORE_YOY)
+        json = json_for_group_bar_chart(data[1:], SCORE_YOY_COLS, SCORE_YOY_JSON)
 
     return cond, data, json
 
