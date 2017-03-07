@@ -84,7 +84,7 @@ INCOME_YOY_COLS = ["low","moderate","middle","high"]
 INCOME_YOY_JSON = INCOME_YOY_IN # No changes for dashes or caps
 SCORE_YOY_IN = ["Deep Subprime","Subprime","Near Prime","Prime","Superprime"]
 SCORE_YOY_COLS = ["deep-subprime","subprime","near-prime","prime","super-prime"]
-SCORE_YOY_JSON = ["Deep-subprime","Subprime","Near-prime","Prime","Super-prime"]
+SCORE_YOY_JSON = ["Deep subprime","Subprime","Near-prime","Prime","Super-prime"]
 
 # Fixes input text to follow agency guidelines
 TEXT_FIXES = {"30 - 44": "Age 30-44",
