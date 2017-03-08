@@ -99,14 +99,14 @@ TEXT_FIXES = {"30 - 44": "Age 30-44",
 GROUP_VOL_OUTPUT_SCHEMA = ["month","date","vol","vol_unadj","{}_group"]
 
 # Market names - these become directory names
-MARKET_NAMES = {"AUT": "auto-loan",     # Auto loans
-                "CRC": "credit-card",   # Credit cards
-                "HCE": "hece",          # Home Equity, Closed-End
-                "HLC": "heloc",         # Home Equity Line of Credit (HELOC)
-                "MTG": "mortgage",      # Mortgages
-                "PER": "personal-loan", # Personal loans
-                "RET": "retail-loan",   # Retail loans
-                "STU": "student-loan",  # Student loans
+MARKET_NAMES = {"AUT": "auto-loans",     # Auto loans
+                "CRC": "credit-cards",   # Credit cards
+                "HCE": "heces",          # Home Equity, Closed-End
+                "HLC": "helocs",         # Home Equity Line of Credit (HELOC)
+                "MTG": "mortgages",      # Mortgages
+                "PER": "personal-loans", # Personal loans
+                "RET": "retail-loans",   # Retail loans
+                "STU": "student-loans",  # Student loans
                 }
 
 # State FIPS codes - used to translate state codes into abbr
