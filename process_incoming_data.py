@@ -774,7 +774,7 @@ def json_for_group_line_chart(data):
         sec = epochtime(date)
 
         # JSON fix for age groups - strip off the "Age "
-        if groupname.find("Age ") >= 0:
+        if groupname.lower().find("age ") == 0:
             groupname = groupname[4:]
 
         # Initialize if first time groupname is encountered
