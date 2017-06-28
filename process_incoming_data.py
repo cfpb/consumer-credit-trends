@@ -12,13 +12,13 @@ import os
 import csv
 import datetime
 import math
-from pprint import pformat
+import logging
 
 
 __author__ = "Consumer Financial Protection Bureau"
 __credits__ = ["Hillary Jeffrey"]
 __license__ = "CC0-1.0"
-__version__ = "0.1"
+__version__ = "0.2"
 __maintainer__ = "CFPB"
 __email__ = "tech@cfpb.gov"
 __status__ = "Development"
@@ -29,28 +29,28 @@ DEFAULT_INPUT_FOLDER = "~/Github/consumer-credit-trends-data/data"
 DEFAULT_OUTPUT_FOLDER = "~/Github/consumer-credit-trends-data/processed_data/"
 
 ## Data snapshot variables
-# Data snapshot default name
+# Data snapshot default file name
 SNAPSHOT_FNAME_KEY = "data_snapshot"
 SNAPSHOT_FNAME_HTML = "data_snapshot.html"
 
 # Data snapshot snippet template
 SNAPSHOT_HTML = \
 """<h3><b>{}</b><br>{} originated</h3>
-<h3><br><b>${}</b><br>Dollar volume of new {}</h3>
+<h3><br><b>${}</b><br>{}</h3>
 <h3><br><b>{}% {}</b><br>In year-over-year originations</h3>
 """
 
-# Text filler for data snapshot templates
-HTML_MKT_NAMES = {"AUT": ["Auto loans", "loans"],     # Auto loans
-                  "CRC": ["Credit cards", "cards"],   # Credit cards
-                  "HCE": ["HECE loans", "loans"],     # Home Equity, Closed-End
-                  "HLC": ["HELOCs", "HELOCs"],        # Home Equity Line of Credit (HELOC)
-                  "MTG": ["Mortgages", "mortgages"],  # Mortgages
-                  "PER": ["Personal loans", "loans"], # Personal loans
-                  "RET": ["Retail loans", "loans"],   # Retail loans
-                  "STU": ["Student loans", "loans"],  # Student loans
+# Text filler for data snapshot template HTML (SNAPSHOT_HTML)
+HTML_MKT_NAMES = {"AUT": ["Auto loans", "Dollar volume of new loans"],     # Auto loans
+                  "CRC": ["Credit cards", "Aggregate credit limits of new cards"],   # Credit cards
+                  "HCE": ["HECE loans", "Dollar volume of new loans"],     # Home Equity, Closed-End
+                  "HLC": ["HELOCs", "Dollar volume of new HELOCs"],        # Home Equity Line of Credit (HELOC)
+                  "MTG": ["Mortgages", "Dollar volume of new mortgages"],  # Mortgages
+                  "PER": ["Personal loans", "Dollar volume of new loans"], # Personal loans
+                  "RET": ["Retail loans", "Dollar volume of new loans"],   # Retail loans
+                  "STU": ["Student loans", "Dollar volume of new loans"],  # Student loans
                   }
-HTML_DESC = ["decrease", "increase"]
+PERCENT_CHANGE_DESCRIPTORS = ["decrease", "increase"]
 
 # Market+.csv filename suffix length
 MKT_SFX_LEN = -8
@@ -86,14 +86,14 @@ SCORE_YOY_IN = ["Deep Subprime","Subprime","Near Prime","Prime","Superprime"]
 SCORE_YOY_COLS = ["deep-subprime","subprime","near-prime","prime","super-prime"]
 SCORE_YOY_JSON = ["Deep subprime","Subprime","Near-prime","Prime","Super-prime"]
 
-# Fixes input text to follow agency guidelines
+# Fixes input text to follow agency guidelines and design manual
 TEXT_FIXES = {"30 - 44": "Age 30-44",
               "45 - 64": "Age 45-64",
               "65 and older": "Age 65 and older",
               "Deep Subprime": "Deep subprime",
               "Near Prime": "Near-prime",
               "Superprime":"Super-prime",
-             }
+              }
 
 # Output: "month","date","vol","vol_unadj","<grouptype>_group"
 GROUP_VOL_OUTPUT_SCHEMA = ["month","date","vol","vol_unadj","{}_group"]
@@ -163,13 +163,19 @@ FIPS_CODES = {1:  "AL",
               56: "WY",
               }
 
+
+## Set up logging
+logging.basicConfig(level="WARNING")
+logger = logging.getLogger(__name__)
+
+
 ## Methods
 
 def save_csv(filename, content, writemode='wb'):
     """Saves the specified content object into a csv file."""
     if not os.path.exists(os.path.dirname(filename)):
         os.makedirs(os.path.dirname(filename))
-        print("Created directories for {}".format(os.path.dirname(filename)))
+        logger.info("Created directories for {}".format(os.path.dirname(filename)))
 
     # Write output as a csv file
     with open(filename, writemode) as csvfile:
@@ -183,7 +189,7 @@ def save_json(filename, content, writemode='wb'):
     """Dumps the specified JSON content into a .json file"""
     if not os.path.exists(os.path.dirname(filename)):
         os.makedirs(os.path.dirname(filename))
-        print("Created directories for {}".format(os.path.dirname(filename)))
+        logger.info("Created directories for {}".format(os.path.dirname(filename)))
 
     # Write output as a json file
     import json
@@ -243,7 +249,7 @@ def find_market(input, possible_names=MARKET_NAMES):
 
 def actual_date(month, schema=DATE_SCHEMA):
     """
-    Takes a month number and computes an actual date from it.
+    Takes a month number and computes a date from it.
     January 2000 = month zero
     """
     addl_years = int(month/12)
@@ -297,19 +303,19 @@ def human_numbers(num, decimal_places=1, whole_units_only=1):
     return outstr.format(outnum, numnames[idx])
 
 
-## Program flow
+## Main program functionality
 
 def process_data_files(inputpath,
                        outputpath,
                        data_snapshot_fname=SNAPSHOT_FNAME_KEY,
                        data_snapshot_outname=SNAPSHOT_FNAME_HTML,
-                       report_success=False,
-                       report_failure=False):
+                       output_data_snapshot_dict=False):
     """Processes raw csv data from the Office of Research"""
     # Get a list of files in the raw data directory
     inputfiles = get_csv_list(inputpath)
     successes = []
     failures  = []
+    snapshot_updates = []
 
     # For each file, open and munge data
     for filename in inputfiles:
@@ -319,31 +325,36 @@ def process_data_files(inputpath,
 
         if market is None:
             if data_snapshot_fname not in filename:
-                print("Found file '{}' does not specify market".format(filename))
+                logger.warn("Found file '{}' does not specify market".format(filename))
                 failures.append(filename)
                 continue
 
             # Check/process Data Snapshot file into HTML snippets
-            snippets = process_data_snapshot(filepath)
+            snapshot = process_data_snapshot(filepath, output_data_snapshot_dict)
+
+            if output_data_snapshot_dict:
+                # If outputting as dict, save the dict into the list
+                snapshot_updates.append(snapshot)
+
+            else:
+                # Determine output directory if saving HTML snippets
+                for market, snippet in snapshot.iteritems():
+                    outpath = os.path.join(outputpath, market, data_snapshot_outname)
+
+                    if not os.path.exists(os.path.dirname(outpath)):
+                        os.makedirs(os.path.dirname(outpath))
+                    
+                    with open(outpath, 'w') as outfile:
+                        outfile.write(snippet)
+
             successes.append(filename)
-
-            # Determine output directory
-            for market, snippet in snippets.iteritems():
-                outpath = os.path.join(outputpath, market, data_snapshot_outname)
-
-                # print("{} snapshot snippet saving to {}".format(market, outpath))
-                if not os.path.exists(os.path.dirname(outpath)):
-                    os.makedirs(os.path.dirname(outpath))
-                
-                with open(outpath, 'w') as outfile:
-                    outfile.write(snippet)
 
         else:
             # Run file per market-type
             try:
                 cond, data, json = FILE_PREFIXES[filename[:MKT_SFX_LEN].lower()](filepath)
             except ValueError, e:
-                print("Error occurred during {}".format(filename))
+                logger.error("Error occurred during {}".format(filename))
                 raise e
 
             if cond:
@@ -361,14 +372,9 @@ def process_data_files(inputpath,
             else:
                 failures.append(filename)
 
-    # Processing complete - perform reporting
-    if len(successes) > 0 and report_success:
-        print("** Successfully processed files:\n{}\n".format("\n".join(successes)))
+    logger.info("** Processed {} of {} input data files successfully".format(len(successes), len(inputfiles)))
 
-    if len(failures) > 0 and report_failure:
-        print("** Failed to process files:\n{}\n".format("\n".join(failures)))
-
-    return len(successes), len(inputfiles)
+    return snapshot_updates
 
 
 ## Process state-by-state map files
@@ -414,7 +420,6 @@ def process_vol_summary(filename):
 
 def process_file_summary(filename, output_schema):
     """Processes specified summary file and outputs data per the schema"""
-    # print("Processing summary file '{}'".format(filename))
 
     # Load specified file as input data
     inputdata = load_csv(filename)
@@ -557,7 +562,6 @@ def process_group_file(filename, output_schema):
 def process_group_age_yoy(filename):
     """Helper function that calls process_group_yoy_groups with correct
     group and output schema"""
-    # Generate output schema from group YOY column names
     postfix = "{}_yoy"
     output_schema = list(GROUP_YOY_OUTPUT_SCHEMA)
     output_schema += [postfix.format(gname) for gname in AGE_YOY_COLS]
@@ -650,12 +654,9 @@ def process_group_yoy_groups(filename, group_names, output_schema):
     return True, []
 
 
-## Process summary year-over-year files
-
 def process_yoy_summary(filename, output_schema=YOY_SUMMARY_OUTPUT_SCHEMA):
-    """Processes specified summary file and outputs data per the schema"""
+    """Processes specified year-over-year summary file and outputs data per the schema"""
     # Output columns: "month","date","yoy_num","yoy_vol"
-    # print("Processing summary file '{}'".format(filename))
 
     # Load specified file as input data
     inputdata = load_csv(filename)
@@ -765,7 +766,6 @@ def json_for_line_chart(data):
 
 def json_for_group_line_chart(data):
     """Takes input data and returns formatted values for dumping to a JSON file"""
-
     # TODO: Maybe use the known global key groups to init groupname dicts once
     out = {}
 
@@ -812,19 +812,14 @@ def json_for_tile_map(data):
     return out
 
 
-## Process data snapshot into separate HTML snippets
-
-def process_data_snapshot(filepath):
+def process_data_snapshot(filepath, output_dict_not_html=False):
     """Process a file that contains data snapshot information for
-    all markets"""
+    all markets and prepare human-readable text for outputting
+    as a dictionary or HTML snippet."""
 
     # Load specified file as input data
     inputdata = load_csv(filepath)
 
-    return process_snapshot_inputdata(inputdata)
-
-
-def process_snapshot_inputdata(inputdata):
     # Initialize output data with column headers
     data = {}
 
@@ -846,29 +841,29 @@ def process_snapshot_inputdata(inputdata):
         orig_fmt = human_numbers(orig, whole_units_only=1).replace(" ", "&nbsp;")
         vol_fmt = human_numbers(vol).replace(" ", "&nbsp;")
         yoy_fmt = "{:.1f}".format(abs(yoy))
-        yoy_desc = HTML_DESC[yoy > 0]
+        yoy_desc = PERCENT_CHANGE_DESCRIPTORS[yoy > 0]
 
-        # Insert into output snippet
-        out_html = SNAPSHOT_HTML.format(
-                                        orig_fmt, orig_desc,
-                                        vol_fmt, vol_desc,
-                                        yoy_fmt, yoy_desc
-                                        )
-        # Save snippet by market
-        data[output_mkt] = out_html
-    
+        if not output_dict_not_html:
+            # Insert into output snippet
+            out_html = SNAPSHOT_HTML.format(
+                                            orig_fmt, orig_desc,
+                                            vol_fmt, vol_desc,
+                                            yoy_fmt, yoy_desc
+                                            )
+            # Save snippet by market
+            data[output_mkt] = out_html
+        
+        else:
+            out_dict = {'market_key': market,
+                        'data_month': month,
+                        'num_originations': orig_fmt,
+                        'value_originations': vol_fmt,
+                        'year_over_year_change': yoy_fmt}
+
+            data[output_mkt] = out_dict
+
     return data
 
-
-###########################################################
-# General program flow
-###########################################################
-# 0. Set up paths and parse args
-# 1. Get list of data files in input directory
-# 2. Open each file and munge the data as specified by type
-# 3. Save each file into the appropriate output directory
-# 
-###########################################################
 
 # Filenames are formatted as:
 # "<prefix>_<market>.csv" 
@@ -895,6 +890,11 @@ if __name__ == '__main__':
     parser.add_argument('-o', '--output-path', metavar="OUTPUTDIR", type=str,
                         dest='outputdir', default=DEFAULT_OUTPUT_FOLDER,
                         help='Specifies path for root folder to put processed data files (default: "")')
+    parser.add_argument('--output-data-snapshots', type=str,
+                        dest='output_data_snapshot_dict', default=False,
+                        help='Specifies whether to output the data snapshot updates as (False) saved html ' +
+                             'snippets or as (True) dict strings to the command line (default: False)')
+
 
     args = parser.parse_args()
 
@@ -902,5 +902,7 @@ if __name__ == '__main__':
     inputdir, outputdir = load_paths(args.inputdir, args.outputdir)
 
     # Process the data
-    successes, numfiles = process_data_files(inputdir, outputdir)
-    print("** Processed {} of {} input data files successfully".format(successes, numfiles))
+    snapshot_updates = process_data_files(inputdir, outputdir, output_data_snapshot_dict=output_data_snapshot_dict)
+
+    if output_data_snapshot_dict:
+        print(snapshot_updates)
