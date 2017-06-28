@@ -838,8 +838,8 @@ def process_data_snapshot(filepath, output_dict_not_html=False):
         orig_desc, vol_desc = HTML_MKT_NAMES[market]
 
         # Parse numbers
-        orig_fmt = human_numbers(orig, whole_units_only=1).replace(" ", "&nbsp;")
-        vol_fmt = human_numbers(vol).replace(" ", "&nbsp;")
+        orig_fmt = human_numbers(orig, whole_units_only=1)
+        vol_fmt = human_numbers(vol)
         yoy_fmt = "{:.1f}".format(abs(yoy))
         yoy_desc = PERCENT_CHANGE_DESCRIPTORS[yoy > 0]
 
@@ -858,7 +858,7 @@ def process_data_snapshot(filepath, output_dict_not_html=False):
                         'data_month': month,
                         'num_originations': orig_fmt,
                         'value_originations': vol_fmt,
-                        'year_over_year_change': yoy_fmt}
+                        'year_over_year_change': "{}% {}".format(yoy_fmt, yoy_desc)}
 
             data[output_mkt] = out_dict
 
@@ -890,8 +890,8 @@ if __name__ == '__main__':
     parser.add_argument('-o', '--output-path', metavar="OUTPUTDIR", type=str,
                         dest='outputdir', default=DEFAULT_OUTPUT_FOLDER,
                         help='Specifies path for root folder to put processed data files (default: "")')
-    parser.add_argument('--output-data-snapshots', type=str,
-                        dest='output_data_snapshot_dict', default=False,
+    parser.add_argument('--output-data-snapshots', action='store_true',
+                        dest='output_data_snapshot_dict',
                         help='Specifies whether to output the data snapshot updates as (False) saved html ' +
                              'snippets or as (True) dict strings to the command line (default: False)')
 
@@ -902,7 +902,7 @@ if __name__ == '__main__':
     inputdir, outputdir = load_paths(args.inputdir, args.outputdir)
 
     # Process the data
-    snapshot_updates = process_data_files(inputdir, outputdir, output_data_snapshot_dict=output_data_snapshot_dict)
+    snapshot_updates = process_data_files(inputdir, outputdir, output_data_snapshot_dict=args.output_data_snapshot_dict)
 
-    if output_data_snapshot_dict:
+    if args.output_data_snapshot_dict:
         print(snapshot_updates)
