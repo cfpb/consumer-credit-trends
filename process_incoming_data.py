@@ -333,8 +333,7 @@ def process_data_files(inputpath,
             snapshot = process_data_snapshot(filepath, output_data_snapshot_dict)
 
             if output_data_snapshot_dict:
-                # If outputting as dict, save the dict into the list
-                snapshot_updates.append(snapshot)
+                snapshot_updates += snapshot
 
             else:
                 # Determine output directory if saving HTML snippets
@@ -820,8 +819,11 @@ def process_data_snapshot(filepath, output_dict_not_html=False):
     # Load specified file as input data
     inputdata = load_csv(filepath)
 
-    # Initialize output data with column headers
-    data = {}
+    # Initialize output data
+    if not output_dict_not_html:
+        data = {}
+    else:
+        data = []
 
     for row in inputdata:
         market, monthnum, orig, vol, yoy = row
@@ -860,7 +862,7 @@ def process_data_snapshot(filepath, output_dict_not_html=False):
                         'value_originations': vol_fmt,
                         'year_over_year_change': "{}% {}".format(yoy_fmt, yoy_desc)}
 
-            data[output_mkt] = out_dict
+            data.append(out_dict)
 
     return data
 
