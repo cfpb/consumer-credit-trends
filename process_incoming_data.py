@@ -807,7 +807,7 @@ def process_data_snapshot(filepath):
     inputdata = load_csv(filepath)
 
     # Initialize output data
-    data = {}
+    data = []
 
     for row in inputdata:
         market, monthnum, orig, vol, yoy = row
@@ -832,7 +832,7 @@ def process_data_snapshot(filepath):
                     'value_originations': vol_fmt,
                     'year_over_year_change': "{}% {}".format(yoy_fmt, yoy_desc)}
 
-        data[market] = out_dict
+        data.append(out_dict)
 
     return data
 
