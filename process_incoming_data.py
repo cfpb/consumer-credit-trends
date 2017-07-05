@@ -829,7 +829,7 @@ def process_data_snapshot(filepath):
         out_dict = {'market_key': market,
                     'data_month': month,
                     'num_originations': orig_fmt,
-                    'value_originations': vol_fmt,
+                    'value_originations': "${}".format(vol_fmt),
                     'year_over_year_change': "{}% {}".format(yoy_fmt, yoy_desc)}
 
         data.append(out_dict)
