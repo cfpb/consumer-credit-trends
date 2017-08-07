@@ -1,3 +1,6 @@
+# Obsolete
+Repository is being kept for information purposes. Please see https://github.com/cfpb/consumer-credit-trends-data/ for current development and archival data.
+
 # Consumer credit trends
 Explore recent developments in consumer credit markets.
 
