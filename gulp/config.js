@@ -64,7 +64,7 @@ module.exports = {
   },
   scripts: {
     src: [
-      loc.src + '/static/js/metadata.js',
+      // loc.src + '/static/js/metadata.js',
       loc.src + '/static/js/bar.js',
       loc.src + '/static/js/tile-map.js',
       loc.src + '/static/js/formatDates.js',

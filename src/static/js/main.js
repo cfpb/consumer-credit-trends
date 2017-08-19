@@ -12,9 +12,10 @@ var line = require( './line.js' );
 // require( './bar.js' );
 var tileMap = require( './tile-map.js' );
 
-var getMetadata = require( './metadata.js' );
+// Temporarily removing the GH API dependency
+// var getMetadata = require( './metadata.js' );
 
-getMetadata.init();
+// getMetadata.init();
 tileMap();
 line();
 bar();
