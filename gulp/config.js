@@ -8,8 +8,8 @@ var glob = require( 'glob' );
  */
 var loc = {
   src:  './src',
-  dist: './dist',
-  prod: './',
+  dev: './dev',
+  prod: './dist',
   lib:  './node_modules', // eslint-disable-line no-sync, no-inline-comments, max-len
   test: './test'
 };
@@ -41,13 +41,13 @@ module.exports = {
     tests: loc.test
   },
   clean: {
-    dest: loc.dist,
+    dest: loc.dev,
     releaseDest: loc.prod + '/charts/'
   },
   styles: {
     cwd:      loc.src + '/static/css',
     src:      '/main.less',
-    dest:     loc.dist + '/static/css',
+    dest:     loc.dev + '/static/css',
     settings: {
       paths: glob.sync( loc.lib + '/cf-*/src/' ),
       compress: false
@@ -56,7 +56,7 @@ module.exports = {
   chartStyles: {
     cwd:      loc.src + '/static/css',
     src:      '/charts.less',
-    dest:     loc.dist + '/static/css',
+    dest:     loc.dev + '/static/css',
     settings: {
       paths: glob.sync( loc.lib + '/cf-*/src/' ),
       compress: true
@@ -64,7 +64,7 @@ module.exports = {
   },
   scripts: {
     src: [
-      loc.src + '/static/js/metadata.js',
+      // loc.src + '/static/js/metadata.js',
       loc.src + '/static/js/bar.js',
       loc.src + '/static/js/tile-map.js',
       loc.src + '/static/js/formatDates.js',
@@ -73,7 +73,7 @@ module.exports = {
       loc.src + '/static/js/line.js',
       loc.src + '/static/js/main.js'
     ],
-    dest: loc.dist + '/static/js/',
+    dest: loc.dev + '/static/js/',
     name: 'main.js'
   },
   handlebarsTemplates: {
@@ -86,13 +86,15 @@ module.exports = {
   },
   images: {
     src:  loc.src + '/static/img/**',
-    dest: loc.dist + '/static/img'
+    dest: loc.dev + '/static/img'
   },
   copy: {
     release: {
-      src: loc.dist + '/**/*.html',
+      src: loc.dev + '/**/*.html',
       destFiles: loc.prod + '/charts/**/*.html',
-      dest: loc.prod
+      dest: loc.prod,
+      static: loc.dev + '/static/**',
+      staticDest: loc.prod + '/static'
     },
     files: {
       src: [
@@ -103,18 +105,18 @@ module.exports = {
         loc.src + '/favicon.ico',
         '!' + loc.lib + '/**/*.html'
       ],
-      dest: loc.dist
+      dest: loc.dev
     },
     icons: {
       src:  loc.lib + '/cf-icons/src/fonts/*',
-      dest: loc.dist + '/static/fonts/'
+      dest: loc.dev + '/static/fonts/'
     },
     vendorJs: {
       src: [
         loc.lib + '/box-sizing-polyfill/boxsizing.htc',
-        loc.lib + '/html5shiv/dist/html5shiv-printshiv.min.js'
+        loc.lib + '/html5shiv/dev/html5shiv-printshiv.min.js'
       ],
-      dest: loc.dist + '/static/js/'
+      dest: loc.dev + '/static/js/'
     }
   }
 };

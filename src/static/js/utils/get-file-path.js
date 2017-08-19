@@ -5,7 +5,7 @@
  *
  * @param {Obj} chart - object from the charts.js array
  * @returns {String} file path to the location of the chart in the
-  /dist/ folder.
+  /dev/ folder.
  */
 function getFilePath( chart ) {
   var market = chart.market;
